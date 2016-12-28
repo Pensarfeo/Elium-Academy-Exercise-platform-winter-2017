@@ -1,78 +1,48 @@
-#9.1-React
+#Exercise Platform
 
-#### How to use
+### Intro
+Welcome to [Elium Academy](http://www.elium.academy/)'s exercise platform. Here you can find all the exercises for the whole bootcamp. For each day with explanation live use fo the code you write and test for each exercises. The code you write will be autoloaded and the test rerun for each exercise. More over the platform will automaticlaly report your progress to our [student platform](http://stduents.elium.academy/)
+
+The platform is built to run as much as possible offline.
+
+### Run
 * run npm install
 * run npm start
-* start testing your app at <http://localhost:3001>
-* Write your solutions in the folder ./exercises. **Attention**: you should only write the react code in this folder. There render method will be handled by the specs!
+* start testing your app at <http://localhost:3000>
+* with the navigation menu you can go to each exercises of the whole bootcamp.
+* For each exercises you need to write your solutions in the solution folder in the root directory withing the file corresponding to the week, day and exercise number.
 
-###Exercices:
-In order to succefully compleate all the exercises, your solutions need to match the behavior shown [here](https://eliumacademy.github.io/9.1-react.html) 
 
-1. Create a react component called Hello that outputs “Hello World”. The solution you write will be displayed with the following render:
-    ```jsx
-    render(
-        <Hello/>,
-        document.getElementById('app')
-    )
-    ```
-    **Notes:** Export a single react component called Hello 
-    ```js
-    export {Hello}
-    ```
+### For developers & teachers
 
-2. Create a react component (called profile) that lists your name, email and address. The fields should be contained with another component called detail. The solution you write will be displayed with the following render:
-    ```jsx
-    render(
-        <Profile>
-            <Name/>
-            <Email/>
-            <Address/>
-        </Profile>,
-        document.getElementById('app')
-    )
-    ```
-    **Notes:** Export 4 react components as named export with
-    ```js
-    export {Profile, Name, Email, Address}
-    ```
+#### App Architecture
+- Config
+    - globa: store global functions
+    - server: start the server
+    - Weback (not in use)
+        webpack.*: various configurations
+        middleware: exports tools to run webpack as express middleware (https://github.com/webpack/webpack-dev-middleware)
+    - Server: Extra Settings for server
+    - lib: functions that we want to be globbaly avaliable
+- app
+    - course
+        - weeks => folder with exercises sorted in weeks / days and exercise folder containing a description (written in markup ) a file with the info necessary for the try section and an other to run the specs (using jasmine).
+        - router.js => all routes
+        - layout.ejs => app main template
+- public
+    - styles (only scss for now)
+    - js => all js for running jasmine, jquery, react, babel (for simplicity we transpile react on the client side)
+    - fonts
 
-3. Create a react component (called profile) that lists your name, address and email and others. Each field should be controlled by a single component called detail. The solution you write will be displayed with the following render:
-    ```jsx
-    render(
-        <Profile>
-            <div><Detail detail={{Name: "Pedro"}} /></div>
-            <div><Detail detail={{Email: "pedro@pedro.pedro"}} /></div>
-            <div><Detail detail={{Address: "PedroStraat 21, 3000 Pedroland"}}/></div>
-        </Profile>,
-        document.getElementById('app')
-    )
-    ```
-    **Notes:** Export 2 react components as named export with
-    ```js
-    export {Profile, Detail}
-    ```
-
-4. Starting from Exercise 3, add an input field to the detail component that can change the displayed value of the profile detail when the input value is edited.
-    **Notes:** To set a default value for the input field use ``` defaultValue``` prop. Checkout what happens if we use the HTML attribute ``` value``` instead.
-
-5. Starting from Exercise 4, add a submit button so that the info will only be updated when the submit button is clicked. Use a button tag without type submit and bind the event to and onClick event on the button.
-    **Notes:** the function that is called once the event is triggered (effectively a callback) will recieve one single argument with info about the event that took place. The event.target will point to the element from which the event originated.
-
-6. Create a react component (called ShowInList) that takes an array of elements and displays it values in a list. The solution you write will be displayed with the following render:
-    ```jsx
-    render(
-        <ShowList list ={[1,2,3,4]}/>,
-        document.getElementById('app')
-    )
-    ```
-    **Notes:** Export 1 react components as named export with
-    ```js
-    export {ShowList}
-    ```
-
-7. Starting from Exersice 6 modify the ShowInLIst component so that, if a user hovers on one of the elements, that element will be removed.
-
-8. **Challange 1:** Modify Exercise 5 so that instead of showing the input field from the start, add an Edit button. When the user clicks on the Edit button the detail field will disappear leaving only an input box that has the initial value of the detail displayed, a Save button that will set the value of the detail to the value in the input field and a cancel button to go back without modifying the detail.
-
-9. **Challange 2:** Extend Challange 1 by adding a button to create new details and a way to delete details. There are no test for this one. So be Creative ;)
+#### Layout structure
+view.description = nodeRootDir/weekN/dayN/exerciseN/(description.md || try.ejs || test.ejs)
+- layout.ejs
+    - include("layout/_head")
+    - include("layout/_navbar")
+    - include("layout/_sidebar")
+    - if (!view.description) ?
+        include("layout/_home"):
+        include("layout/_standardDay")
+        - try include("_standardDay/_block", {title: exerciseType, file: view.description})
+        - try include("_standardDay/_block", {title: "Try your code", file: view.try})
+        - try include("_standardDay/_block", {title: "Test", file: view.test})

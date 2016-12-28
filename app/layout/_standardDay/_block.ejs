@@ -1,0 +1,19 @@
+<% var type = file.split(/[\\\/]/).slice(-1)[0].split(".")[0] %>
+<div class="panel-group standard-day-block" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a data-toggle="collapse" data-parent="#accordion" href="#<%= type %>">
+                <i class="glyphicon glyphicon-chevron pull-right"></i>
+                <h4 class="panel-title"> <%= title %></h4>
+            </a>
+        </div>
+        <div id="<%= type %>" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <% if (file.slice(-2) === "md") { %>
+                    <%- md(file) -%>
+                <% } else { %>
+                    <%- include(file) -%>
+                <% } %></div>
+        </div>
+    </div>
+</div>

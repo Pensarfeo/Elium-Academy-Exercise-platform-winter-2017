@@ -1,0 +1,75 @@
+/* Non-responsive overrides for Bootstrap 3
+ *
+ * Utilize the following CSS to disable the responsive-ness of the container,
+ * grid system, and navbar.
+ */
+
+/* Reset the container */
+.container {
+  max-width: none !important;
+  width: 970px;
+}
+
+.sidebar-group{
+    padding: 0;
+    margin: 0;
+}
+
+nav>li{
+    display: inline-block;
+}
+.sidebar-cell{
+    position: relative;
+    display: inline-block;
+    margin: 0 !important;
+    padding: 10px 20px;
+    width: 100%;
+    color: white;
+    &:hover{
+        background-color: orange;
+        color: black;
+    }
+    ul{
+        list-style: none;
+    }
+    &:hover{
+        >ul{
+            display: inline-block;
+        }
+    }
+    >ul{
+        background-color: red;
+        position: absolute;
+        display: none;
+        top: 0;
+        right: 0;
+        transform: translateX(100%)
+    }
+}
+
+.nav .dropdown.open .caret{
+    border-top: none;
+    border-bottom: 4px solid #000000;
+}
+
+.standard-day-block{
+         .panel-heading {
+            i.glyphicon-chevron:before {
+                content: "\e114";
+            }
+            a.collapsed{ // not working
+                background-color: red;
+                i.glyphicon-chevron:before {
+                        content: "\e113";
+                }
+            }
+            h3 {
+                border-top: 1px solid black;
+                padding: 4px 0px !important;
+                margin: 0 !important;
+                margin-top: 8 !important;
+                width: calc(100% - 22px);
+                display: inline-block;
+            }
+        }
+}

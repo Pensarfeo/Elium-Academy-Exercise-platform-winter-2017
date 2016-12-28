@@ -1,0 +1,29 @@
+    <!-- Sidebar -->
+<nav class="navbar navbar-inverse" id="sidebar-wrapper" role="navigation">
+    <ul class="nav sidebar-nav sidebar-group">
+        <!-- OUTER WEEK MENU -->
+        <% allExercises.map((week) =>{ %>
+            <li class="week sidebar-cell">
+                <%= spaceDate(week[0]) %>
+                <ul class="week sidebar-group">
+                    <!-- DAY MENU -->
+                    <% week[1].map((days) =>{ %>
+                        <li class="sidebar-cell">
+                            <%= spaceDate(days[0]) %>
+                            <!-- EXERCISE MENU -->
+                            <% if(days[1]) { %>
+                                <ul class="days sidebar-group">
+                                    <% days[1].map((exercises) =>{ %>
+                                        <a class="sidebar-cell" href = <%= `/${week[0]}/${days[0]}/${exercises[0]}` %>>
+                                            <%= spaceDate(exercises[0]) %>
+                                        </a>
+                                    <% })  %>
+                                </ul>
+                            <% } %>
+                        </li>
+                    <% })  %>
+                </ul>
+            </li>
+        <% })  %>
+    </ul>
+</nav>

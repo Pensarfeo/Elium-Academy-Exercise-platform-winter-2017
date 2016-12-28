@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "ignore": ["*.ejs", "public/*", "solutions/*", "*.json"]
+}

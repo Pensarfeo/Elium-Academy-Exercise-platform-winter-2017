@@ -1,0 +1,272 @@
+.comment, .punctuation.definition.comment, .string.comment {
+  color: #969896;
+}
+
+.constant, .entity.name.constant {
+  color: #0086b3;
+}
+
+.variable {
+  &.other.constant, &.language {
+    color: #0086b3;
+  }
+}
+
+.entity {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #795da3;
+  &.name {
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    color: #795da3;
+  }
+}
+
+.variable.parameter.function {
+  color: #333;
+}
+
+.entity.name.tag {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #63a35c;
+}
+
+.keyword {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #a71d5d;
+}
+
+.storage {
+  color: #a71d5d;
+  &.type {
+    color: #a71d5d;
+  }
+  &.modifier {
+    &.package, &.import {
+      color: #333;
+    }
+  }
+  &.type.java {
+    color: #333;
+  }
+}
+
+.string, .punctuation.definition.string, .string .punctuation.section.embedded .source {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #183691;
+}
+
+.support, .meta.property-name {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #0086b3;
+}
+
+.variable {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #ed6a43;
+  &.other {
+    color: #333;
+  }
+}
+
+.invalid {
+  &.broken, &.deprecated {
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    color: #b52a1d;
+  }
+  &.illegal {
+    font-style: italic;
+    text-decoration: underline;
+    background-color: #b52a1d;
+    color: #f8f8f8;
+  }
+}
+
+.carriage-return {
+  font-style: italic;
+  text-decoration: underline;
+  background-color: #b52a1d;
+  color: #f8f8f8;
+}
+
+.invalid.unimplemented {
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline;
+  color: #b52a1d;
+}
+
+.message.error {
+  color: #b52a1d;
+}
+
+.string {
+  .source {
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    color: #333;
+  }
+  .variable {
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    color: #0086b3;
+  }
+}
+
+.source.regexp {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #183691;
+}
+
+.string.regexp {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #183691;
+  &.character-class, .constant.character.escape, .source.ruby.embedded, .string.regexp.arbitrary-repitition {
+    color: #183691;
+  }
+  .constant.character.escape {
+    font-weight: bold;
+    color: #63a35c;
+  }
+}
+
+.support {
+  &.constant {
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    color: #0086b3;
+  }
+  &.variable {
+    color: #0086b3;
+  }
+}
+
+.meta.module-reference {
+  color: #0086b3;
+}
+
+.markup {
+  &.list {
+    color: #693a17;
+  }
+  &.heading {
+    font-weight: bold;
+    color: #1d3e81;
+    .entity.name {
+      font-weight: bold;
+      color: #1d3e81;
+    }
+  }
+  &.quote {
+    color: #008080;
+  }
+  &.italic {
+    font-style: italic;
+    color: #333;
+  }
+  &.bold {
+    font-weight: bold;
+    color: #333;
+  }
+  &.raw {
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    color: #0086b3;
+  }
+  &.deleted {
+    background-color: #ffecec;
+    color: #bd2c00;
+  }
+}
+
+.meta.diff.header.from-file, .punctuation.definition.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.markup.inserted, .meta.diff.header.to-file, .punctuation.definition.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.markup.changed, .punctuation.definition.changed {
+  background-color: #ffe3b4;
+  color: #ef9700;
+}
+
+.markup {
+  &.ignored, &.untracked {
+    color: #d8d8d8;
+    background-color: #808080;
+  }
+}
+
+.meta {
+  &.diff {
+    &.range {
+      color: #795da3;
+      font-weight: bold;
+    }
+    &.header {
+      color: #0086b3;
+    }
+  }
+  &.separator {
+    font-weight: bold;
+    color: #1d3e81;
+  }
+  &.output {
+    color: #1d3e81;
+  }
+}
+
+.brackethighlighter {
+  &.tag, &.curly, &.round, &.square, &.angle, &.quote {
+    color: #595e62;
+  }
+  &.unmatched {
+    color: #b52a1d;
+  }
+}
+
+.sublimelinter {
+  &.mark {
+    &.error {
+      color: #b52a1d;
+    }
+    &.warning {
+      color: #ed6a43;
+    }
+  }
+  &.gutter-mark {
+    color: #c0c0c0;
+  }
+}
+
+.constant.other.reference.link, .string.other.link {
+  color: #183691;
+  text-decoration: underline;
+}

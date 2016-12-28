@@ -1,0 +1,27 @@
+<html>
+    <%- include("layout/_head") %>
+    <body>
+        <script type="text/javascript">
+            <%- include("layout/_serverSent.js") -%>
+        </script>
+        <div class="main-container">
+            <div class="container">
+                <div class="row">
+                    <%- include("layout/_navbar") %>
+                </div>
+                <div class="row">
+                    <div id="pjax-container" class="col-xs-10 pull-right" style="padding-right: 0">
+                        <% if (!view.description) { %>
+                            <%- include("layout/_home") %>
+                        <% } else { %>
+                            <%- include("layout/_standardDay") %>
+                        <% } %>
+                    </div>
+                    <div class="col-xs-2" style="z-index=1000; overflow: visible; padding: 0;">
+                        <%- include("layout/_sidebar") %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
