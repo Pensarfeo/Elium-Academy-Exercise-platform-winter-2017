@@ -1,11 +1,12 @@
-### Default Arguments
+### My class
 
-Write a simple function called ```defaulted```, defulated takes one arguments, if no argument is passed it should return the following message "no argument passed", if an argument its passed it should return the value of the argument itself.
-Example:
+Write an object called myClass that list all the students in the class, following this examples. The key of the object is the surname of the student value associated to that key must be the name of the student.
+
+For example this is a simmilar object containing the names of the elium team:
 
 ```jsx
-defaulted() // "no argument passed"
-defaulted(1) // 1
+eliumTeam = {"Favuzzi": "Pedro Antonio", "Mendieta": "Juan David", "Cole": "Evan", "Bedoya": "Alejandro"}
+
 ```
 
 Make sure to ask the names of all your classmates 

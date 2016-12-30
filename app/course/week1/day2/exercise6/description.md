@@ -1,34 +1,11 @@
-### runOnRange
+### sumAll
 
-Write a function, called ```runOnRange``` that runs a function through a range of number and console.logs the result for the passed function but returns nothing. The function takes 2 arguments, the first is a function that can take one argument (that must be a number), and a second argument which is a n boject with 3 properties, start, end and an optional step. If step is missing the step will be set to 1.
-
-Example
+write a function called sumAll that has one argument, an object, and sums all its values
 
 ```jsx
-var addOne = function(num) {return num + 1}
-runOnRange(addOne, {start: 10, end: 17, step: 3})
-// => 11
-// => 14
-// => 17
 
-runOnRange(addOne, {start: -6, end: -4})
-// => -5
-// => -4
-// => -3
+var obj = {a: 1, b: 2, c: 2}
 
-
-runOnRange(addOne, {start: 12, end: 12})
-// nothing should be console.loged in this case!
-
-runOnRange(addOne, {start: 23, end: 26, step: -1})
-// nothing should be console.loged in this case!
-
-runOnRange(addOne, {start: 23, end: 26, step: 0})
-// nothing should be console.loged in this case!
-
-
-runOnRange(addOne, {start: 26, end: 23, step: -2})
-// 27
-// 25
+sumAll(obj) // 5
 
 ```

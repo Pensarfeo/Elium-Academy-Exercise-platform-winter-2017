@@ -1,9 +1,10 @@
-### sort
+### Calculator
 
-Write a function called ```sort``` that sorts the values of an object, which should all be numbers, from the smaller to the bigger one. The function will return an object with keys going from 0 to n; where n is the number of properties of the object minus 1.
-Example:
+write a function called calculator that takes 3 arguments: a string with the name of the operation whe want to use (```"sum"```, ```"multiply"```, ```"subtract"``` or ```"divide"```) and two mor argument that are the numbers that we should pass to the operation.
 
 ```jsx
-obj = {a: "a", b: "p", c: "c", d: "a", f: "d"}
-sort(obj) // {0: "a", 1: "a", 2: "c", 3: "d", 4: "p"}
+Calculator("sum", 1, 2) // 3
+Calculator("multipy", 1, 2) // 2
+Calculator("subtract", 1, 2) // -1
+Calculator("divide", 1, 2) // 0.5
 ```

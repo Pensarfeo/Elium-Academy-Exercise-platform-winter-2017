@@ -1,25 +1,10 @@
-### Better Add to object
+### Add to object
 
-Write a function called modifyObject that takes 3 arguments, the first one is the object we want to add to, the second one is an object we want to add to and the third one is a **boolean** that indicates if already present properties should be overwritten or not. If nothing is specified the third parameter should default true and already present properties will overwrite the old ones.
-The function should console.log one of these two messages, arrocording if the last argument is true or false.
-- "Overwrite mode set"
-- "Overwrite mode disabled" 
-
-Example:
+Write a function called modifyObject that takes 3 arguments, the first one is an object, the second one is a new key to be added to the object passed in the first argument and the third and last one is the value associated to the new key.
+The function should not return anything. Example:
 
 ```jsx
 var obj = {a: 1, b: 2}
-
-modifyObject(obj, {c: 3, b: 4}, true)
-// => "Overwrite mode set"
-obj // {a: 1, b: 4, c: 3}
-
-modifyObject(obj, {c: 3, b: 4}, false)
-// => "Overwrite mode disabled"
-obj // {a: 1, b: 2 c: 3}
-
-modifyObject(obj, {c: 3, b: 4})
-// => "Overwrite mode set"
-obj // {a: 1, b: 4, c: 3}
-
+modifyObject(obj, "c", 3) // undefined
+obj // {a: 1, b: 2, c: 3}
 ```
