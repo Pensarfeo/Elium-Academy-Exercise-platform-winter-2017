@@ -6,6 +6,6 @@ write a function called last that takes one argument, an object, and returns an 
 var obj = {a: 1, b: 2}
 
 var newObje = last(obj)
-// newObje => {b: 2}
-
+newObje // {b: 2}
+obj // {a: 1, b: 2}
 ```

@@ -5,7 +5,7 @@ write a function called insideOut that takes one argument, an object, and return
 var obj = {a: 1, b: 2}
 
 var newObje = insideOut(obj)
-// newObje => {1: "a", 2: "b"}
-
+newObje // {1: "a", 2: "b"}
+obj // {a: 1, b: 2}
 ```
 
