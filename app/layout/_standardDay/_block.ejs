@@ -10,7 +10,9 @@
         <div id="<%= type %>" class="panel-collapse collapse in">
             <div class="panel-body">
                 <% if (file.slice(-2) === "md") { %>
-                    <%- md(file) -%>
+                    <div class="markdown-body">
+                        <%- md(file) -%>
+                    </div>
                 <% } else { %>
                     <%- include(file) -%>
                 <% } %></div>
