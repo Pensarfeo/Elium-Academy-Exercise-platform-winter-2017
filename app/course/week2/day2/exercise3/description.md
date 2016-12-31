@@ -1,13 +1,28 @@
-#### Bank account with new and initial values
+#### find inputs like
 
-Starting from the previous exercise add the possibility to initialize the account to a given initial ammount.
-Example:
+Find all inputs with a value of "Red" and change the text of the next sibling span.
 
-```jsx
-var account = new bankAccount(10)
-account.withdraw(2)
-account.withdraw(5)
-account.deposit(4)
-account.deposit(1)
-account.balance() // 8
+Snippet:
+```html
+<div>
+    <div>
+        <label>
+            <input type="radio" name="color"  value="Red">
+            <span>value?</span>
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="color"  value="Green">
+            <span>value?</span>
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="color"  value="Black">
+            <span>value?</span>
+        </label>
+    </div>
+    <button id="button1">Click to see the  effect</button>
+</div>
 ```

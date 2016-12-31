@@ -1,24 +1,19 @@
-#### Universe with new
+#### Find children
 
-Implement the previous exercise using a constructor function called universe. I this case whe should be able to initialize the initial a mmount of energy.
-Example:
+Find all inputs that are descendants of a form and mark them with a dotted red border .
+Note: Descendant Selector ("ancestor descendant") selects all elements that are descendants of a given ancestor. A descendant of an element could be a child, grandchild, great-grandchild, and so on, of that element.
 
-```jsx
-var protoUniverse = function universe (initialEnergy) {
-    ...
-}
-
-universe = new protoUniverse(10)
-
-Universe.Matter.total() // -10
-Universe.Energy.total() // 10
-
-Universe.Matter.Destroy(5)
-Universe.Matter.total() // -15
-Universe.Energy.total() // 15
-
-
-Universe.Energy.destroy(-5)
-Universe.Matter.total() // -20
-Universe.Energy.total() // 20
+Snippet:
+```html
+<body>
+    <form>
+        <label for="name">Child of form:</label>
+        <input name="name" id="name">
+        <fieldset>
+            <label for="newsletter">Grandchild of form, child of fieldset:</label>
+            <input name="newsletter" id="newsletter">
+        </fieldset>
+    </form>
+    Sibling to form: <input name="none">
+</body>
 ```

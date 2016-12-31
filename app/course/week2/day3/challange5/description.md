@@ -1,0 +1,3 @@
+#### Sort by program
+
+Elium is expanding, and we are adding new bootcamps. Now we have Java, Node, PHP & C++.  Add an input field to your form which allows a student to specify the course they are enrolled in. A student can be entered multiple times (for different classes). Display the class lists in 4 columns with the name of the class at the top of each column.  Make a button that will show a list of all the students with no duplicate names.

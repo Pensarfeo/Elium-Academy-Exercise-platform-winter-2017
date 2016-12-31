@@ -28,10 +28,18 @@ module.exports = function(exPath){
     let html= $.load(mark)
     html('pre').map( (i , block) => {
         const codeBlock = $(block)
+        let lang = codeBlock.html().match(/class="lang-([a-z].*)"/)[1]
+
+        if ( lang === "html"){
+            lang = "text.html.basic"
+        } else if (lang === "jsx") {
+            lang = 'source.js.jsx'
+        }
+
         const decodedBlock = entities.decode(codeBlock.find('code').html())
         const highlighted = highlighter.highlightSync({
                                             fileContents: decodedBlock,
-                                            scopeName: 'source.js.jsx'
+                                            scopeName: lang
                                         })
         codeBlock.after(highlighted)
         codeBlock.remove()

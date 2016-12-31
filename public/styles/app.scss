@@ -73,3 +73,19 @@ nav>li{
             }
         }
 }
+
+
+.punctuation.definition.tag.html{
+    color: #d81b60;
+}
+.entity.name.tag {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #d81b60;
+  float: none;
+  opacity: 1;
+  span{
+    font-size: 13px;
+  }
+}
