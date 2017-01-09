@@ -20,6 +20,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+const jasmineRequire = require("./core.js") 
 jasmineRequire.html = function(j$) {
     j$.ResultsNode = jasmineRequire.ResultsNode();
     j$.HtmlReporter = jasmineRequire.HtmlReporter(j$);
@@ -49,7 +50,6 @@ jasmineRequire.HtmlReporter = function(j$) {
             failedSuites = [];
 
         this.initialize = function() {
-            clearPrior();
             htmlReporterMain = createDom('div', { className: 'jasmine_html-reporter' },
                 createDom('ul', { className: 'jasmine-symbol-summary' }),
                 createDom('div', { className: 'jasmine-alert' }),
@@ -118,7 +118,7 @@ jasmineRequire.HtmlReporter = function(j$) {
                 var failure =
                     createDom('div', { className: 'jasmine-spec-detail jasmine-failed' },
                         createDom('div', { className: 'jasmine-description' },
-                            createDom('span', { title: result.fullName}, result.fullName)
+                            createDom('span', { title: result.fullName, href: specHref(result) }, result.fullName)
                         ),
                         createDom('div', { className: 'jasmine-messages' })
                     );
@@ -194,7 +194,7 @@ jasmineRequire.HtmlReporter = function(j$) {
                     if (resultNode.type == 'suite') {
                         var suiteListNode = createDom('ul', { className: 'jasmine-suite', id: 'suite-' + resultNode.result.id },
                             createDom('li', { className: 'jasmine-suite-detail' },
-                                createDom('span', {}, resultNode.result.description)
+                                createDom('span', { href: specHref(resultNode.result) }, resultNode.result.description)
                             )
                         );
 
@@ -218,7 +218,7 @@ jasmineRequire.HtmlReporter = function(j$) {
                                     className: 'jasmine-' + resultNode.result.status,
                                     id: 'spec-' + resultNode.result.id
                                 },
-                                createDom('span', { }, specDescription)
+                                createDom('span', { href: specHref(resultNode.result) }, specDescription)
                             )
                         );
                     }
@@ -226,6 +226,24 @@ jasmineRequire.HtmlReporter = function(j$) {
             }
 
             if (failures.length) {
+                alert.appendChild(
+                    createDom('span', { className: 'jasmine-menu jasmine-bar jasmine-spec-list' },
+                        createDom('span', {}, 'Spec List | '),
+                        createDom('a', { className: 'jasmine-failures-menu', href: '#' }, 'Failures')));
+                alert.appendChild(
+                    createDom('span', { className: 'jasmine-menu jasmine-bar jasmine-failure-list' },
+                        createDom('a', { className: 'jasmine-spec-list-menu', href: '#' }, 'Spec List'),
+                        createDom('span', {}, ' | Failures ')));
+
+                find('.jasmine-failures-menu').onclick = function() {
+                    setMenuModeTo('jasmine-failure-list');
+                };
+                find('.jasmine-spec-list-menu').onclick = function() {
+                    setMenuModeTo('jasmine-spec-list');
+                };
+
+                setMenuModeTo('jasmine-failure-list');
+
                 var failureNode = find('.jasmine-failures');
                 for (i = 0; i < failures.length; i++) {
                     failureNode.appendChild(failures[i]);
@@ -236,19 +254,16 @@ jasmineRequire.HtmlReporter = function(j$) {
         return this;
 
         function find(selector) {
-            return getContainer().querySelector('.jasmine_html-reporter ' + selector);
-        }
-
-        function clearPrior() {
-            // return the reporter
-            var oldReporter = find('');
-
-            if (oldReporter) {
-                getContainer().removeChild(oldReporter);
+            console.log("---", selector)
+            if(selector){
+                return getContainer().getElementsByClassName(selector);
+            } else {
+                return getContainer();
             }
         }
 
         function createDom(type, attrs, childrenVarArgs) {
+
             var el = createElement(type);
 
             for (var i = 2; i < arguments.length; i++) {
@@ -270,7 +285,6 @@ jasmineRequire.HtmlReporter = function(j$) {
                     el.setAttribute(attr, attrs[attr]);
                 }
             }
-
             return el;
         }
 
@@ -278,6 +292,14 @@ jasmineRequire.HtmlReporter = function(j$) {
             var word = (count == 1 ? singular : singular + 's');
 
             return '' + count + ' ' + word;
+        }
+
+        function specHref(result) {
+            return addToExistingQueryString('spec', result.fullName);
+        }
+
+        function seedHref(seed) {
+            return addToExistingQueryString('seed', seed);
         }
 
         function defaultQueryString(key, value) {

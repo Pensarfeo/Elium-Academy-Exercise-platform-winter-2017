@@ -7,8 +7,8 @@ global.pathTo = {
         nameS     = nameS.map(ele => ele.replace(/^\//,"").replace("/", "_"))
         return path.join(__dirname, "..", "..","app","course", type, ...nameS)
     },
-    solution(...names) {
-        return path.join(__dirname, "..", "..",...names)
+    solutions(...names) {
+        return path.join(__dirname, "..", "..","solutions",...names)
     },
     assets(type = "js", name ="elium.js") {
         return path.join(__dirname, "..", "..","app","assets", type, name)
@@ -24,6 +24,9 @@ global.pathTo = {
     },
     nodeRoot (...names) {
         return path.join(__dirname, "..", "..", ...names)
+    },
+    nodeConfig (...names) {
+        return path.join(__dirname, "..", "..","config", ...names)
     },
     publicDir (type, name = "") {
         name = (name ?  "/"+ name : "")
@@ -44,6 +47,10 @@ global.requireModel= function(name) {
 
 global.requireRoute= function(name) {
     return require(pathTo.route(name))
+}
+
+global.requireConfig= function(...name) {
+    return require(pathTo.nodeConfig(...name))
 }
 
 global.appRequire= function(name) {

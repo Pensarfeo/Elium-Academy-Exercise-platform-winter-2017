@@ -1,0 +1,3 @@
+#### Translator App - Navigate As
+
+Create a select profile page. I this page we can select a which user we want to navigate the site. Once these is done (the user's email should be saved in a cookie), the user should be able to post information as itself and can only post as someone else if he chooses an other profile. If not profile is choose redirect him to the profile choosing page or to the create profile page if no profile is found

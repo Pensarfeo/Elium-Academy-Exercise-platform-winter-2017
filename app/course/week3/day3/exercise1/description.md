@@ -70,6 +70,7 @@ Creating a relation between two beaver of the same sex or with a dead beaver sho
 
 key            | type                   | updatable?
 -              | -                      | -
+id             | Number (UNIQUE!)       | false
 birdthDate     | Date Type              | false
 Location       | String                 | true
 FirstSeenDate  | Date Type              | false
@@ -82,6 +83,7 @@ sex            | String (M or F)        | false
 
 key            | type                   | updatable?
 -              | -                      | -
+id             | Number (UNIQUE!)       | false
 femaleBeaverId | beaverId               | false
 maleBeaverId   | beaverId               | false
 relationsType  | Date Type              | true

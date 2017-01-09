@@ -1,7 +1,12 @@
 <% var exerciseId = view.description.split(/[\\\/]/).slice(-4, -1) %>
 
 <script type="text/javascript">
-    const exerciseId = "<%= exerciseId %>".split(",")
+    mule.exerciseIdRaw = "<%= exerciseId %>".split(",")
+    mule.exerciseId ={
+        week: mule.exerciseIdRaw[0].replace("week", ""),
+        day:  mule.exerciseIdRaw[1].replace("day", ""),
+        exercise: mule.exerciseIdRaw[2].replace(/exercise|challange/, "")
+    }
 </script>
 
 <% var exerciseType = exerciseId.slice(-1)[0]%>

@@ -1,0 +1,3 @@
+#### Translator App - Sign Up
+
+Now we can create a full session system. All the routes should be closed to any non registerd user. If the user is not registerd redirect him to a sign up or sign in page. Once the user is signed in save the session in a session model with the userId and a big random number (at least 12 digits) to be saved in the cookie. You should also add a sign out button that deletes the sessionId from the cookie and from the session record from the collection.

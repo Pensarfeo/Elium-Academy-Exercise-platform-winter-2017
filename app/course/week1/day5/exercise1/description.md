@@ -1,10 +1,15 @@
-### Compare Arrays
+### Accumulator
 
-Write a function called ```isEqual``` to check if two arrays are equal in content. 
+Write a function called ```acculumator``` that keeps track of the numbers that ar passed to it and pushes them to an array called ```collector```.
 Example:
 
 ```jsx
-isEqual([1], [1]); // true
-isEqual([1,3,4,5], [1,3,4,5]); // true
-isEqual([3,4,6,4,5], [1]); // false
+
+accumulator(1)
+accumulator(2)
+accumulator(5)
+accumulator(4)
+accumulator(1)
+
+collector // [1, 2, 5, 4, 1]
 ```

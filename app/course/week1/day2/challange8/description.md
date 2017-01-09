@@ -21,3 +21,5 @@ dynamicCalculator("add", sum, "sum") // 3
 dynamicCalculator("sum", 1, 2) // 3
 
 ```
+
+**Note:** To solve this problem start reading about [Scope](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/var)

@@ -4,5 +4,6 @@ Write a function called ```capitalize``` to capitalize the first letter of a str
 Example:
 
 ```jsx
-capitalize('js string exercises');
+capitalize('js string exercises'); // Js string exercises
+
 ```

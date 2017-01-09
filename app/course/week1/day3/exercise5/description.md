@@ -19,7 +19,7 @@ var newObje = slice(obj, 0)
 // newObje => {a: 1}
 
 var newObje = slice(obj, 1)
-// newObje => {a: 1}
+// newObje => {b: 2}
 
 var newObje = slice(obj, 0, 0)
 // newObje => {}

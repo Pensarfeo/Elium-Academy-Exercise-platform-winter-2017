@@ -1,0 +1,6 @@
+require("./core.js")
+require("./html.js")
+const jasmineBoot = require("./boot.js")
+const runTest = require("./test.js")
+jasmineBoot()
+runTest()

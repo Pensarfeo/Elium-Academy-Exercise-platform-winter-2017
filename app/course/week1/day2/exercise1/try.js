@@ -6,8 +6,9 @@ const toReactRender = function() {
             if (typeof props.data === "object"){
                 this.state = {list: props.data}
             } else {
-                this.state = {}
+                this.state = { list: {}}
             }
+            debugger;
             this.handleSelect = this.handleSelect.bind(this)
         }
         handleSelect(event){

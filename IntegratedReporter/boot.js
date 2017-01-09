@@ -29,6 +29,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  [jasmine-gem]: http://github.com/pivotal/jasmine-gem
  */
+const jasmineRequire = require("./core")
+const jsdom = require("jsdom").jsdom;
+const document = jsdom('<div class="jasmine_html-reporter"></div>');
 
 const JasmineBoot = function() {
 
@@ -37,7 +40,7 @@ const JasmineBoot = function() {
      *
      * Require Jasmine's core files. Specifically, this requires and attaches all of Jasmine's code to the `jasmine` reference.
      */
-    window.jasmine = jasmineRequire.core(jasmineRequire);
+    global.jasmine = jasmineRequire.core(jasmineRequire);
 
     /**
      * Since this is being run in a browser and the results should populate to an HTML page, require the HTML-specific Jasmine code, injecting the same reference.
@@ -59,14 +62,7 @@ const JasmineBoot = function() {
     /**
      * Add all of the Jasmine global/public interface to the global scope, so a project can use the public interface directly. For example, calling `describe` in specs instead of `jasmine.getEnv().describe`.
      */
-    extend(window, jasmineInterface);
-
-    /**
-     * ## Runner Parameters
-     *
-     * More browser specific code - wrap the query string in an object and to allow for getting/setting parameters from the runner user interface.
-     */
-
+    extend(global, jasmineInterface);
 
     /**
      * ## Reporters
@@ -87,7 +83,13 @@ const JasmineBoot = function() {
     /**
      * The `jsApiReporter` also receives spec results, and is used by any environment that needs to extract the results  from JavaScript.
      */
-    env.addReporter(jasmineInterface.jsApiReporter);
+    //****************************************************************************
+    //****************************************************************************
+    //****************************************************************************
+    //****************************************************************************
+    //****************************************************************************
+    // comment out where ready to set platform reporters
+/*    env.addReporter(jasmineInterface.jsApiReporter);
     env.addReporter(htmlReporter);
     class PlatformReporter {
         constructor(){
@@ -102,8 +104,8 @@ const JasmineBoot = function() {
         specStarted(){}
         specDone(result){
             if (result.status != 'disabled') { this.specsExecuted++ }
-            if (result.status == 'failed'  ) { this.failureCount++; }
-            if (result.status == 'pending' ) { this.pendingSpecCount++ }
+            if (result.status == 'failed')   { this.failureCount++; }
+            if (result.status == 'pending')  { this.pendingSpecCount++ }
         }
         jasmineDone(){
             const testData = {
@@ -111,13 +113,13 @@ const JasmineBoot = function() {
                 time: new Date().getTime()
             }
             const data = Object.assign({}, testData, mule.exerciseId)
-            axios.post(window.location.origin + "/report", { data: data })
+            //axios.post(global.location.origin + "/report", { data: data })
         }
     }
 
     const platformReport = new PlatformReporter
     env.addReporter(platformReport);
-
+*/
     /**
      * Filter which specs will be run by matching the start of the full name against the `spec` query param.
      */
@@ -130,27 +132,14 @@ const JasmineBoot = function() {
     };
 
     /**
-     * Setting up timing functions to be able to be overridden. Certain browsers (Safari, IE 8, phantomjs) require this hack.
-     */
-    window.setTimeout = window.setTimeout;
-    window.setInterval = window.setInterval;
-    window.clearTimeout = window.clearTimeout;
-    window.clearInterval = window.clearInterval;
-
-    /**
      * ## Execution
      *
-     * Replace the browser window's `onload`, ensure it's called, and then run all of the loaded specs. This includes initializing the `HtmlReporter` instance and then executing the loaded Jasmine environment. All of this will happen after all of the specs are loaded.
+     * Replace the browser global's `onload`, ensure it's called, and then run all of the loaded specs. This includes initializing the `HtmlReporter` instance and then executing the loaded Jasmine environment. All of this will happen after all of the specs are loaded.
      */
-    var currentWindowOnload = window.onload;
 
-    window.onload = function() {
-        if (currentWindowOnload) {
-            currentWindowOnload();
-        }
-        htmlReporter.initialize();
-        env.execute();
-    };
+
+    htmlReporter.initialize();
+    env.execute();
 
     /**
      * Helper function for readability above.
@@ -161,4 +150,4 @@ const JasmineBoot = function() {
     }
 
 }
-JasmineBoot()
+module.exports = JasmineBoot

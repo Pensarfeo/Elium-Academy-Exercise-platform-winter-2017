@@ -6,7 +6,6 @@
   "scripts": {
     "start:debug": "set DEBUG=platform* & nodemon ./config/index.js",
     "start": "nodemon ./config/index.js"
-
   },
   "author": "Pedro A. Favuzzi @ elium.academy",
   "license": "ISC",
@@ -23,23 +22,27 @@
     "debug": "^2.5.2",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
+    "express-asset-versions": "^0.1.2",
     "gaze": "^1.1.2",
     "glob": "^7.1.1",
     "highlights": "^1.4.1",
     "html-entities": "^1.2.0",
     "inline-source-map-comment": "^1.0.5",
     "jasmine-core": "^2.5.2",
+    "jsdom": "^9.9.1",
     "jsonfile": "^2.4.0",
     "marked": "^0.3.6",
     "morgan": "^1.7.0",
     "node-sass": "^4.1.1",
     "node-sass-evergreen": "^1.1.2",
+    "path-to-regexp": "^1.7.0",
     "sse-node": "^1.0.2",
     "stack-trace": "0.0.9",
     "uglify-js": "^2.7.5",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0",
-    "webpack-hot-middleware": "^2.14.0"
+    "webpack-hot-middleware": "^2.14.0",
+    "ws": "^1.1.1"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
