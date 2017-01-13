@@ -1,0 +1,50 @@
+<script type="text/javascript">
+const runTest = function(){
+    describe( 'Operations',  ()=>{
+        it('Sum operation should be defined and it should be a function', () => {
+            expect(window.sum).toBeDefined()
+            expect(typeof window.sum).toEqual("function")
+        })
+
+        it('Subtract operation should be defined and it should be a function', () => {
+            expect(window.subtract).toBeDefined()
+            expect(typeof window.subtract).toEqual("function")
+        })
+
+        it('sum should take exactly two arguments', () => {
+            expect(window.sum.length).toEqual(2)
+        })
+
+        it('subtract should take exactly two arguments', () => {
+            expect(window.subtract.length).toEqual(2)
+        })
+
+        it('sum  should return something', () => {
+            expect(window.sum("something to return")).toBeDefined()
+        })
+
+        it('subtract should return something', () => {
+            expect(window.subtract("something to return")).toBeDefined()
+        })
+
+
+        it('sum should sum two numbers', () => {
+            num1 = Math.random()*100
+            num2 = Math.random()*100
+            expect(window.sum(num1,num2)).toEqual(num1 + num2)
+        })
+
+        it('subtract should subtract two numbers', () => {
+            num1 = Math.random()*100
+            num2 = Math.random()*100
+            expect(window.subtract(num1,num2)).toEqual(num1 - num2)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

@@ -1,0 +1,38 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+let lastCLog = []
+const oldcLog = console.log
+console.log = function (...arg){
+    lastCLog.push( ...arg )
+    if (lastCLog.length > 100){
+        throw new Error("your runner seem to be running for too long")
+    }
+    oldcLog(...arg)
+}
+var addOne = function(num) {return num + 1}
+const runTest = function(){
+ return {start, end, step, range }
+    describe( 'Run a function on a range of numbers and expect: ',  ()=>{
+        beforeEach(()=>{
+            lastCLog.length = 0
+        })
+        it("it should run", () => {
+            window.runOnRange(function(a,b){a+b},  {0: {start: -1, end: -3, step: -1}, 1: {start: 4, end: 8, step: 3}})
+            expect(lastCLog).toEqual([3,6,2,5,1,4])
+
+            window.runOnRange(function(a,b,c){a + b - c},  {0: {start: -1, end: -3, step: -1},
+                                                            1: {start: 4, end: 8, step: 3},
+                                                            2: {start: 5, end: 5.5}})
+            expect(lastCLog).toEqual([-2,1,-3,0,-4,-1])
+
+        })
+
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

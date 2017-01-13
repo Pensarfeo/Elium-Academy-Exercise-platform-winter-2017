@@ -1,11 +1,12 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
 <script type="text/javascript">
 const runTest = function(){
-    describe( 'Exericise 1',  ()=>{
-        it('myClass variable should be defined', () => {
-            expect(window.myClass).toBeDefined()
-        })
-        it('myClass should be an object', () => {
-            expect(typeof window.myClass).toBe("object")
+    var stringToArray = window.stringToArray
+    describe( 'Turn an string into an array shold:',  ()=>{
+        it('turn strings into arrays by dividing them on their white space', () => {
+            expect(stringToArray("Pedro Favuzzi")).toEqual(["Pedro","Favuzzi"])
+            expect(stringToArray("Pedro Antonio Favuzzi")).toEqual(["Pedro","Antonio","Favuzzi"])
+            expect(stringToArray("Juan David Mendieta Villanegas")).toEqual(["Juan", "David", "Mendieta", "Villanegas"])
         })
     })
 }

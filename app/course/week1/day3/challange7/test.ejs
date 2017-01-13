@@ -1,0 +1,36 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    const genTestObjs = function(){
+        const length = Math.ceil(Math.random()*3) + 3
+        const unsorted = {}
+        const sorted = {}
+        for (i = 0; i< length; i++) {
+            const {number, letter} = randEle()
+            unsorted[letter] = number
+        }
+        toArr = []
+        for (ele in unsorted) {
+            toArr.push(unsorted[ele])
+        }
+        toArr.sort()
+        for(ele in toArr){
+            sorted[ele] = toArr[ele]
+        }
+        return {unsorted, sorted }
+    }
+    describe( 'Run a function on a range of numbers and expect: ',  ()=>{
+        it("it should sort", () => {
+            const {unsorted, sorted} = genTestObjs()
+            console.log(sorted)
+            expect(window.sort(unsorted)).toEqual(sorted)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

@@ -1,0 +1,39 @@
+<script type="text/javascript">
+    const runTest = function(){
+        function randEle(){
+            const possibleLetters="ABCDEFGHIJKLMNOPQRSTUVWXYZbcdefghijklmnopqrstuvwxyz+_)(*&^%$#@!~"
+            return {letter: possibleLetters[Math.floor(Math.random()*64)], number: Math.ceil(Math.random()*100)}
+        }
+
+        describe( 'Calculator function',  ()=>{
+            it('should be defined and it should be a function', () => {
+                expect(window.Calculator).toBeDefined()
+                expect(typeof window.Calculator).toEqual("function")
+            })
+
+            it('should take exactly three arguments', () => {
+                expect(window.Calculator.length).toEqual(3)
+            })
+
+            it('should return something', () => {
+                expect(window.Calculator("sum")).not.toBeUndefined()
+            })
+
+            it('should work for all 4 alowed operations', () => {
+                const num1    = randEle().number
+                const num2    = randEle().number
+                expect(window.Calculator("sum"     , num1, num2)).toEqual(num1 + num2)
+                expect(window.Calculator("multiply", num1, num2)).toEqual(num1 * num2)
+                expect(window.Calculator("subtract", num1, num2)).toEqual(num1 - num2)
+                expect(window.Calculator("divide"  , num1, num2)).toEqual(num1 / num2)
+
+            })
+
+        })
+    }
+
+    runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

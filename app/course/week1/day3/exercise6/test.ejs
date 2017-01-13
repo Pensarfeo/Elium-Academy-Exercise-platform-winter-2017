@@ -1,0 +1,76 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+let lastCLog = []
+const oldcLog = console.log
+console.log = function (...arg){
+    lastCLog.push( ...arg )
+    if (lastCLog.length > 100){
+        throw new Error("your runner seem to be running for too long")
+    }
+    oldcLog(...arg)
+}
+var addOne = function(num) {return num + 1}
+const runTest = function(){
+    lastCLog.length = 0
+    const iself = function(val) { return val }
+    const genTestObjs = function(step){
+        step = step || Math.ceil(Math.random()*5)
+        const sign =  Math.floor(Math.random()*2) < 1 ? -1 : 1
+        const start = Math.ceil(Math.random()*20)* sign
+        const end = start + step*Math.ceil(Math.random()*5) + Math.floor(Math.random()*step)
+        const range = []
+        for (i = start; i<= end; i+= step) {
+            range.push(i)
+        }
+        {start, end, step, range }
+        return {start, end, step, range }
+    }
+    describe( 'Run a function on a range of numbers and expect: ',  ()=>{
+        beforeEach(()=>{
+            lastCLog.length = 0
+        })
+        it("nothing to be logged if step is 0", () => {
+            window.runOnRange(iself, {start: 23, end: 26, step: 0})
+            expect(lastCLog[0]).toBeUndefined()
+        })
+
+        it("nothing to be logged if the step moves does not increase the start in the right direction", () => {
+            const {start, end, step, range } = genTestObjs()
+            window.runOnRange(iself, {start: start, end: end, step: step * -1})
+            expect(lastCLog[0]).toBeUndefined()
+        })
+
+        it("nothing to be logged if the step moves does not increase the start in the right direction", () => {
+            const {start, end, step, range } = genTestObjs()
+            window.runOnRange(iself, {start: start, end:  end, step: step * -1})
+            expect(lastCLog[0]).toBeUndefined()
+        })
+
+
+        it("nothing to be logged if start and end are equal", () => {
+            const {start, end, step, range } = genTestObjs()
+            window.runOnRange(iself, {start: start, end: start, step: step * -1})
+            expect(lastCLog[0]).toBeUndefined()
+
+        })
+
+        it("if no step is give its set to 1 by default", () => {
+            const {start, end, step, range } = genTestObjs()
+            window.runOnRange(iself, {start: start, end: start})
+            expect(lastCLog[0]).toBeUndefined()
+        })
+
+        it("to run on a range", () => {
+            const {start, end, step, range } = genTestObjs()
+            window.runOnRange(iself, {start: start, end: end, step: step})
+            expect(lastCLog).toEqual(range)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

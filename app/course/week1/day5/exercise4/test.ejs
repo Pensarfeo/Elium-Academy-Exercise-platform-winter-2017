@@ -1,0 +1,98 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var schema = []
+    var DB
+    window.schema = []
+    describe( 'Schema should:',  ()=>{
+        beforeEach(()=>{
+            DB = window.DB = []
+        })
+        it('only at the keys of the object that are defined in the schema', () => {
+            window.schema = {id: {type: "number"}, name: {type: "string"}, age: {type: "number"}}
+            model("add", {id: 1, name: "pedro", age: 32, address: "Rue de la Science 23, Brussels"})
+            expect( DB[0] ).toEqual({id: 1, name: "pedro", age: 32})
+        })
+
+        it('show be able to add more than one record', () => {
+            window.schema = {id: {type: "number"}, country: {type: "string"}, address: {type: "string"}}
+            model("add", {id: 2, country: "pedro Land", age: 32, address: "Rue de la Science 23, Brussels"})
+            model("add", {id: 1, country: "pedro Land", age: 32, address: "Rue de la Science 23, Brussels"})
+            expect( DB[0] ).toEqual({id: 2, country: "pedro Land", address: "Rue de la Science 23, Brussels"})
+            expect( DB[1] ).toEqual({id: 1, country: "pedro Land", address: "Rue de la Science 23, Brussels"})
+        })
+
+        it('it should not add anything if the schema is empty', () => {
+            window.schema = {}
+            model("add", {a: 1, b: 2, c: 2, d: 3})
+            expect( DB[0] ).toEqual({})
+        })
+
+        it('it should not add key that are not in the Schema', () => {
+            window.schema = {Location: {type: "string"}, tel: {type: "number"}, "reference Name": {type: "string"}}
+            model("add", {Location: "pedro city", position: "developer", pay: "alot"})
+            expect( DB[0] ).toEqual({Location: "pedro city"})
+        })
+
+        it('it should not add a property with the wrong value type', () => {
+            window.schema = {Location: {type: "boolean"}, tel: {type: "number"}, "reference Name": {type: "string"}, available: {type: "string"}}
+            model("add", {Location: "pedro city", position: "developer", pay: "alot", available: "yes"})
+
+            window.schema = {Location: {type: "string"}, tel: {type: "number"}, "reference Name": {type: "string"}, available: {type: "boolean"}}
+            model("add", {Location: "pedro city", position: "developer", pay: "alot", available: false})
+
+
+            expect( DB[0] ).toEqual({available: "yes"})
+            expect( DB[1] ).toEqual({Location: "pedro city", available: false})
+
+        })
+
+        it('it should add a default when property missing ', () => {
+            window.schema = {
+                name: {type: "string", default: "NoBody"},
+                age: {type: "number"},
+                married: {type: "boolean", default: true}
+            }
+
+            model("add", {id: 1, name: "pedro", age: "32", address: "Rue de la Science 23, Brussels"})
+            expect( DB[0] ).toEqual({name: "pedro", married: true})
+
+            model("add", {age: "32"})
+            expect( DB[1] ).toEqual({name: "NoBody", married: true})
+        })
+
+        it('it should not change the value of a valid property ', () => {
+            window.schema = {
+                height: {type: "number", default: 23},
+                "number of arms": {type: "number", default: 10}
+            }
+
+            model("add", {height: 1, "number of arms": 23})
+            expect( DB[0] ).toEqual({height: 1, "number of arms": 23})
+
+            model("add", {height: 3, "number of arms": 3})
+            expect( DB[1] ).toEqual({height: 3, "number of arms": 3})
+        })
+
+        it('it should set a default property if the type is not matching ', () => {
+            window.schema = {
+                height: {type: "string", default: "23"},
+                "number of arms": {type: "number", default: 10}
+            }
+
+            model("add", {height: 1, "number of arms": 23})
+            expect( DB[0] ).toEqual({height: "23", "number of arms": 23})
+
+            model("add", {height: 3, "number of arms": 3})
+            expect( DB[1] ).toEqual({height: "23", "number of arms": 3})
+        })
+
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

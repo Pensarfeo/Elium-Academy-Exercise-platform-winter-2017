@@ -1,5 +1,6 @@
 const chokidar = require("chokidar")
 const uglifyJS = require("uglify-js")
+const fs       = require("fs")
 const {app, server} = requireConfig("server")
 
 // set websocketServer
@@ -14,29 +15,34 @@ let exerciseIdRaw
 let currentSolution
 
 const hotExerciseReloadCommands =`
+    console.debug("new Exercise version found, retesting");
     toReactRender();
     JasmineBoot();
     runTest();
-    window.onload()
+    exercuteTest()
 `
 
 chokidar.watch(pathTo.nodeRoot("solutions"), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
     if (exerciseIdRaw && wss.clients[0] && exerciseIdRaw === path){
         try{
-            code = uglifyJS.minify(path).code + hotExerciseReloadCommands
+            code = fs.readFileSync(path).toString() + hotExerciseReloadCommands
         } catch(error){
-            toConsole(error)
-            code = ""
+            code = `
+            console.debug("Invalid JS in solution - Parsing error at")
+            console.debug(\"file: ${error.message}\")
+            console.debug(\"file: ${error.filename}\")
+            console.debug(\"line: ${error.line}\")
+            console.debug(\"col: ${error.col}\")
+            `
         }
-        wss.clients[0].send(JSON.stringify({eval: code}))
+        wss.clients[0].send(code)
     }
 });
 
 actions.serverStatus = function serverStatus (ws, data) {
     exerciseIdRaw = pathTo.solutions(...data.exerciseIdRaw) + ".js"
     if (fresh && !data.firstLoad) {
-        const data = JSON.stringify({eval: "window.location.reload()"})
-        ws.send(data)
+        ws.send("window.location.reload()")
     }
     fresh = false
 }

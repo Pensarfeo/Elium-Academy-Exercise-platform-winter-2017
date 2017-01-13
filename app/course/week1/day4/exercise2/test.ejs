@@ -1,0 +1,17 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var abbrevName = window.abbrevName
+    describe( 'Abbreviate Surname should',  ()=>{
+        it('capitalize and abbreviate the first letter of any surname', () => {
+            expect(abbrevName("Pedro favuzzi")).toEqual("Pedro F.")
+            expect(abbrevName("Juan david")).toEqual("Juan D.")
+        })
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

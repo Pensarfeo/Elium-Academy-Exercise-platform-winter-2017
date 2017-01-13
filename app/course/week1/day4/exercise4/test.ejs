@@ -1,0 +1,22 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var stringChop = window.stringChop
+    describe( 'Chop string shuold:',  ()=>{
+        it('chop a tring according to the length of the second parameter passed', () => {
+            expect(stringChop("a given sestence", 4)).toEqual(["a gi","ven ","sest","ence"])
+            expect(stringChop('w3resource',2)).toEqual(["w3", "re", "so", "ur", "ce"])
+        })
+
+        it('return the whole string if the last parameter is not provided', () => {
+            expect(stringChop('Bananas')).toEqual(['Bananas'])
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

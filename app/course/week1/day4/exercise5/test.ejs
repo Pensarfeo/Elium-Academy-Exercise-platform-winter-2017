@@ -1,0 +1,20 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var signOfSum = window.signOfSum
+    describe( 'Sign of sum shuold:',  ()=>{
+        it('retrieve the sign of a sum', () => {
+            expect(signOfSum([3, -7, 2, 3, -20])).toEqual("-")
+            expect(signOfSum([9, -7, -10, 3, 20])).toEqual("+")
+            expect(signOfSum([4, -7, 18, 3, -20])).toEqual("-")
+
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

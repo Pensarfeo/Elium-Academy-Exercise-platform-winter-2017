@@ -1,0 +1,18 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var tally = window.tally
+    describe( 'tally shuold:',  ()=>{
+        it('return an array of arrays with the value and the number of times its repeated', () => {
+            expect(tally([1,1,1,2,2,4,6,3,4,7,4,2])).toEqual([ [ 1, 3 ], [ 2, 3 ], [ 4, 3 ], [ 6, 1 ], [ 3, 1 ], [ 7, 1 ] ])
+            expect(tally([5,6,4,2,4,6,8,5,3,2])).toEqual([ [ 5, 2 ], [ 6, 2 ], [ 4, 2 ], [ 2, 2 ], [ 8, 1 ], [ 3, 1 ] ])
+            expect(tally(["1", "b", 'c', 1,2,3,4])).toEqual( [ [ '1', 1 ], [ 'b', 1 ], [ 'c', 1 ], [ 1, 1 ], [ 2, 1 ], [ 3, 1 ], [ 4, 1 ] ] )
+        })
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

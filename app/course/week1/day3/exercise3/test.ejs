@@ -1,0 +1,73 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+    let lastCLog
+    const oldcLog = console.log
+    console.log = function (...arg){
+        lastCLog = arg.slice(-1)[0]
+        oldcLog(...arg)
+    }
+</script>
+<script type="text/javascript">
+const runTest = function(){
+    const genTestObjs = function(){
+        n1 = randEle().number
+        n2 = randEle().number
+        n3 = randEle().number
+        l1 = randEle().letter
+        l2 = randEle().letter
+        l3 = randEle().letter
+        return {o1: {l1: n1, l2: n2}, o2: {l2: l2, l3: n3}, oo: {l1: n1, l2: l2, l3: n3}, ono: {l1: n1, l2: n2, l3: n3} }
+    }
+    describe( 'Better Add to Object expect: ',  ()=>{
+
+        it('modifyObject function to be defined and it should be a function', () => {
+            expect(window.modifyObject).toBeDefined()
+            expect(typeof window.modifyObject).toEqual("function")
+        })
+
+        it('modifyObject should take upto three arguments', () => {
+            expect(window.modifyObject.length).toEqual(3)
+        })
+
+        it('modifyObject logs \"Overwrite mode set\" if last param is true ', () => {
+            window.modifyObject({}, {},  true)
+            expect(lastCLog).toEqual("Overwrite mode set")
+        })
+
+        it('modifyObject logs \"Overwrite mode disabled\" if last param is false ', () => {
+            window.modifyObject({}, {},  false)
+            expect(lastCLog).toEqual("Overwrite mode disabled")
+        })
+
+        it('modifyObject logs \"Overwrite mode set\" if no third param is given ', () => {
+            window.modifyObject({}, {},  true)
+            expect(lastCLog).toEqual("Overwrite mode set")
+        })
+
+
+        it('modifyObject logs \"Overwrite mode set\" if last param is true ', () => {
+            const {o1, o2, oo} = genTestObjs()
+            window.modifyObject(o1, o2, true)
+            expect(o1).toEqual(oo)
+        })
+
+        it('modifyObject logs \"Overwrite mode disabled\" if last param is false ', () => {
+            const {o1, o2, ono} = genTestObjs()
+            window.modifyObject(o1, o2, false)
+            expect(o1).toEqual(ono)
+        })
+
+        it('modifyObject logs \"Overwrite mode set\" if no third param is given ', () => {
+            const {o1, o2, oo} = genTestObjs()
+            window.modifyObject(o1, o2, true)
+            expect(o1).toEqual(oo)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

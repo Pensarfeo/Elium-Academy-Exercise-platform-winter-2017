@@ -1,0 +1,19 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var capitalize = window.capitalize
+    describe( 'Capitalize string shold:',  ()=>{
+        it('capitalize the first letter of a string', () => {
+            expect(capitalize("a given sestence")).toEqual("A given sestence")
+            expect(capitalize("to have a first letter capital")).toEqual("To have a first letter capital")
+            expect(capitalize("jS is cool")).toEqual("JS is cool")
+
+        })
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

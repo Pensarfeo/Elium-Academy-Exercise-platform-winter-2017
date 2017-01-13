@@ -1,0 +1,81 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const toReactRender = function (){}
+const runTest = function(){
+    describe( 'Better Operations',  ()=>{
+        it('Sum operation should be defined and it should be a function', () => {
+            expect(window.sum).toBeDefined()
+            expect(typeof window.sum).toEqual("function")
+        })
+
+        it('Subtract operation should be defined and it should be a function', () => {
+            expect(window.subtract).toBeDefined()
+            expect(typeof window.subtract).toEqual("function")
+        })
+
+        it('sum should take up to two arguments', () => {
+            expect(window.sum.length).toEqual(2)
+        })
+
+        it('subtract should take up to two arguments', () => {
+            expect(window.subtract.length).toEqual(2)
+        })
+
+        it('sum  should return something', () => {
+            expect(window.sum("something to return")).toBeDefined()
+        })
+
+        it('subtract should return something', () => {
+            expect(window.subtract("something to return")).toBeDefined()
+        })
+
+
+        it('sum should sum two numbers', () => {
+            num1 = Math.random()*100
+            num2 = Math.random()*100
+            expect(window.sum(num1,num2)).toEqual(num1 + num2)
+        })
+
+        it('subtract should subtract two numbers', () => {
+            num1 = Math.random()*100
+            num2 = Math.random()*100
+            expect(window.subtract(num1,num2)).toEqual(num1 - num2)
+        })
+
+        it('sum with one passed argument should return the argument', () => {
+            num1 = Math.random()*100
+            expect(window.sum(num1)).toEqual(num1)
+        })
+
+        it('subtract with one passed argument should return the argument', () => {
+            num1 = Math.random()*100
+            num2 = Math.random()*100
+            expect(window.subtract(num1)).toEqual(num1)
+        })
+
+
+        it('multiply with one passed argument should return the argument', () => {
+            num1 = Math.random()*100
+            expect(window.multiply(num1)).toEqual(num1)
+        })
+
+        it('divide with one passed argument should return the argument', () => {
+            num1 = Math.random()*100
+            num2 = Math.random()*100
+            expect(window.divide(num1)).toEqual(num1)
+        })
+
+        it('divide; if the second argument its 0 return \"denominator cannot be 0\"', () => {
+            num1 = Math.random()*100
+            num2 = Math.random()*100
+            expect(window.divide(num1, 0 )).toEqual("denominator cannot be 0")
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

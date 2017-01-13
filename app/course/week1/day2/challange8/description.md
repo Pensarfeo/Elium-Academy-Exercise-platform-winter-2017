@@ -15,11 +15,11 @@ var sum = function(v1, v2){
 }
 
 // second we need to pass is to the dynamicCalculator
-dynamicCalculator("add", sum, "sum") // 3
+dynamicCalculator("add", sum, "sum") // "sum function added"
 
 // now we can sum two numbers!
 dynamicCalculator("sum", 1, 2) // 3
 
 ```
 
-**Note:** To solve this problem start reading about [Scope](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/var)
+**Note:** To solve this problem start reading about [Scope](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/var). Not playground is avaliable for this execise. Have fun using the browser Console :)

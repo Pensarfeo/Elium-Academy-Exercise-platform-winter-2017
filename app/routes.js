@@ -67,7 +67,7 @@ app.get("/:week/:day/:exercise", (req, res) => {
     viewParts = {
         view: {
             description: path.join(basicRoute, "description.md"),
-            try:         path.join(basicRoute, "try.ejs"),
+            try:         path.join(basicRoute, "playground.ejs"),
             test:        path.join(basicRoute, "test.ejs"),
             solution:    ["/solutions", ...datePath].join("/")
         }

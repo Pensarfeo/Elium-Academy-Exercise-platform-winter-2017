@@ -1,0 +1,1 @@
+var modifyObject = function(obj, key, val){}

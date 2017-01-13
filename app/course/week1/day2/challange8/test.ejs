@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    const runTest = function(){
+        function randEle(){
+            const possibleLetters="ABCDEFGHIJKLMNOPQRSTUVWXYZbcdefghijklmnopqrstuvwxyz+_)(*&^%$#@!~"
+            return {letter: possibleLetters[Math.floor(Math.random()*64)], number: Math.ceil(Math.random()*100)}
+        }
+
+        describe( 'Dynamic Calculator function',  ()=>{
+            it('should be defined and it should be a function', () => {
+                expect(window.dynamicCalculator).toBeDefined()
+                expect(typeof window.dynamicCalculator).toEqual("function")
+            })
+
+            it('should take exactly three arguments', () => {
+                expect(window.dynamicCalculator.length).toEqual(3)
+            })
+
+            it('should return something', () => {
+                expect(window.dynamicCalculator("add", function(){}, "sum")).not.toBeUndefined()
+            })
+
+            it('should be able to add a function', () => {
+                var letter = randEle().letter
+                num1 = randEle().number
+                num2 = randEle().number
+                var returnsentence = randEle().letter + num1 + num2
+                var toAddFunction = function(v1, v2){return v1 + v2}
+                expect(window.dynamicCalculator("add", toAddFunction , letter)).toEqual(letter + " function added" )
+            })
+
+            it('should work for all 4 alowed operations', () => {
+                var letter = randEle().letter
+                num1 = randEle().number
+                num2 = randEle().number
+                var returnsentence = randEle().letter + num1 + num2
+                var toAddFunction = function(v1, v2){return v1 + v2}
+                window.dynamicCalculator("add", toAddFunction , letter)
+                expect(window.dynamicCalculator(letter, 1,  2)).toEqual(1 + 2)
+            })
+
+        })
+    }
+
+    runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

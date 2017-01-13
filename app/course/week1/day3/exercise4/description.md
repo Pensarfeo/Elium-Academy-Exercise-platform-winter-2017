@@ -18,7 +18,6 @@ var obj = {a: 1, b: 2, d: 4}
 var map = {a: true, b: false}
 
 var newObje = insideOut(obj, map)
-// => "improperly formatted swapping map"
 // {1: "a", b: 2, d: 4}
 
 ```

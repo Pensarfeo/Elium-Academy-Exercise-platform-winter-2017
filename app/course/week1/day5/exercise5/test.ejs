@@ -1,0 +1,25 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var flatten = window.flatten
+    describe( 'flatten should:',  ()=>{
+
+        it('flatten an arry no matter how nested', () => {
+            expect(flatten([1,2,3, [2,3,4,[3,4]], [2,[[[4]]]]])).toEqual([1,2,3,2,3,4,3,4,2,4])
+            expect(flatten([[1, 2, 3], [4, 5]])).toEqual([1, 2, 3, 4, 5])
+            expect(flatten([[[1, [1.1]], 2, 3], [4, 5]])).toEqual([1, 1.1, 2, 3, 4, 5])
+            expect(flatten(["2", "ss", "er", "sdf"])).toEqual(["2", "ss", "er", "sdf"])
+            expect(flatten([[[[[[[[[[[[[1]]]]]]]]]]]]])).toEqual([1])
+            expect(flatten([[[1,{a: "a"}], ""],[[],["aloa"]]])).toEqual( [ 1, { a: 'a' }, '', 'aloa' ])
+
+
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

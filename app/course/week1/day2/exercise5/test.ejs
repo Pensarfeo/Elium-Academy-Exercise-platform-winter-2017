@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    const runTest = function(){
+        function randEle(){
+            const possibleLetters="ABCDEFGHIJKLMNOPQRSTUVWXYZbcdefghijklmnopqrstuvwxyz+_)(*&^%$#@!~"
+            return {letter: possibleLetters[Math.floor(Math.random()*64)], number: Math.ceil(Math.random()*100)}
+        }
+
+        describe( 'Return last property',  ()=>{
+            it('last operation should be defined and it should be a function', () => {
+                expect(window.last).toBeDefined()
+                expect(typeof window.last).toEqual("function")
+            })
+
+            it('last should take exactly one argument', () => {
+                expect(window.last.length).toEqual(1)
+            })
+
+            it('last should return something', () => {
+                const {number, letter} = randEle()
+                expect(window.last({a: 1, b: 2})).not.toBeUndefined()
+            })
+
+            it('last add a property to the object', () => {
+                const num1    = randEle().number
+                const letter1 = randEle().letter
+
+                const num2    = randEle().number
+                const letter2 = randEle().letter
+
+                const num3    = randEle().number
+                const letter3 = randEle().letter
+
+                let obj = {[letter1]: num1, [letter2]: num2, [letter3]: num3}
+                expect(window.last(obj)).toEqual({[letter3]: num3})
+
+            })
+
+        })
+    }
+
+    runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

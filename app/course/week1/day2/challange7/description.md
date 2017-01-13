@@ -4,7 +4,7 @@ write a function called calculator that takes 3 arguments: a string with the nam
 
 ```jsx
 Calculator("sum", 1, 2) // 3
-Calculator("multipy", 1, 2) // 2
+Calculator("multiply", 1, 2) // 2
 Calculator("subtract", 1, 2) // -1
 Calculator("divide", 1, 2) // 0.5
 ```

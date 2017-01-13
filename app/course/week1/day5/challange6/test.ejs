@@ -1,0 +1,52 @@
+<script type="text/javascript">
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return ~a.indexOf(i) && !~["randEle", "randObj", "toReactRender"].indexOf(i)});
+    };
+
+    var totDeffStuff = Object.keys(window)
+</script>
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var newDeffStuff = Object.keys(window)
+
+    describe( 'BanckAccount should:',  ()=>{
+    var bankAccount = window.bankAccount
+        beforeAll(()=>{
+
+        })
+
+        it('only 4 functions should be defined', () => {
+            console.log(newDeffStuff.diff(totDeffStuff))
+            var definedStuff = newDeffStuff.length - totDeffStuff.length
+            if (definedStuff = 7){ definedStuff -= 3}
+            expect(definedStuff).toEqual(4)
+        })
+        it('should be able to withdraw and deposit and return the total balance if asked', () => {
+            bankAccount()
+            window.withdraw(2)
+            window.withdraw(5)
+            window.deposit(4)
+            window.deposit(1)
+            var balanace = window.balanace
+            expect(window.balance()).toEqual(-2)
+
+            deposit(4)
+            deposit(1)
+            expect(window.balance()).toEqual(3)
+
+            bankAccount()
+            window.withdraw(10)
+            window.deposit(100)
+            var balanace = window.balanace 
+            expect(window.balance()).toEqual(90)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

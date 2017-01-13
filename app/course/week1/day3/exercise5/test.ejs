@@ -1,0 +1,61 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    const genTestObjs = function(){
+        const ns = []
+        const ls = []
+        const length = Math.ceil(Math.random()*2) + 3
+        const start = Math.floor(Math.random()*length)
+        const nselect = Math.ceil(Math.random()*(length - start + 1))
+
+        for(i=0; i < length; i++){
+            ns.push(randEle().number)
+            ls.push(randEle().letter)
+        }
+        let notlastEmpty = true
+        ret = {obj: {}, start , nselect , section: {}, noLast: {}}
+        ls.map((ele, i)=>{
+            ret["obj"][ele] = ns[i]
+            if(i >= start && i<= start + nselect - 1) ret["section"][ele] = ns[i]
+            if(i >= start && notlastEmpty) {
+                ret["section"][ele] = ns[i]
+                notlastEmpty = false
+            }
+        })
+
+        return ret
+    }
+    describe( 'Slice an object expect: ',  ()=>{
+        it("slice will return sections of an object in the range defined", () => {
+            var {obj, start, nselect, section} = genTestObjs()
+            expect(window.insideOut(obj, start, nselect)).toEqual(section)
+
+            var {obj, start, nselect, section} = genTestObjs()
+            expect(window.insideOut(obj, start, nselect)).toEqual(section)
+
+            var {obj, start, nselect, section} = genTestObjs()
+            expect(window.insideOut(obj, start, nselect)).toEqual(section)
+
+        })
+
+        it("slice with 0 ast third arugment will return an empty object", () => {
+            const {obj, start, section} = genTestObjs()
+            expect(window.insideOut(obj, start, 0)).toEqual({})
+            expect(window.insideOut(obj, start, 0)).toEqual({})
+            expect(window.insideOut(obj, start, 0)).toEqual({})
+
+        })
+
+        it("slice with no third arugument will return only one property", () => {
+            const {obj, start, noLast} = genTestObjs()
+            expect(window.insideOut(obj, start)).toEqual(noLast)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

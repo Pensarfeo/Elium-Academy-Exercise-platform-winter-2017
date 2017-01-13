@@ -1,0 +1,28 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var encrypt = window.encrypt
+    var decrypt = window.decrypt
+    describe( 'Chypher shuold:',  ()=>{
+        it('be able to encryp and a string to an unreadable text and decrypt it back', () => {
+            var message = "hello class, how are you? this text is going to be encripted in few seconds"
+            var encryption = encrypt(message)
+            expect(decrypt(encryption)).toEqual(message)
+
+            var message = "thi is an other message that should be coded."
+            var encryption = encrypt(message)
+            expect(decrypt(encryption)).toEqual(message)
+
+            var message = "what? yes, yet an other."
+            var encryption = encrypt(message)
+            expect(decrypt(encryption)).toEqual(message)
+
+        })
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

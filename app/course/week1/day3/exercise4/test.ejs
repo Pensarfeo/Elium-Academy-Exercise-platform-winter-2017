@@ -1,0 +1,73 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+    let lastCLog
+    const oldcLog = console.log
+    console.log = function (...arg){
+        lastCLog = arg.slice(-1)[0]
+        oldcLog(...arg)
+    }
+</script>
+<script type="text/javascript">
+const runTest = function(){
+    const genTestObjs = function(){
+        const ns = []
+        const ls = []
+        const length = Math.ceil(Math.random()*2) + 3
+        for(i=0; i < length; i++){
+            ns.push(randEle().number)
+            ls.push(randEle().letter)
+        }
+        ret = {obj: {}, jbo: {}, swap: {}}
+        ls.map((ele, i)=>{
+            ret["obj"][ele] = ns[i]
+        })
+        ls.map((ele, i)=>{
+            ret["swap"][ele] = (ns[i] < length/2) 
+        })
+        ls.map((ele, i)=>{
+            (ns[i] < length/2) ?
+                (ret["jbo"][ns[i]] = ele) :
+                ret["jbo"][ele] =  ns[i]
+        })
+
+        return ret
+    }
+    describe( 'Better insideout expect: ',  ()=>{
+
+        it('insideOut function to be defined and it should be a function', () => {
+            expect(window.insideOut).toBeDefined()
+            expect(typeof window.insideOut).toEqual("function")
+        })
+
+        it('insideOut should take exactly two arguments', () => {
+            expect(window.insideOut.length).toEqual(2)
+        })
+
+        it('if one of the values of the second arguments is not a boolean it should print \"improperly formatted swapping map\"', () => {
+            window.insideOut({}, {a: 1})
+            expect(lastCLog).toEqual("improperly formatted swapping map")
+            window.insideOut({}, {a: "true"},  true)
+            expect(lastCLog).toEqual("improperly formatted swapping map")
+        })
+
+        it('if one of the values of the second arguments is not a boolean it should not swap anything', () => {
+            const {obj, jbo, swap} = genTestObjs()
+
+            expect(window.insideOut(obj, {a: function(){}})).toBeUndefined()
+            expect(window.insideOut(obj, {a: ""})).toBeUndefined()
+        })
+
+        it('check swaping works', () => {
+            const {obj, jbo, swap} = genTestObjs()
+            
+            expect(window.insideOut(obj, swap)).toEqual(jbo)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

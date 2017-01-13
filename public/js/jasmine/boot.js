@@ -144,12 +144,16 @@ const JasmineBoot = function() {
      */
     var currentWindowOnload = window.onload;
 
+    exercuteTest = function() {
+        htmlReporter.initialize();
+        env.execute();
+    }
+
     window.onload = function() {
         if (currentWindowOnload) {
             currentWindowOnload();
         }
-        htmlReporter.initialize();
-        env.execute();
+        exercuteTest()
     };
 
     /**
@@ -161,4 +165,5 @@ const JasmineBoot = function() {
     }
 
 }
+var exercuteTest
 JasmineBoot()

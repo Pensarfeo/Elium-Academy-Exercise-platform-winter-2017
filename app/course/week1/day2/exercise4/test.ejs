@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    const runTest = function(){
+        function randEle(){
+            const possibleLetters="ABCDEFGHIJKLMNOPQRSTUVWXYZbcdefghijklmnopqrstuvwxyz+_)(*&^%$#@!~"
+            return {letter: possibleLetters[Math.floor(Math.random()*64)], number: Math.ceil(Math.random()*100)}
+        }
+
+
+        describe( 'Exchange values with keys',  ()=>{
+            beforeEach(function() {
+                jasmine.addCustomEqualityTester(
+                    function(a, b){
+                        if(typeof b === "object"){
+                            let out = true
+                            for(key in a) {
+                                out = out && a[key] == b[key]
+                            }
+                            return out
+                        }
+                    }
+                );
+            });
+            it('insideOut operation should be defined and it should be a function', () => {
+                expect(window.insideOut).toBeDefined()
+                expect(typeof window.insideOut).toEqual("function")
+            })
+
+            it('insideOut should take exactly one argument', () => {
+                expect(window.insideOut.length).toEqual(1)
+            })
+
+            it('insideOut should return nothing', () => {
+                const {number, letter} = randEle()
+                expect(window.insideOut({a: 1, b: 2})).not.toBeUndefined()
+            })
+
+
+
+            it('insideOut add a property to the object', () => {
+
+
+                const num1    = randEle().number
+                const letter1 = randEle().letter
+
+                const num2    = randEle().number
+                const letter2 = randEle().letter
+
+                const num3    = randEle().number
+                const letter3 = randEle().letter
+
+                let obj = {[letter1]: num1, [letter2]: num2, [letter3]: num3}
+                expect(window.insideOut(obj)).toEqual({[num1]: letter1, [num2]: letter2, [num3]: letter3})
+
+            })
+
+        })
+    }
+
+    runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

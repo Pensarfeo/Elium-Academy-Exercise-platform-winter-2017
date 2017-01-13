@@ -1,12 +1,27 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
 <script type="text/javascript">
 const runTest = function(){
-    describe( 'Exericise 1',  ()=>{
-        it('myClass variable should be defined', () => {
-            expect(window.myClass).toBeDefined()
+    var accumulator = window.accumulator
+    var collector = window.collector
+    describe( 'Accumulator should:',  ()=>{
+        it('accumulate a few values in an array defined as collector', () => {
+            accumulator(1)
+            accumulator(2)
+            accumulator(5)
+            accumulator(4)
+            accumulator(1)
+            expect( collector ).toEqual([1,2,5,4,1])
+
+            accumulator("a")
+            accumulator("b")
+            accumulator("h")
+            accumulator("e")
+            accumulator("l")
+            expect( collector ).toEqual([1, 2, 5, 4, 1, "a", "b", "h", "e", "l"])
+
+
         })
-        it('myClass should be an object', () => {
-            expect(typeof window.myClass).toBe("object")
-        })
+
     })
 }
 

@@ -8,7 +8,6 @@ const toReactRender = function() {
             } else {
                 this.state = { list: {}}
             }
-            debugger;
             this.handleSelect = this.handleSelect.bind(this)
         }
         handleSelect(event){

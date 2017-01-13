@@ -1,0 +1,38 @@
+<script type="text/javascript">
+const runTest = function(){
+    describe( 'Add to Object',  ()=>{
+        it('modifyObject operation should be defined and it should be a function', () => {
+            expect(window.modifyObject).toBeDefined()
+            expect(typeof window.modifyObject).toEqual("function")
+        })
+
+        it('modifyObject should take exactly three arguments', () => {
+            expect(window.modifyObject.length).toEqual(3)
+        })
+
+        it('modifyObject should return nothing', () => {
+            const {number, letter} = randEle()
+            expect(window.modifyObject({}, letter,  number)).toBeUndefined()
+        })
+
+
+        it('modifyObject add a property to the object', () => {
+            let {number, letter} = randEle()
+            let obj = {}
+            window.modifyObject(obj, letter,  number)
+            expect(obj).toEqual({[letter]: number})
+
+            const num1    = randEle().number
+            const letter1 = randEle().letter
+            window.modifyObject(obj, letter1,  num1)
+            expect(obj).toEqual({[letter1]: num1, [letter]: number})
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>
