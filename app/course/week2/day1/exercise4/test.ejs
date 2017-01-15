@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return ~a.indexOf(i) && !~["randEle", "randObj", "toReactRender"].indexOf(i)});
+    };
+
+    var totDeffStuff = Object.keys(window)
+</script>
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var newDeffStuff = Object.keys(window)
+
+    describe( 'Universe with objects should:',  ()=>{
+    var Universe = window.Universe
+        it('only 1 object should be defined', () => {
+            var definedStuff = newDeffStuff.length - totDeffStuff.length
+            if (definedStuff === 4){ definedStuff = 1}
+            expect(definedStuff).toEqual(1)
+            expect(typeof Universe).toEqual("object")
+        })
+
+        it('add or destrong energy and matter but keeing the difference between the to constan', () => {
+            Universe.Energy.destroy(2)
+            Universe.Energy.create(5)
+            Universe.Matter.create(4)
+            Universe.Matter.create(3)
+            expect(Universe.Energy.total()).toEqual(tot)
+
+            var tot = Universe.Energy.total()
+            Universe.Energy.destroy(2)
+            Universe.Energy.create(5)
+            Universe.Matter.destroy(4)
+            Universe.Matter.destroy(20)
+            expect(Universe.Matter.total()).toEqual(tot)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

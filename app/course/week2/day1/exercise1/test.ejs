@@ -1,12 +1,50 @@
 <script type="text/javascript">
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return ~a.indexOf(i) && !~["randEle", "randObj", "toReactRender"].indexOf(i)});
+    };
+
+    var totDeffStuff = Object.keys(window)
+</script>
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
 const runTest = function(){
-    describe( 'Exericise 1',  ()=>{
-        it('myClass variable should be defined', () => {
-            expect(window.myClass).toBeDefined()
+    var newDeffStuff = Object.keys(window)
+
+    describe( 'BanckAccount with objects should:',  ()=>{
+    var bankAccount = window.bankAccount
+        it('only 1 object should be defined', () => {
+            var definedStuff = newDeffStuff.length - totDeffStuff.length
+            if (definedStuff === 4){ definedStuff = 1}
+            expect(definedStuff).toEqual(1)
+            expect(typeof bankAccount).toEqual("object")
         })
-        it('myClass should be an object', () => {
-            expect(typeof window.myClass).toBe("object")
+
+        it('should be able to withdraw and deposit and return the total balance if asked', () => {
+            bankAccount.withdraw(2)
+            bankAccount.withdraw(5)
+            bankAccount.deposit(4)
+            bankAccount.deposit(1)
+            expect(bankAccount.balance).toEqual(-2)
+
+            bankAccount.deposit(4)
+            bankAccount.deposit(1)
+            expect(bankAccount.balance).toEqual(3)
         })
+
+        it('be able to reset the account', () => {
+            bankAccount.withdraw(20)
+            bankAccount.withdraw(50)
+            bankAccount.clear()
+            expect(bankAccount.balance).toEqual(0)
+        })
+
+
+        it('be able to set the account to an arbitrary valye', () => {
+            bankAccount.set("hello:)")
+            expect(bankAccount.balance).toEqual("hello:)")
+        })
+
+
     })
 }
 

@@ -1,0 +1,53 @@
+<script type="text/javascript">
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return ~a.indexOf(i) && !~["randEle", "randObj", "toReactRender"].indexOf(i)});
+    };
+
+    var totDeffStuff = Object.keys(window)
+</script>
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var newDeffStuff = Object.keys(window)
+
+    describe( 'BanckAccount with constructor should:',  ()=>{
+    var bankAccount = window.bankAccount
+        it('only 1 object should be defined', () => {
+            var definedStuff = newDeffStuff.length - totDeffStuff.length
+            if (definedStuff === 4){ definedStuff = 1}
+            expect(definedStuff).toEqual(1)
+            expect(typeof bankAccount).toEqual("function")
+        })
+
+        it('be able to withdraw and deposit and return the total balance if asked', () => {
+            var account = new bankAccount()
+            account.withdraw(2)
+            account.withdraw(5)
+            account.deposit(4)
+            account.deposit(1)
+            expect(account.balance).toEqual(-2)
+
+            var account = new bankAccount()
+            account.withdraw(2)
+            account.withdraw(5)
+            account.deposit(4)
+            account.deposit(20)
+            expect(account.balance).toEqual(17)
+        })
+
+        it('withdraw and deposit should be in the prototype of bankAccount', () => {
+            expect(bankAccount.prototype.withdraw).toBeDefined()
+            expect(bankAccount.prototype.deposit).toBeDefined()
+
+            expect(typeof bankAccount.prototype.withdraw).toEqual('function')
+            expect(typeof bankAccount.prototype.deposit).toEqual('function')
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

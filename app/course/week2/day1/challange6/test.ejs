@@ -1,0 +1,113 @@
+<script type="text/javascript">
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return ~a.indexOf(i) && !~["randEle", "randObj", "toReactRender"].indexOf(i)});
+    };
+
+    var totDeffStuff = Object.keys(window)
+</script>
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    describe( 'Banck Server should:',  ()=>{
+        var serverInstance
+        var id1
+        var id2
+        var id3
+        var id4
+        var tot1
+        var tot2
+        var tot3
+
+        it('be able to be created', () => {
+            serverInstance = new Server
+            expect(serverInstance.__proto__.constructor.name).toEqual("Server")
+        })
+
+        it('be able to create new accounts', () => {
+            [id1, tot1] = serverInstance.router("/account/new").match(/-?\d+/g);
+            [id2, tot2] = serverInstance.router("/account/new/10").match(/-?\d+/g);
+            [id3, tot3] = serverInstance.router("/account/new/-3").match(/-?\d+/g);
+
+            expect(id1 !== id2 && id2 !== id3 && id1 !== id3 ).toEqual(true)
+            expect(tot1).toEqual("0")
+            expect(tot2).toEqual("10")
+            expect(tot3).toEqual("-3")
+        })
+
+        it('be able to withdraw from independet accounts', () => {
+            var transaction1 = serverInstance.router("/"+id1+"/withdraw/4").match(/-?\d+/g);
+            var transaction2 = serverInstance.router("/"+id2+"/withdraw/3").match(/-?\d+/g);
+            var transaction3 = serverInstance.router("/"+id3+"/withdraw/-8").match(/-?\d+/g);
+            
+            expect(transaction1[0]).toEqual("4")
+            expect(transaction2[0]).toEqual("3")
+            expect(transaction3[0]).toEqual("-8")
+
+            expect(transaction1[1]).toEqual(id1)
+            expect(transaction2[1]).toEqual(id2)
+            expect(transaction3[1]).toEqual(id3)
+        })
+
+        it('be able to deposit in independet accounts', () => {
+            var transaction1 = serverInstance.router("/"+id1+"/deposit/30").match(/-?\d+/g);
+            var transaction2 = serverInstance.router("/"+id2+"/deposit/16").match(/-?\d+/g);
+            var transaction3 = serverInstance.router("/"+id3+"/deposit/96").match(/-?\d+/g);
+            
+            expect(transaction1[0]).toEqual("30")
+            expect(transaction2[0]).toEqual("16")
+            expect(transaction3[0]).toEqual("96")
+
+            expect(transaction1[1]).toEqual(id1)
+            expect(transaction2[1]).toEqual(id2)
+            expect(transaction3[1]).toEqual(id3)
+
+        })
+
+        it('be able to get a balance for each account', () => {
+            var transaction1 = serverInstance.router("/"+id1+"/balance").match(/-?\d+/g)
+            var transaction2 = serverInstance.router("/"+id2+"/balance").match(/-?\d+/g)
+            var transaction3 = serverInstance.router("/"+id3+"/balance").match(/-?\d+/g)
+
+            expect(transaction1[1]).toEqual("26")
+            expect(transaction2[1]).toEqual("23")
+            expect(transaction3[1]).toEqual("101")
+
+            expect(transaction1[0]).toEqual(id1)
+            expect(transaction2[0]).toEqual(id2)
+            expect(transaction3[0]).toEqual(id3)
+        })
+
+        it('be able to destroy accounts', () => {
+            var transaction1 = serverInstance.router("/"+id1+"/delete").match(/-?\d+/g)
+            var transaction3 = serverInstance.router("/"+id3+"/delete").match(/-?\d+/g)
+
+            expect(transaction1[0]).toEqual(id1)
+            expect(transaction3[0]).toEqual(id3)
+        })
+
+        it('to not do anything on deleted accounts', () => {
+
+            expect(serverInstance.router("/"+id1+"/deposit") ).toEqual("Account not found")
+            expect(serverInstance.router("/"+id3+"/deposit") ).toEqual("Account not found")
+
+            expect(serverInstance.router("/"+id1+"/deposit") ).toEqual("Account not found")
+            expect(serverInstance.router("/"+id3+"/deposit") ).toEqual("Account not found")
+
+            expect(serverInstance.router("/"+id1+"/balance") ).toEqual("Account not found")
+            expect(serverInstance.router("/"+id3+"/balance") ).toEqual("Account not found")
+
+        })
+
+        it('be able to create new accounts winth unique ids', () => {
+            var newAccount1 = serverInstance.router("/account/new").match(/-?\d+/g);
+            expect([id1, id2, id3].includes(newAccount1[0])  ).toEqual(false)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

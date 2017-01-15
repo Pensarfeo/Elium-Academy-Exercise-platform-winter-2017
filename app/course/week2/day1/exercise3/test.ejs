@@ -1,0 +1,97 @@
+<script type="text/javascript">
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return ~a.indexOf(i) && !~["randEle", "randObj", "toReactRender"].indexOf(i)});
+    };
+
+    var totDeffStuff = Object.keys(window)
+</script>
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var newDeffStuff = Object.keys(window)
+
+    describe( 'BanckAccount with constructor and default should:',  ()=>{
+    var bankAccount = window.bankAccount
+        it('only 1 object should be defined', () => {
+            var definedStuff = newDeffStuff.length - totDeffStuff.length
+            if (definedStuff === 4){ definedStuff = 1}
+            expect(definedStuff).toEqual(1)
+            expect(typeof bankAccount).toEqual("function")
+        })
+
+        it('be able to withdraw and deposit and return the total balance if asked', () => {
+            var account = new bankAccount(10)
+            account.withdraw(2)
+            account.withdraw(5)
+            account.deposit(4)
+            account.deposit(1)
+            expect(account.balance).toEqual(8)
+
+            var account = new bankAccount(-10)
+            account.withdraw(2)
+            account.withdraw(5)
+            account.deposit(4)
+            account.deposit(20)
+            expect(account.balance).toEqual(7)
+        })
+
+        it('the initial ammount should default to 0', () => {
+            var account = new bankAccount()
+            account.withdraw(2)
+            account.withdraw(5)
+            account.deposit(4)
+            account.deposit(1)
+            expect(account.balance).toEqual(-2)
+
+            var account = new bankAccount()
+            account.withdraw(2)
+            account.withdraw(5)
+            account.deposit(4)
+            account.deposit(20)
+            expect(account.balance).toEqual(17)
+        })
+
+        it('withdraw and deposit should be in the prototype of bankAccount', () => {
+            expect(bankAccount.prototype.withdraw).toBeDefined()
+            expect(bankAccount.prototype.deposit).toBeDefined()
+
+            expect(typeof bankAccount.prototype.withdraw).toEqual('function')
+            expect(typeof bankAccount.prototype.deposit).toEqual('function')
+        })
+
+        it('keep track of the total at after new is called', () => {
+            var account = new bankAccount()
+            expect(Object.getOwnPropertyNames(account).length).toEqual(1)
+        })
+
+        it('withdraw and balance should use this for accesing the balance', () => {
+            var account = new bankAccount()
+            var localBA = function(val){
+                this[Object.getOwnPropertyNames(account)] = val || 0
+            } 
+            localBA.prototype["withdraw"] = bankAccount.prototype.withdraw
+            localBA.prototype["deposit"] = bankAccount.prototype.deposit
+
+            var localA = new localBA(10)
+            localA.withdraw(2)
+            localA.withdraw(5)
+            localA.deposit(4)
+            localA.deposit(1)
+            expect(localA.balance).toEqual(8)
+
+            var localA = new localBA()
+            localA.withdraw(2)
+            localA.withdraw(5)
+            localA.deposit(4)
+            localA.deposit(20)
+            expect(localA.balance).toEqual(17)
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

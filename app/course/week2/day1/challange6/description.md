@@ -1,41 +1,49 @@
 #### Simple Server
 
-A server is a function that returns resources on each request; which can be nothing more than a simple function call.
-Continuing Exercise 3 create a simple server for creating bank accounts. Added to the old functions the server needs to have a ```createAccount``` function that returns an id to use to adentify the client and a ```destroyAccount``` function that returns nothing but deletes the reference to the user from our memory. The all methods now have to take one additional argument, that is the id of the account, to only operate on the correct account. Finally if these argument is not passed then the transaction will be refused.
+A server is a function that returns resources on each request; particularly web servers expect instructions in the form of strings; that are usually called URL. The server has only one method called router, that takes care of analizing the URL and called the appropriate method.
+Use the ```createAccount``` class constructor with its associated methods you defined in execise 3 to create a server that allows you to do all the bank account operations plus keep track of multiple accounts at the same time.
+To succeffully pass the test you should make use of the following API
 
-Example:
+---
+**API**
+
+URL (String)                  | return (String)                                  | comments
+-                             | -                                                | -
+/account/new/:ammount         | account nr :accountID create with :ammount euros | It must unique, no matter the number of calls
+/:accountID/withdraw/:ammount | :ammount euros taken from account nr :accountID  | if :accountID not found return "Account not found"
+/:accountID/deposit/:ammount  | :ammount euros added to account nr :accountID    | if :accountID not found return "Account not found"
+/:accountID/balance           | The balance of account nr :accountID is ## euros | if :accountID not found return "Account not found"
+/:accountID/delete            | Account nr :accountID deleted                    | if :accountID not found return "Account not found"
+/*                            | 404 resource not found                           | what to do in case we match to anything else
+
+**Example:**
 ```jsx
+
 serverInstance = new Server()
 
 // we can create an arbitrary number of accounts
-userId = serverInstance.createAccount(5) // 1
-userId2 = serverInstance.createAccount() // 2
-
+userId = serverInstance.router("/account/new/10") // account nr 1 create with 10 euros
+userId2 = serverInstance.router("/account/new/0") // account nr 2 create with 0 euros
 
 // we can operate on each accoun independently
-serverInstance.withdraw(2, userId)  // 2 euros taken from account nr 1
-serverInstance.withdraw(5, userId)  // 5 euros taken from account nr 1
+serverInstance.router("/1/withdraw/2")  // 2 euros taken from account nr 1
+serverInstance.router("/2/withdraw/5")  // 5 euros taken from account nr 2
 
-serverInstance.withdraw(2, userId2)  // 2 euros taken from account nr 2
-serverInstance.withdraw(5, userId2)  // 5 euros taken from account nr 2
+serverInstance.router("/1/deposit/2")  // 2 euros added to account nr 1
+serverInstance.router("/2/deposit/8")  // 5 euros added to account nr 2
 
+serverInstance.router("/1/balance")  // The balance of account nr 1 is 10 euros
+serverInstance.router("/2/balance")  // The balance of account nr 2 is 3 euros
 
-serverInstance.deposit(4, userId)  // 4 euros taken from account nr 1
-serverInstance.deposit(1, userId)  // 1 euros taken from account nr 1
+//we should be able to destroy accounts
+serverInstance.router("/2/delete") // Account nr 2 deleted
 
-serverInstance.balance(userId)  // your balance is: -2 euros
-serverInstance.balance(userId2)  // your balance is: -7 euros
+serverInstance.router("/1/balance")  // The balance of account nr 1 is 10 euros
+serverInstance.router("/2/balance")  // Account not found
 
-// If the account is closed no transaction for that account will be allowed
-userId2 = serverInstance.destroyAccount(userId2) // Account with nr 2 closed
+// we can keep creating accounts allways with unique ids
+userId = serverInstance.router("/account/new/10") // account nr 3 create with 10 euros
 
-serverInstance.balance(10, userId2) // Account not found
-serverInstance.withdraw(2, userId2) // Account not found
-
-serverInstance.withdraw(5, userId)  // 5 euros taken from account nr 1
-
-// new accounts will allways have a growing id and never repeated even if a previous account with that id was deleted.
-userId3 = serverInstance.createAccount() // 3
 ```
 
 

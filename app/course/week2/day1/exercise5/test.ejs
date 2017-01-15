@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return ~a.indexOf(i) && !~["randEle", "randObj", "toReactRender"].indexOf(i)});
+    };
+
+    var totDeffStuff = Object.keys(window)
+</script>
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    var newDeffStuff = Object.keys(window)
+
+    describe( 'Universe with objects should:',  ()=>{
+    var protouniverse = window.protouniverse
+        it('only 1 object should be defined', () => {
+            var definedStuff = newDeffStuff.length - totDeffStuff.length
+            if (definedStuff === 4){ definedStuff = 1}
+            expect(definedStuff).toEqual(1)
+            expect(typeof protouniverse).toEqual("function")
+        })
+
+        it('add or destrong energy and matter but keeing the difference between the to constan', () => {
+            var Universe1 = new protouniverse
+            var Universe2 = new protouniverse
+
+            Universe1.destroy("energy", 2)
+            Universe2.create("energy", 2)
+
+            Universe1.create("matter", 4)
+            Universe2.create("matter", 3)
+
+            Universe1.destroy("energy", 2)
+            Universe2.create("energy", 2)
+
+            Universe1.create("matter", 3)
+            Universe2.destroy("energy", 2)
+
+            Universe1.create("matter", 4)
+            Universe2.create("matter", 3)
+
+            expect(Universe1.total("energy")).toEqual(7)
+            expect(Universe2.total("energy")).toEqual(8)
+
+            expect(Universe1.total("matter")).toEqual(-7)
+            expect(Universe2.total("matter")).toEqual(-8)
+
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

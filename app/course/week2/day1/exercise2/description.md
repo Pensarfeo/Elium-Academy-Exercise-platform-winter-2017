@@ -4,10 +4,10 @@ Write an object constructor function, called bank account, which has at least 3 
 Example:
 
 ```jsx
-var account = new bankAccount
+var account = new bankAccount(100)
 account.withdraw(2)
 account.withdraw(5)
 account.deposit(4)
 account.deposit(1)
-account.balance() // -2
+account.balance() // 98
 ```

@@ -88,27 +88,168 @@ const runTest = function(){
         })
 
         it('it accept a condition function ', () => {
+            window.schema = {
+                height: {condition: function(obj){ return obj.height === 0}},
+                "number of arms": {type: "number", default: 10}
+            }
+
+            model("add", {height: 1, "number of arms": 23})
+            expect( DB[0] ).toEqual({"number of arms": 23})
+
+            model("add", {height: 0})
+            expect( DB[1] ).toEqual({height: 0, "number of arms": 10})
         })
 
         it('it should update one record if found', () => {
+            window.schema = {
+                "number of arms": {type: "number", default: 10},
+                "name": {type: "string", default: "pedro"}
+            }
+
+            model("add",    {height: 1, "number of arms": 23})
+            model("update", {"number of arms": 23} , {name: "Pedro Antonio Favuzzi"})
+            expect( DB[0] ).toEqual({"number of arms": 23, name: "Pedro Antonio Favuzzi"})
+
+            model("add",    {height: 1, "number of arms": 1})
+            model("update", {"name": "pedro"} , {name: "Juan David"})
+            expect( DB[1] ).toEqual({"number of arms": 1, name: "Juan David"})
+
         })
 
         it('it should update nothing if nothing is found', () => {
+           window.schema = {
+                "number of arms": {type: "number", default: 10},
+                "name": {type: "string", default: "pedro"}
+            }
+
+            model("add",    {height: 1, "number of arms": 23})
+            model("update", {"name": "asdf" } , {name: "Pedro Antonio Favuzzi"})
+            expect( DB[0] ).toEqual({"number of arms": 23, name: "pedro"})
+
+            model("add",    {height: 1, "number of arms": 1})
+            model("update", {"number of arms": 100} , {name: "Juan David"})
+            expect( DB[1] ).toEqual({"number of arms": 1, name: "pedro"})
         })
 
 
         it('it should update more records if found', () => {
+           window.schema = {
+                "number of arms": {type: "number", default: 10},
+                "name": {type: "string", default: "pedro"}
+            }
+
+            model("add",    {height: 1, "number of arms": 23})
+            model("add",    {height: 1, "number of arms": 1})
+
+            model("update", {"name": "pedro" } , {name: "Pedro Antonio Favuzzi"})
+            expect( DB[0] ).toEqual({"number of arms": 23, name: "Pedro Antonio Favuzzi"})
+            expect( DB[1] ).toEqual({"number of arms": 1, name: "Pedro Antonio Favuzzi"})
         })
+
+        it('it should update conditionally', () => {
+           window.schema = {
+                height: {condition: function(obj){return obj.height > 10 && obj.height < 20}},
+                "number of arms": {type: "number", default: 10},
+                "name": {type: "string", default: "pedro"}
+            }
+
+            model("add",    {height: 15, "number of arms": 23})
+            model("add",    {height: 19, "number of arms": 1})
+
+            model("update", {"number of arms": 23 } , {height: 16})
+            expect( DB[0] ).toEqual({"number of arms": 23, height: 16 , name: "pedro"})
+
+            model("update", {"number of arms": 1 } , {height: 20})
+            expect( DB[1] ).toEqual({"number of arms": 1, height: 19 , name: "pedro"})
+
+            model("update", {"name": "pedro" } , {height: 19})
+            expect( DB[0] ).toEqual({"number of arms": 23, height: 19 , name: "pedro"})
+            expect( DB[1] ).toEqual({"number of arms": 1, height: 19 , name: "pedro"})
+
+            model("update", {"name": "pedro" } , {height: 25})
+            expect( DB[0] ).toEqual({"number of arms": 23, height: 19 , name: "pedro"})
+            expect( DB[1] ).toEqual({"number of arms": 1, height: 19 , name: "pedro"})
+        })
+
 
         it('it should delete a record if found', () => {
-        })
+           window.schema = {
+                "number of arms": {type: "number", default: 10},
+                "name": {type: "string", default: "pedro"}
+            }
+
+            model("add",    {height: 1, "number of arms": 23})
+            model("add",    {height: 1, "number of arms": 1})
+            model("add",    {height: 1, "number of arms": 2})
+            model("add",    {height: 1, "number of arms": 3})
+            model("add",    {height: 1, "number of arms": 4})
+            model("add",    {height: 1, "number of arms": 5})
+            model("add",    {height: 1, "number of arms": 1})
+
+            model("delete", {"number of arms": 23 })
+            model("delete", {"number of arms": 5 })
+            model("delete", {"number of arms": 4 })
+
+            expect( DB.length ).toEqual(4)
+
+            model("add",    {height: 1, "number of arms": 5})
+            model("add",    {height: 1, "number of arms": 1})
+            model("delete", {"number of arms": 5 } )
+
+            expect( DB.length ).toEqual(5)
+
+            model("delete", {"height": 1 })
+            expect( DB.length ).toEqual(5)
+
+         })
 
         it('it should delete nothing if nothing is found', () => {
+            model("add",    {height: 1, "number of arms": 23})
+            model("add",    {height: 1, "number of arms": 1})
+            model("add",    {height: 1, "number of arms": 2})
+            model("add",    {height: 1, "number of arms": 3})
+            model("add",    {height: 1, "number of arms": 4})
+            model("add",    {height: 1, "number of arms": 5})
+            model("add",    {height: 1, "number of arms": 1})
+
+            model("delete", {"number of arms": 1000 })
+            expect( DB.length ).toEqual(7)
         })
 
 
         it('it should delete multiple records if found', () => {
+            model("add",    {height: 1, "number of arms": 23})
+            model("add",    {height: 1, "number of arms": 1})
+            model("add",    {height: 1, "number of arms": 2})
+            model("add",    {height: 1, "number of arms": 3})
+            model("add",    {height: 1, "number of arms": 4})
+            model("add",    {height: 1, "number of arms": 5})
+            model("add",    {height: 1, "number of arms": 1})
+
+            model("delete", {"number of arms": 1 })
+            expect( DB.length ).toEqual(5)
         })
+
+
+        it('it should delete delete only if all the search properties match', () => {
+           window.schema = {
+                height: {condition: function(obj){return obj.height > 10 && obj.height < 20}},
+                "number of arms": {type: "number", default: 10},
+                "name": {type: "string", default: "pedro"}
+            }
+            model("add",    {height: 1, "number of arms": 23})
+            model("add",    {height: 1, "number of arms": 1})
+            model("add",    {height: 1, "number of arms": 2})
+            model("add",    {height: 1, "number of arms": 3})
+            model("add",    {height: 1, "number of arms": 4})
+            model("add",    {height: 12, "number of arms": 5})
+            model("add",    {height: 15, "number of arms": 1})
+
+            model("delete", {height: 15, "number of arms": 1})
+            expect( DB.length ).toEqual(6)
+            expect( DB[5] ).toEqual({height: 12, "number of arms": 5, name: "pedro"})
+        })
+
 
     })
 }

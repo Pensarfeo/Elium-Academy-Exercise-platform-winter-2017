@@ -1,24 +1,26 @@
 #### Universe with new
 
 Implement the previous exercise using a constructor function called universe. I this case whe should be able to initialize the initial a mmount of energy.
-Example:
+
+**Example:**
 
 ```jsx
 var protoUniverse = function universe (initialEnergy) {
     ...
 }
 
-universe = new protoUniverse(10)
+Universe = new protoUniverse(10)
 
-Universe.Matter.total() // -10
-Universe.Energy.total() // 10
+Universe.total("matter") // -10
+Universe.total("energy") // 10
 
-Universe.Matter.Destroy(5)
-Universe.Matter.total() // -15
-Universe.Energy.total() // 15
+Universe.destroy("matter", 5)
+Universe.total("matter") // -15
+Universe.total("energy") // 15
 
-
-Universe.Energy.destroy(-5)
-Universe.Matter.total() // -20
-Universe.Energy.total() // 20
+Universe.destroy("matter", 5)
+Universe.total("energy") // -20
+Universe.total("matter") // 20
 ```
+
+**Notes:** to succeffully accomplish the tests make sure to match the signs properly

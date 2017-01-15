@@ -10,5 +10,13 @@ bankAccount.withdraw(2)
 bankAccount.withdraw(5)
 bankAccount.deposit(4)
 bankAccount.deposit(1)
-bankAccount.balance() // -2
+bankAccount.balance // -2
+
+bankAccount.clear()
+bankAccount.balance // 0
+
+bankAccount.set(10)
+bankAccount.balance // 10
+
+
 ```
