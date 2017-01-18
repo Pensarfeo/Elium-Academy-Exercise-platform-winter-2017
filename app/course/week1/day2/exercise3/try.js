@@ -1,5 +1,4 @@
-let reactRender
-const toReactRender = function() {
+var toReactRender = function() {
     const definedfunction = window.modifyObject
     const modifyObject = window.modifyObject || function(){}
 

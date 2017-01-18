@@ -1,19 +1,19 @@
 #### Find by attribute
 
-Using jQuery find all the div elements with an attribute name that ends with 'tutorial' and set the background color yellow.
+Write a function called findbyAttr to find all the div elements with an attribute name that ends with 'tutorial' and set the background color yellow.
 
 Snippet:
 ```html
-<body>
-    <div  id="tutorial-php">
+<body id="exerciseTest">
+    <div id="tutorial-php">
         <p>PHP</p>
     </div>
-    <div   id="JAVAtutorial">
+    <div id="JAVAtutorial">
         <p>Java</p>
     </div>
-    <div  id="python-tutorial">
+    <div id="python-tutorial">
         <p>Python</p>
     </div>
-    <button  id="button1">Click to see the effect</button>
+    <button id="button1">Click to see the effect</button>
 </body
 ```

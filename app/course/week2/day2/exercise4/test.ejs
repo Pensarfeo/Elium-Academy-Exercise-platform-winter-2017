@@ -1,0 +1,46 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    describe( 'AddDiv should:',  ()=>{
+    var findbyAttr = window.findbyAttr
+        beforeEach(() => {
+            var testGround = $(".jasmine-testground")
+            testGround.append(`
+                <div id ="exerciseTest" style="display:none">
+                    <body>
+                        <div id="tutorial-php">
+                            <p>PHP</p>
+                        </div>
+                        <div id="JAVAtutorial">
+                            <p>Java</p>
+                        </div>
+                        <div id="python-tutorial">
+                            <p>Python</p>
+                        </div>
+                        <button id="button1">Click to see the effect</button>
+                    </body>
+                </div>
+            `)
+        })
+
+        it('be able to serch for the right elements with id attribute that ends in \'tutorial\' and change it background color', () => {
+            findbyAttr()
+            var found = 0
+            var testDiv = $("#exerciseTest")
+            testDiv.find("[id$='tutorial']").each(function(i, ele){
+                if ($(ele).css("backgroundColor") === "rgb(255, 255, 0)") { found +=1 }
+            })
+            expect(found).toEqual(2)
+        })
+
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>
+<div class="jasmine-testground" >
+</div>

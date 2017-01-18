@@ -1,5 +1,4 @@
-let reactRender
-const toReactRender = function() {
+var toReactRender = function() {
 
     var multiply = function (a, b) {
         return a * b

@@ -1,6 +1,6 @@
 #### Rollodex
-====
-#####In this project you will use Javascript, jQuery and Bootstrap and CSS styling to create a data entry system with a map feature and data persistence. It is a long project that will continue into your weekend if you have time over the weekend. This project has no test attached.
+
+In this project you will use Javascript, jQuery and Bootstrap and CSS styling to create a data entry system with a map feature and data persistence. It is a long project that will continue into your weekend if you have time over the weekend. This project has no test attached.
 
 ----
 

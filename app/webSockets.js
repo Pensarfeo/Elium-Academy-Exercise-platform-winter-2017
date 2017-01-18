@@ -1,6 +1,8 @@
 const chokidar = require("chokidar")
 const uglifyJS = require("uglify-js")
 const fs       = require("fs")
+const pathMod  = require('path')
+
 const {app, server} = requireConfig("server")
 
 // set websocketServer
@@ -25,7 +27,7 @@ const hotExerciseReloadCommands =`
 chokidar.watch(pathTo.nodeRoot("solutions"), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
     if (exerciseIdRaw && wss.clients[0] && exerciseIdRaw === path){
         try{
-            code = fs.readFileSync(path).toString() + hotExerciseReloadCommands
+            code =  "JS\n" + fs.readFileSync(path).toString() + hotExerciseReloadCommands
         } catch(error){
             code = `
             console.debug("Invalid JS in solution - Parsing error at")
@@ -38,6 +40,17 @@ chokidar.watch(pathTo.nodeRoot("solutions"), {ignoreInitial: true, ignored: /(^|
         wss.clients[0].send(code)
     }
 });
+
+chokidar.watch(pathTo.nodeRoot("app", "course"), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
+    var playygroundPath = pathMod.join(exerciseIdRaw.replace(".js", "").replace("solutions", pathMod.join("app", "course")), "playground.js")
+        toConsole(exerciseIdRaw , wss.clients[0] , playygroundPath === path, playygroundPath, path )
+    if (exerciseIdRaw && wss.clients[0] && playygroundPath === path){
+        console.log("rendering new react example")
+        code = fs.readFileSync(path).toString()
+        wss.clients[0].send(code)
+    }
+});
+
 
 actions.serverStatus = function serverStatus (ws, data) {
     exerciseIdRaw = pathTo.solutions(...data.exerciseIdRaw) + ".js"

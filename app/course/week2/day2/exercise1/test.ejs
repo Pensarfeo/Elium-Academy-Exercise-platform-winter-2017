@@ -1,11 +1,25 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
 <script type="text/javascript">
 const runTest = function(){
-    describe( 'Exericise 1',  ()=>{
-        it('myClass variable should be defined', () => {
-            expect(window.myClass).toBeDefined()
+    describe( 'AddDiv should:',  ()=>{
+    var addDiv = window.addDiv
+        beforeEach(() => {
+            var testGround = $(".jasmine-testground")
+            testGround.append(`
+                <div id = "exerciseTest" style = "display: none">
+                    <p>HTML DOM Tutorial</p>
+                    <b>w3resource</b>
+                    <button id="button1">Click to see the effect</button> 
+                </div>
+            `)
         })
-        it('myClass should be an object', () => {
-            expect(typeof window.myClass).toBe("object")
+
+        it('be able to serch for "div#exerciseTest" and add the right elements as first child ', () => {
+            addDiv()
+            var testDiv = $("#exerciseTest")
+            testDiv.children().first()
+            expect(testDiv.children().first().text()).toEqual(" this was added with jQueyr ")
+            expect(testDiv.children().first().is("div")).toEqual(true)
         })
     })
 }
@@ -15,3 +29,5 @@ runTest()
 </script>
 
 <div class="jasmine_html-reporter"></div>
+<div class="jasmine-testground" >
+</div>

@@ -1,0 +1,57 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    describe( 'AddDiv should:',  ()=>{
+    var findRed = window.findRed
+        beforeEach(() => {
+            var testGround = $(".jasmine-testground")
+            testGround.append(`
+                <div id ="exerciseTest" style="display:none">
+                    <div>
+                        <label>
+                            <input type="radio" name="color"  value="Red">
+                            <span>value?</span>
+                            <div></div>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" name="color"  value="Green">
+                            <span>value?</span>
+                            <div></div>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <div type="radio" name="color"  value="Red">
+                            <span>value?</span>
+                            <div></div>
+                        </label>
+                    </div>
+                    <button id="button1">Click to see the  effect</button>
+                </div>
+            `)
+        })
+
+        it('be able to serch for inputs with value red and change its text', () => {
+            findRed()
+            var found = 0
+            var testDiv = $("#exerciseTest")
+            testDiv.find("input[value='Red']").each(function(i, ele){
+                var next = $(ele).next()
+                if (next.text() === " the value is red!") { found +=1 }
+            })
+            expect(found).toEqual(1)
+        })
+
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>
+<div class="jasmine-testground" >
+</div>

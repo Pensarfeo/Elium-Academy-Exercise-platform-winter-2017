@@ -1,5 +1,5 @@
-let reactRender
-const toReactRender = function() {
+var toReactRender = function() {
+    //asdfasdfasdfasdfasdfasdfasdfasdf
     class MyClass extends React.Component {
         constructor(props){
             super()

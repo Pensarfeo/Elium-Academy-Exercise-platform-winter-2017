@@ -1,5 +1,4 @@
-let reactRender
-const toReactRender = function() {
+var toReactRender = function() {
     const definedfunction = window.insideOut
     const modifyObject = definedfunction || function(){}
 

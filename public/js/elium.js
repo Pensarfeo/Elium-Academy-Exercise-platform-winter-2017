@@ -1,21 +1,9 @@
-/*    const sseUrl = function () {
-        const paramExerciseId = Object.keys(mule.exerciseId).map((ele) => ele+"="+ mule.exerciseId[ele] ).join("&")
-        return "/events" + "?" + paramExerciseId + "&" + `firstLoad=${mule.firstLoad}`
-    }
-    const source = new EventSource( sseUrl() )
-
-*/
-//
-
-/*    socket.addEventListener('message', (e) => {
-        debugger
-        geval(e.data)
-
-
-    }, false)
-*/
-
 //start server send events
+
+const messageType = function(string){
+    const splittedString = string.split("\n")
+    return [splittedString[0], splittedString.slice(1).join("\n")]
+}
 
 const initializeWS = function (geval){
 
@@ -33,9 +21,14 @@ const initializeWS = function (geval){
 
     function onMessage (e) {
         console.debug("new message")
-        const parsedCode = Babel.transform(e.data, { presets: ['es2015', 'react'] }).code
-        console.debug(parsedCode)
-        geval(parsedCode.replace("use strict", ""))
+        const [type, message] = messageType(e.data)
+        if (type === "JS" || type === "JSX") {
+                    const parsedCode = Babel.transform(message, { presets: ['es2015', 'react'] }).code
+                    geval(parsedCode.replace("use strict", ""))
+        } else if (type === "HTML") {
+            console.log()
+        }
+        //console.debug(parsedCode)
     }
 
     function onError (e) {

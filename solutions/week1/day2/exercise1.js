@@ -1,1 +1,1 @@
-myClass = "asd"
+myClass = {}
