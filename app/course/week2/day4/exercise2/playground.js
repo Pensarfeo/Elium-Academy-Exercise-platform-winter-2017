@@ -37,7 +37,6 @@ var toReactRender = function() {
                 if(a[0] > b[0]) return 1 * this.sortingOrderName;
                  return 0;
             })
-            debugger
             this.sortingOrderName = this.sortingOrderName * -1
             this.setState({data: newState})
         }
@@ -51,15 +50,14 @@ var toReactRender = function() {
                 if(a[1] > b[1]) return 1 * this.sortingOrderAge;
                 return 0;
             })
-            debugger
             this.sortingOrderAge = this.sortingOrderAge * -1
             this.setState({data: newState})
         }
         render(){
             return (
                 <div>
-                    <button className="form-control" onClick = {this.handleNameSort.bind(this)}>Sort By Name</button>
-                    <button className="form-control" onClick = {this.handleAgeSort.bind(this)}>sort By Age</button>
+                    <button id="sortName" className="form-control" onClick = {this.handleNameSort.bind(this)}>Sort By Name</button>
+                    <button id="sortAge"  className="form-control" onClick = {this.handleAgeSort.bind(this)}>sort By Age</button>
                     <h1/>
                     <table className="table table-bordered">
                         <thead>

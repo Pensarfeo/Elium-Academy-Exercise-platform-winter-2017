@@ -35,7 +35,7 @@ var toReactRender = function() {
     class AddStudnetName extends React.Component{
         constructor(){
             super()
-            var initStudents = {1: ["p", "l", "j"], 10: ["a", "b", "c"]}
+            var initStudents = {}
             this.state = {min: 0, max: 100, students: initStudents}
             this.state.filtered = this.filterStudents(initStudents)
         }
@@ -75,7 +75,7 @@ var toReactRender = function() {
                             <label for="cost" style={{width: "100px", marginRight: "0 5px"}}> Age: </label>
                             <input type="number" className="form-control" name="age" style={{width: "200px", display: "inline-block"}}/>
                         </div>
-                        <input type = "submit" className="btn btn-default" value="Add Student" style={{width: "310px"}}/>
+                        <input type = "submit" id ="student" className="btn btn-default" value="Add Student" style={{width: "310px"}}/>
                     </form>
                     <form className="form-group" onSubmit={this.handleFilterSubmit.bind(this)}>
                         <div style = {{marginBottom: "10px"}}>
@@ -86,7 +86,7 @@ var toReactRender = function() {
                             <label for="cost" style={{width: "100px", marginRight: "0 5px"}}> Max Age: </label>
                             <input type="number" className="form-control" onChange= {this.handleChange.bind(this)} name="max" defaultValue = {this.state.max} style={{width: "200px", display: "inline-block"}}/>
                         </div>
-                        <input type = "submit" className="btn btn-default" value="Filter" style={{width: "310px"}}/>
+                        <input type = "submit" id ="filter" className="btn btn-default" value="Filter" style={{width: "310px"}}/>
                     </form>
 
                     <StudentData filtered={this.state.filtered} min = {this.state.min} max = {this.state.max} />
