@@ -20,13 +20,18 @@ const initializeWS = function (geval){
     }
 
     function onMessage (e) {
-        console.debug("new message")
         const [type, message] = messageType(e.data)
+        console.debug("new message", "type: " + type, message )
+
         if (type === "JS" || type === "JSX") {
                     const parsedCode = Babel.transform(message, { presets: ['es2015', 'react'] }).code
                     geval(parsedCode.replace("use strict", ""))
         } else if (type === "HTML") {
-            console.log()
+            $(".jasmine-testground").empty()
+            $(".jasmine-testground").append(message)
+             JasmineBoot()
+             runTest()
+             exercuteTest()
         }
         //console.debug(parsedCode)
     }

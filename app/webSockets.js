@@ -23,9 +23,9 @@ const hotExerciseReloadCommands =`
     runTest();
     exercuteTest()
 `
+const send = {
+    js: function(path) {
 
-chokidar.watch(pathTo.nodeRoot("solutions"), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
-    if (exerciseIdRaw && wss.clients[0] && exerciseIdRaw === path){
         try{
             code =  "JS\n" + fs.readFileSync(path).toString() + hotExerciseReloadCommands
         } catch(error){
@@ -38,12 +38,38 @@ chokidar.watch(pathTo.nodeRoot("solutions"), {ignoreInitial: true, ignored: /(^|
             `
         }
         wss.clients[0].send(code)
+    },
+    html: function(path, type){
+        try{
+            code =  "HTML\n" + fs.readFileSync(path).toString()
+        } catch(error){
+            code = `
+            console.debug("Invalid JS in solution - Parsing error at")
+            console.debug(\"file: ${error.message}\")
+            console.debug(\"file: ${error.filename}\")
+            console.debug(\"line: ${error.line}\")
+            console.debug(\"col: ${error.col}\")
+            `
+        }
+        wss.clients[0].send(code)
+    }
+}
+
+chokidar.watch(pathTo.nodeRoot("solutions"), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
+    toConsole(path.includes(exerciseIdRaw))
+    if (exerciseIdRaw && wss.clients[0] && path.includes(exerciseIdRaw)){
+        const pathDif = path.replace(exerciseIdRaw, "")
+        if (pathDif === ".js"){
+            send.js(path)
+        } else if (pathDif === ".html"){
+            send.html(path)
+        }
     }
 });
 
 chokidar.watch(pathTo.nodeRoot("app", "course"), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
     var playygroundPath = pathMod.join(exerciseIdRaw.replace(".js", "").replace("solutions", pathMod.join("app", "course")), "playground.js")
-        toConsole(exerciseIdRaw , wss.clients[0] , playygroundPath === path, playygroundPath, path )
+        //toConsole(exerciseIdRaw , wss.clients[0] , playygroundPath === path, playygroundPath, path )
     if (exerciseIdRaw && wss.clients[0] && playygroundPath === path){
         console.log("rendering new react example")
         code = fs.readFileSync(path).toString()
@@ -53,7 +79,7 @@ chokidar.watch(pathTo.nodeRoot("app", "course"), {ignoreInitial: true, ignored: 
 
 
 actions.serverStatus = function serverStatus (ws, data) {
-    exerciseIdRaw = pathTo.solutions(...data.exerciseIdRaw) + ".js"
+    exerciseIdRaw = pathTo.solutions(...data.exerciseIdRaw)
     if (fresh && !data.firstLoad) {
         ws.send("window.location.reload()")
     }

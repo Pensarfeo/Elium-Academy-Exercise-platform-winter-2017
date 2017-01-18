@@ -1,5 +1,5 @@
 <% var type = file.split(/[\\\/]/).slice(-1)[0].split(".")[0] %>
-<div class="panel-group standard-day-block" id="accordion">
+<div class="panel-group standard-day-block" id="<%= type %>">
     <div class="panel panel-default">
         <div class="panel-heading">
             <a data-toggle="collapse" data-parent="#accordion" href="#<%= type %>">

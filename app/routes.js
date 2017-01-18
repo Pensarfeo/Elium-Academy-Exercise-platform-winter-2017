@@ -63,7 +63,6 @@ app.get("/:week/:day/:exercise", (req, res) => {
     datePath = [req.params.week, req.params.day, req.params.exercise].map(ele => ele.toLowerCase())
     basicRoute     = pathTo.view(...datePath)
     SolutionRoute  = path.normalize(pathTo.nodeRoot("solutions" ,...datePath))
-
     viewParts = {
         view: {
             description: path.join(basicRoute, "description.md"),

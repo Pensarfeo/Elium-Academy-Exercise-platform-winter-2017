@@ -33,7 +33,7 @@ var toReactRender = function() {
     class DisplayNames extends React.Component{
         render(){
             return (
-                <table className="table table-bordered">
+                <table className="table table-bordered" id = {this.props.courseName.replace("++", "pp")} >
                     <thead>
                         <tr>
                             <th>First Name</th> <th>Last Name</th>
@@ -55,7 +55,7 @@ var toReactRender = function() {
                 <div>
                     <h3>{this.props.courseName}</h3>
                     <p>This is a list of all the Elium students enrolled in the {this.props.courseName} course:</p>
-                    <DisplayNames names={this.props.nameList}/>
+                    <DisplayNames names={this.props.nameList} courseName = {this.props.courseName}/>
                 </div>
             )
         }
@@ -84,7 +84,6 @@ var toReactRender = function() {
 
             newState[course] = newNameList
             newState.all = allNames
-            console.log(allNames)
             this.setState(newState)
         }
         handleAllButtonClick(){
@@ -92,7 +91,7 @@ var toReactRender = function() {
         }
         displayAll(){
             if (this.state.allVisible) {
-                return <DisplayNames names={this.state.all} />
+                return <DisplayNames courseName = "all" names={this.state.all} />
             } else {
                 return
             }
@@ -115,6 +114,7 @@ var toReactRender = function() {
                     <Course courseName = {"PHP"}   nameList ={this.state.PHP} />
                     <Course courseName = {"c++"}   nameList ={this.state["c++"]} />
                     <button
+                        id = "showAll"
                         className="btn btn-default"
                         onClick = {this.handleAllButtonClick.bind(this)}
                         style = {{width: "100%", marginBottom: "10px"}}

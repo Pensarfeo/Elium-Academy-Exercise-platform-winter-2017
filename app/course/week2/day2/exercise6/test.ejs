@@ -1,0 +1,39 @@
+<script type="text/javascript" src="<%= view.solution %>.js"></script>
+<script type="text/javascript">
+const runTest = function(){
+    describe( 'AddDiv should:',  ()=>{
+    var findBananas = window.findBananas
+        beforeEach(() => {
+            var testGround = $(".jasmine-testground")
+            testGround.append(`
+                <div id = "exerciseTest" style="display: none">
+                    <div> <span> pineapple</span> </div>
+                    <div> bananas and pineapples
+                        <div>
+                            <span> and some other fruit</span>
+                            <p> but especially bananas and pineapples</p>
+                        </div>
+                    </div>
+                </div>
+            `)
+        })
+
+        it('be able to serch for "div#exerciseTest" and add the right elements as first child ', () => {
+            findBananas()
+            var testDiv = $("#exerciseTest")
+            let found = 0
+            testDiv.find("*").each(function(i, ele){
+                if ($(ele).css("textDecoration") === "underline" && $(ele).text()=== "bananas") { found +=1 }
+            })
+            expect(found).toEqual(2)
+        })
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>
+<div class="jasmine-testground" >
+</div>
