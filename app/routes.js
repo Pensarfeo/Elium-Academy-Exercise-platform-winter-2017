@@ -8,7 +8,6 @@ const axios      = require("axios")
 const jsonFile   = require("jsonfile") 
 const debug      = require('debug')("platform")
 
-
 // get the app
 const {app} = requireConfig("server")
 
@@ -62,7 +61,6 @@ app.get("/",  (req, res) => {
 app.get("/:week/:day/:exercise", (req, res) => {
     datePath = [req.params.week, req.params.day, req.params.exercise].map(ele => ele.toLowerCase())
     basicRoute     = pathTo.view(...datePath)
-    SolutionRoute  = path.normalize(pathTo.nodeRoot("solutions" ,...datePath))
     viewParts = {
         view: {
             description: path.join(basicRoute, "description.md"),
@@ -81,7 +79,10 @@ app.post("/report", jsonParser, function (req, res) {
 })
 
 app.get("/solutions/*", function (req, res) {
-    currentSolution = pathTo.nodeRoot(...(req.originalUrl.split(/[\\\/]/)))
+    exercisePath = req.originalUrl.split(/[\\\/]/).slice(2)
+    toConsole(exercisePath)
+    currentSolution = pathTo.solutions(...(exercisePath))
+    toConsole(currentSolution)
     res.send(fs.readFileSync(currentSolution))
 })
 

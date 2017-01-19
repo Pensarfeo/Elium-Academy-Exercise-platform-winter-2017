@@ -8,7 +8,7 @@ global.pathTo = {
         return path.join(__dirname, "..", "..","app","course", type, ...nameS)
     },
     solutions(...names) {
-        return path.join(__dirname, "..", "..","solutions",...names)
+        return path.join(__dirname, "..", "..",process.env.solutionFolder,...names)
     },
     assets(type = "js", name ="elium.js") {
         return path.join(__dirname, "..", "..","app","assets", type, name)

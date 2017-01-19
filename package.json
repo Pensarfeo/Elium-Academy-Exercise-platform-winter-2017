@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start:debug": "set DEBUG=platform* & nodemon ./config/index.js",
-    "start": "nodemon ./config/index.js"
+    "start": "nodemon ./config/index.js",
+    "start:dev": "set NODE_ENV=development* & nodemon ./config/index.js"
   },
   "author": "Pedro A. Favuzzi @ elium.academy",
   "license": "ISC",
