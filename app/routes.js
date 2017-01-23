@@ -80,9 +80,7 @@ app.post("/report", jsonParser, function (req, res) {
 
 app.get("/solutions/*", function (req, res) {
     exercisePath = req.originalUrl.split(/[\\\/]/).slice(2)
-    toConsole(exercisePath)
     currentSolution = pathTo.solutions(...(exercisePath))
-    toConsole(currentSolution)
     res.send(fs.readFileSync(currentSolution))
 })
 

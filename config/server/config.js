@@ -12,12 +12,14 @@ require("./helpers")
 require("./static")
 
 
+// set webSockets
+appRequire('proxy.js');
+
 // set routes
 appRequire('routes.js');
 
 // set webSockets
 appRequire('webSockets.js');
-
 
 //set view engine server
 app.set('view engine', 'ejs')

@@ -1,6 +1,6 @@
 ### Capitalize string
 
-Write a function called ```capitalize``` to capitalize the first letter of a string.
+Write a function called ```capitalize``` that capitalizes the first letter of a string.
 Example:
 
 ```jsx

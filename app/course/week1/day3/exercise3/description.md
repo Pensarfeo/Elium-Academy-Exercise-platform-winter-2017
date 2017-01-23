@@ -1,6 +1,6 @@
 ### Better Add to object
 
-Write a function called modifyObject that takes 3 arguments, the first one is the object we want to add to, the second one is an object we want to add to and the third one is a **boolean** that indicates if already present properties should be overwritten or not. If nothing is specified the third parameter should default true and already present properties will overwrite the old ones.
+Write a function called modifyObject that takes 3 arguments, the first one is the object we want to add to, the second one is an object whose properties we want to add to the first and the third one is a **boolean** that indicates if properties that are already present in the first object should be overwritten or not. If nothing is specified the third parameter should default true and already present properties will be overwritten.
 The function should console.log one of these two messages, arrocording if the last argument is true or false.
 - "Overwrite mode set"
 - "Overwrite mode disabled" 

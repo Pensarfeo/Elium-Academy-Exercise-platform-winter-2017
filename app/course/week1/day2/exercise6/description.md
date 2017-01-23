@@ -1,6 +1,6 @@
 ### sumAll
 
-write a function called sumAll that has one argument, an object, and sums all its values. If not object is provided or if the object is empty sumAll should return 0
+Write a function called sumAll that takes one argument, an object, and sums all its values. If no object is provided or if the object is empty sumAll should return 0
 
 ```jsx
 

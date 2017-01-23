@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    const runTest = function(){
+        describe( 'HelloWorld App should:',  ()=>{
+            var languages = {
+                NL: 'Hallo Wereld',
+                HI: 'नमस्ते दुनिया',
+                FR: 'Bonjour le monde',
+                ES: 'Hola Mundo',
+                IT: 'Ciao Mondo',
+                CH: '你好，世界',
+                JP: 'こんにちは世界',
+                AR: 'مرحبا بالعالم',
+                EN: 'Hello world'
+            }
+
+            Object.keys(languages).map(function (key) {
+                it(`it should return ${languages[key]} if url is /${key}`, (done) => {
+                    axios("/proxy/" + key).then(res => {
+                        expect(res.data).toEqual(languages[key])
+                        done()
+                    })
+                })
+            })
+
+            it('it should have a root that sends all the languages in a javascript object', (done) => {
+
+                axios("/proxy").then(res => {
+                    for (langs in languages){
+                        expect(res.data[langs]).toEqual(languages[langs])
+                    }
+                    done()
+                })
+            })
+
+
+        })
+    }
+
+    runTest()
+
+</script>
+<!-- style="display: none" -->
+<div class="jasmine_html-reporter"></div>
+
+<div class="jasmine-testground" >
+</div>

@@ -6,7 +6,7 @@
   "scripts": {
     "start:debug": "set DEBUG=platform* & nodemon ./config/index.js",
     "start": "nodemon ./config/index.js",
-    "start:dev": "set NODE_ENV=development* & nodemon ./config/index.js"
+    "start:dev": "set NODE_ENV=development & nodemon ./config/index.js"
   },
   "author": "Pedro A. Favuzzi @ elium.academy",
   "license": "ISC",
@@ -28,6 +28,7 @@
     "glob": "^7.1.1",
     "highlights": "^1.4.1",
     "html-entities": "^1.2.0",
+    "http-proxy-middleware": "^0.17.3",
     "inline-source-map-comment": "^1.0.5",
     "jasmine-core": "^2.5.2",
     "jsdom": "^9.9.1",

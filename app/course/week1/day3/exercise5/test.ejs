@@ -28,27 +28,27 @@ const runTest = function(){
     describe( 'Slice an object expect: ',  ()=>{
         it("slice will return sections of an object in the range defined", () => {
             var {obj, start, nselect, section} = genTestObjs()
-            expect(window.insideOut(obj, start, nselect)).toEqual(section)
+            expect(window.splice(obj, start, nselect)).toEqual(section)
 
             var {obj, start, nselect, section} = genTestObjs()
-            expect(window.insideOut(obj, start, nselect)).toEqual(section)
+            expect(window.splice(obj, start, nselect)).toEqual(section)
 
             var {obj, start, nselect, section} = genTestObjs()
-            expect(window.insideOut(obj, start, nselect)).toEqual(section)
+            expect(window.splice(obj, start, nselect)).toEqual(section)
 
         })
 
         it("slice with 0 ast third arugment will return an empty object", () => {
             const {obj, start, section} = genTestObjs()
-            expect(window.insideOut(obj, start, 0)).toEqual({})
-            expect(window.insideOut(obj, start, 0)).toEqual({})
-            expect(window.insideOut(obj, start, 0)).toEqual({})
+            expect(window.splice(obj, start, 0)).toEqual({})
+            expect(window.splice(obj, start, 0)).toEqual({})
+            expect(window.splice(obj, start, 0)).toEqual({})
 
         })
 
         it("slice with no third arugument will return only one property", () => {
             const {obj, start, noLast} = genTestObjs()
-            expect(window.insideOut(obj, start)).toEqual(noLast)
+            expect(window.splice(obj, start)).toEqual(noLast)
         })
 
     })

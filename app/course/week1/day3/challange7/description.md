@@ -1,6 +1,6 @@
-#### sort
+### Sort
 
-Write a function called ```sort``` that sorts the values of an object, which should all be numbers, from the smaller to the bigger one. The function will return an object with keys going from 0 to n; where n is the number of properties of the object minus 1.
+Write a function called ```sort``` that sorts the values of an object, which should all be numbers, from the smallest to the biggest one. The function will return an object with keys going from 0 to n; where n is the number of properties of the object minus 1.
 **Example:**
 
 ```jsx

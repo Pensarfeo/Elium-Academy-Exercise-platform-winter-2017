@@ -54,10 +54,10 @@ const runTest = function(){
 
         })
 
-        it("if no step is give its set to 1 by default", () => {
+        it("if no step is gives its set to 1 by default", () => {
             const {start, end, step, range } = genTestObjs()
-            window.runOnRange(iself, {start: start, end: start})
-            expect(lastCLog[0]).toBeUndefined()
+            window.runOnRange(iself, {start: start, end: start + 3})
+            expect(lastCLog).toEqual([start, start+1, start+2, start+3])
         })
 
         it("to run on a range", () => {

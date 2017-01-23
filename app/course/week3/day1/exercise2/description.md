@@ -1,6 +1,6 @@
 #### Add languages
 
-Extending the previous exercise add the possibility to add a new language. Infact the app should start with no language saved in memory.
+Extending the previous exercise add the possibility to add a new language.
 
 Example of usage:
 

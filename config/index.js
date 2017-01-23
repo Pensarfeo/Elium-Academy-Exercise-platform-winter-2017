@@ -1,7 +1,8 @@
 
 // Set Env variables asdfasdf
 
-process.env.NODE_ENV = process.env.NODE_ENV.trim()
+process.env.NODE_ENV = (process.env.NODE_ENV || "").trim()
+console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'development'){
     process.env.solutionFolder = "solutionsDev" 
 } else {

@@ -1,6 +1,6 @@
 ### Unique elements in an array 
 
-Write a function called ```uniq```  that returns all the unique elements in an array
+Write a function called ```uniq```  that returns all the unique elements in an array. Unique meaning that it will show each element in the array once, even if the array contains the element multiple times.
 
 Example
 

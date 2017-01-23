@@ -1,6 +1,6 @@
 ### Chop string
 
-Write a function called ```stringChop``` to chop a string into chunks of a given length
+Write a function called ```stringChop``` that chops a string into chunks of a given length. The function takes 2 arguments, the first one being the string to chop, and the second one a number that will be the size of you chunks.
 Example:
 
 ```jsx

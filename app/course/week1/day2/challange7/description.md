@@ -1,6 +1,6 @@
 ### Calculator
 
-write a function called calculator that takes 3 arguments: a string with the name of the operation whe want to use (```"sum"```, ```"multiply"```, ```"subtract"``` or ```"divide"```) and two mor argument that are the numbers that we should pass to the operation.
+write a function called Calculator that takes 3 arguments: a string with the name of the operation whe want to use (```"sum"```, ```"multiply"```, ```"subtract"``` or ```"divide"```) and two more arguments that are the numbers on which the operation should be used.
 
 ```jsx
 Calculator("sum", 1, 2) // 3

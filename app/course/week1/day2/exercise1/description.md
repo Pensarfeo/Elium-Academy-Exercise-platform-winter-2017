@@ -1,6 +1,6 @@
 ### My class
 
-Write an object called myClass that list all the students in the class, following this examples. The key of the object is the surname of the student value associated to that key must be the name of the student.
+Write an object called myClass that lists all the students in the class, following this example. The keys of the object are the surnames of the students, and the value associated to that key must be the first name of the student.
 
 For example this is a simmilar object containing the names of the elium team:
 
@@ -9,4 +9,4 @@ eliumTeam = {"Favuzzi": "Pedro Antonio", "Mendieta": "Juan David", "Cole": "Evan
 
 ```
 
-Make sure to ask the names of all your classmates 
+Make sure to ask the names of all your classmates!! :)

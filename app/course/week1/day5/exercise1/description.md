@@ -1,6 +1,6 @@
 ### Accumulator
 
-Write a function called ```acculumator``` that keeps track of the numbers that ar passed to it and pushes them to an array called ```collector```.
+Write a function called ```accumulator``` that keeps track of the numbers that are passed to it and pushes them to an array called ```collector```.
 Example:
 
 ```jsx

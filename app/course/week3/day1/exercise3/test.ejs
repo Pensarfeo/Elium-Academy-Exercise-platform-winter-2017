@@ -1,0 +1,91 @@
+<script type="text/javascript">
+    const runTest = function(){
+        describe( 'HelloWorld App should:',  ()=>{
+            var languages = {
+                NL: 'Hallo Wereld',
+                HI: 'नमस्ते दुनिया',
+                FR: 'Bonjour le monde',
+                ES: 'Hola Mundo',
+                IT: 'Ciao Mondo',
+                CH: '你好，世界',
+                JP: 'こんにちは世界',
+                AR: 'مرحبا بالعالم',
+                EN: 'Hello world'
+            }
+
+            var newLanguages = {
+                DE: "Hallo_Welt",
+                RO: "Salut_Lume",
+                PT: "Bună ziua lume"
+            }
+
+            var removableLanguages = ["DE","RO","PT"]
+
+            var fakeLanguages = ["asdf", "xcvb", "qwer"]
+            Object.keys(languages).map(function (key) {
+                it(`it should return ${languages[key]} if url is /${key}`, (done) => {
+                    axios("/proxy/" + key).then(res => {
+                        expect(res.data).toEqual(languages[key])
+                        done()
+                    })
+                })
+            })
+
+            it('it should have a root that sends all the languages in a javascript object', (done) => {
+                var langs
+                axios("/proxy").then(res => {
+                    for (langs in languages){
+                        expect(res.data[langs]).toEqual(languages[langs])
+                    }
+                    done()
+                })
+            })
+
+
+            fakeLanguages.map( function(val) {
+                it(`it should return a message if the language (${val}) do not have a translation`, (done) => {
+                    axios("/proxy/" + val).then(res => {
+                        expect(res.data).toEqual(`Hello World in ${val} not found`)
+                        done()
+                    })
+                })
+            })
+
+             Object.keys(newLanguages).map(function (lang) {
+                it(`it should return a message if the language (${lang}) is added`, (done) => {
+                    axios("/proxy/" + lang + "/" + newLanguages[lang]).then(res => {
+                        expect(res.data).toEqual(`${lang} added with message "${newLanguages[lang].replace("_", " ")}"`)
+                        done()
+                    })
+                })
+            })
+
+            removableLanguages.map( lang => {
+                it(`it should return a message if the language (${lang}) is removed`, (done) => {
+                    axios("/proxy/" + lang + "/remove").then(res => {
+                        expect(res.data).toEqual(`${lang} removed"`)
+                        done()
+                    })
+                })
+            })
+
+            removableLanguages.map( lang => {
+                it(`it should return a message if the language (${lang}) do not have a translation`, (done) => {
+                    axios("/proxy/" + lang).then(res => {
+                        expect(res.data).toEqual(`Hello World in ${lang} not found`)
+                        done()
+                    })
+                })
+            })
+
+        })
+    }
+
+    runTest()
+
+</script>
+<!-- style="display: none" -->
+<div class="jasmine_html-reporter"></div>
+
+<div class="jasmine-testground" >
+</div>

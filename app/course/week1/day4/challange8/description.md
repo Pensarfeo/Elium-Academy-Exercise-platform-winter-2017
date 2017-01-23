@@ -1,6 +1,6 @@
 #### Cypher
 
-Build a symple cypher. Assuming that you can use all letters in the alphabet, only lowercase characters, point commas and question marks, build a cypher that turns readable text into unreadable coded text and then back to your original readable text. 
+Build a symple cypher. Assuming that you can use all letters in the alphabet, only lowercase characters, point, comma, '', "" and question marks, build a cypher that turns readable text into unreadable coded text and then back to your original readable text. 
 
 **Example:**
 

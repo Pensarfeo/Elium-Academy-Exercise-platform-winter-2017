@@ -11,3 +11,5 @@ URL            | Hessage
 /DE            | Hallo Welt
 /DE/remove     | DE removed
 /DE            | Hello World in DE not found
+
+**Notes:** Watchout for the order in which you put the app.use statements!

@@ -1,0 +1,81 @@
+<script type="text/javascript">
+const runTest = function(){
+    describe( 'Banck Server should:',  ()=>{
+        var users = {
+            user1: {init: 0, withdraw: 5, deposit: 1, balance: -4 },
+            user2: {init: 20, withdraw: 12, deposit: 5, balance: 13},
+            user3: {init: -8, withdraw: 12, deposit: 100, balance: 80}
+        }
+        var bankActions = ["deposit", "withdraw", "balance" ]
+        Object.keys(users).map( user =>{
+            it('be able to create an account', (done) => {
+                axios("/proxy/account/new/" + users[user].init).then(res => {
+                    var [id, tot] = res.data.match(/-?\d+/g);
+                    users[user].id = id
+                    expect(tot).toEqual(users[user].init.toString())
+                    done()
+                })
+            })
+
+            it('be able to withdraw from an account', (done) => {
+                axios("/proxy/"+users[user].id+"/withdraw/" + users[user].withdraw).then(res => {
+                    var [tot, id] = res.data.match(/-?\d+/g);
+                    expect(id.toString()).toEqual(users[user].id.toString())
+                    expect(tot.toString()).toEqual(users[user].withdraw.toString())
+                    done()
+                })
+            })
+
+            it('be able to deposit in an account', (done) => {
+                axios("/proxy/"+users[user].id+"/deposit/" + users[user].deposit).then(res => {
+                    var [tot, id] = res.data.match(/-?\d+/g);
+                    expect(id.toString()).toEqual(users[user].id.toString())
+                    expect(tot.toString()).toEqual(users[user].deposit.toString())
+                    done()
+                })
+            })
+
+            it('be able to get a balance for an account', (done) => {
+                axios("/proxy/"+users[user].id+"/balance").then(res => {
+                    var [id, tot] = res.data.match(/-?\d+/g);
+                    expect(id.toString()).toEqual(users[user].id.toString())
+                    expect(tot.toString()).toEqual(users[user].balance.toString())
+                    done()
+                })
+            })
+
+            it('be able to destroy an account', (done) => {
+                axios("/proxy/"+users[user].id+"/delete").then(res => {
+                    var [id, tot] = res.data.match(/-?\d+/g);
+                    expect(id.toString()).toEqual(users[user].id.toString())
+                    done()
+                })
+            })
+
+            bankActions.map(action => {
+                it('do nothing on a delete account', (done) => {
+                    axios("/proxy/"+users[user].id+"/"+ action).then(res => {
+                        expect(res.data).toEqual("Account not found")
+                        done()
+                    })
+                })
+            })
+
+        })
+
+        it('account ids should be unique', (done) => {
+            axios("/proxy/account/new/0").then(res => {
+                var unique = users["user1"] !== users["user2"] && users["user2"] !== users["user3"] && users["user1"] !== users["user3"]
+                expect(unique).toEqual(true)
+                done()
+            })
+        })
+
+    })
+}
+
+runTest()
+
+</script>
+
+<div class="jasmine_html-reporter"></div>

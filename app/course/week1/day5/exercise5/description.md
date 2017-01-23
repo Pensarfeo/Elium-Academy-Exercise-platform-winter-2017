@@ -1,6 +1,6 @@
 #### Flatten
 
-Write a function called ```flatten``` that transform an array of nexted arrays and creates a single array with all the elements of each array, no matter the depth of the nesting.
+Write a function called ```flatten``` that transform an array of nested arrays and returns one single array with all the elements of each array, no matter the depth of the nesting.
 
 **Example:**
 
