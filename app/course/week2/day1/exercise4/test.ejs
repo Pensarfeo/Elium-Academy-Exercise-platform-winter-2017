@@ -24,14 +24,14 @@ const runTest = function(){
             Universe.Energy.create(5)
             Universe.Matter.create(4)
             Universe.Matter.create(3)
-            expect(Universe.Energy.total()).toEqual(tot)
+            expect(Universe.Energy.total()).toEqual(-4)
 
             var tot = Universe.Energy.total()
             Universe.Energy.destroy(2)
             Universe.Energy.create(5)
             Universe.Matter.destroy(4)
             Universe.Matter.destroy(20)
-            expect(Universe.Matter.total()).toEqual(tot)
+            expect(Universe.Matter.total()).toEqual(-23)
         })
 
     })
