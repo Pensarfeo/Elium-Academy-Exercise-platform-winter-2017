@@ -87,3 +87,8 @@ console.debug = function(...args){
     consoleLog(...args)
     console.groupEnd();
 }
+const runTheTest = function () {
+    JasmineBoot();
+    runTest();
+    exercuteTest()
+}

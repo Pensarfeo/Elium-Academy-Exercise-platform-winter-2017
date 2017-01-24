@@ -6,7 +6,11 @@
                 <i class="glyphicon glyphicon-chevron pull-right"></i>
                 <h4 class="panel-title"> <%= title %></h4>
             </a>
+
         </div>
+        <% if (title === "Test") {%>
+            <button class="pull-right btn btn-default" style="margin: 10px 15px" onclick = "runTheTest()">Retest</button>
+        <% } %>
         <div id="<%= type %>" class="panel-collapse collapse in">
             <div class="panel-body">
                 <% if (file.slice(-2) === "md") { %>

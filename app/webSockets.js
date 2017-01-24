@@ -19,9 +19,7 @@ let currentSolution
 const hotExerciseReloadCommands =`
     console.debug("new Exercise version found, retesting");
     toReactRender();
-    JasmineBoot();
-    runTest();
-    exercuteTest()
+    runTheTest()
 `
 const send = {
     js: function(path) {

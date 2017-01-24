@@ -150,9 +150,9 @@
                         })
                     })
                     // last test to be tested!
-                    it(`be able to update a translation for "${message}" in ${lang}`, (done) => {
-                        axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
-                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" added`)
+                    it(`be able to update the translation for "${message}" in ${lang}`, (done) => {
+                        axios.post("/proxy"+"/"+message+"/update/"+lang+"/"+messages[message][lang]).then(res => {
+                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" updated`)
                             done()
                         })
                     })

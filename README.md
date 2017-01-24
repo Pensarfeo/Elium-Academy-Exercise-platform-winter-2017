@@ -8,7 +8,7 @@ The platform is built to run as much as possible offline.
 ### Run
 * Install latest node [version](https://nodejs.org/en/)
 * Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* In a folder of your choise execute ```git@github.com:EliumAcademy/ExercisePlatform.git```
+* In a folder of your choise execute ```git clone git@github.com:EliumAcademy/ExercisePlatform.git```
 * run ```npm install``` (you might need to use sudo if you are on mac)
 * run ```npm install nodemon -g``` (you might need to use sudo if you are on mac)
 * run ```npm start```
