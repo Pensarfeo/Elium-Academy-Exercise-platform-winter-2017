@@ -16,32 +16,32 @@ const allExercisesArray = require("./routes/index")(pathTo.app("course"))
 
 
 
-const bufferedResults =  {
-    file: path.join(__dirname, "bufferedResults.json"),
-    read: function() {
-        return jsonFile.readFileSync(this.file)
-    },
-    write: function(...newReports) {
-        const oldReports = this.read()
-        jsonFile.writeFileSync(this.file, [...oldReports, ...newReports])
-    },
-    clean: function() {
-        jsonFile.writeFileSync(this.file, [])
-    }
-}
+// const bufferedResults =  {
+//     file: path.join(__dirname, "bufferedResults.json"),
+//     read: function() {
+//         return jsonFile.readFileSync(this.file)
+//     },
+//     write: function(...newReports) {
+//         const oldReports = this.read()
+//         jsonFile.writeFileSync(this.file, [...oldReports, ...newReports])
+//     },
+//     clean: function() {
+//         jsonFile.writeFileSync(this.file, [])
+//     }
+// }
 
-setInterval( () => {
-    const buffered = bufferedResults.read()
-    if (!buffered[0]) return
-    bufferedResults.clean()
-    debug("seding results to student platform")
-    axios.post("http://students.elium.academy/exercises", buffered)
-        .catch( function(){
-            debug("results not sent, saving them back")
-            bufferedResults.write(...buffered)
-        })
-    }, 5000
-)
+// setInterval( () => {
+//     const buffered = bufferedResults.read()
+//     if (!buffered[0]) return
+//     bufferedResults.clean()
+//     debug("seding results to student platform")
+//     axios.post("http://students.elium.academy/exercises", buffered)
+//         .catch( function(){
+//             debug("results not sent, saving them back")
+//             bufferedResults.write(...buffered)
+//         })
+//     }, 5000
+// )
 
 
 function basicRep(req, res, view){
