@@ -73,8 +73,8 @@ app.get("/:week/:day/:exercise", (req, res) => {
 })
 
 app.post("/report", jsonParser, function (req, res) {
-    const report = Object.assign({}, req.body.data, {userId: studentUI})
-    bufferedResults.write(report)
+    // const report = Object.assign({}, req.body.data, {userId: studentUI})
+    // bufferedResults.write(report)
     res.json()
 })
 
