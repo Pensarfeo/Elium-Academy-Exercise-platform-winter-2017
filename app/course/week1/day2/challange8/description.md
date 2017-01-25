@@ -1,7 +1,7 @@
 ### Dynamic Calculator
 
 Write a function called dynamicCalculator that takes 1 to 3 arguments. In most cases the first arguments is a string with the name of the operation whe want to use and the two other argument are the numbers that we want to pass to the operation.
-However when we pass the argument ```"add"```, we can now pass a function definition as second argument and this function will be now added to the list of possible operations, the thirs argument will now be the name of the operation associated to that function.
+However when we pass the argument ```"add"```, we can now pass a function definition as second argument and this function will be now added to the list of possible operations, the argument will now be the name of the operation associated to that function.
 
 Example
 

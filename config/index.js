@@ -9,10 +9,10 @@ if (process.env.NODE_ENV === 'development'){
     process.env.solutionFolder = "solutions"
 }
 
-console.log(process.env.solutionFolder)
-
+console.log("--- global")
 require("./global")
 
+console.log("--- server")
 
 const server = require("./server/config")
-module.exports ={server: server}
+//module.exports ={server: server}

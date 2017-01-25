@@ -7,9 +7,9 @@ Example
 ```jsx
 var addOne = function(num) {return num + 1}
 runOnRange(addOne, {start: 10, end: 17, step: 3})
-// => 11
-// => 14
-// => 17
+// => 10
+// => 13
+// => 16
 
 runOnRange(addOne, {start: -6, end: -4})
 // => -5

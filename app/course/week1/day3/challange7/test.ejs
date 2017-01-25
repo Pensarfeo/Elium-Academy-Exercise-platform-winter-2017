@@ -13,7 +13,7 @@ const runTest = function(){
         for (ele in unsorted) {
             toArr.push(unsorted[ele])
         }
-        toArr.sort()
+        toArr.sort(function(a, b) {return a - b})
         for(ele in toArr){
             sorted[ele] = toArr[ele]
         }
