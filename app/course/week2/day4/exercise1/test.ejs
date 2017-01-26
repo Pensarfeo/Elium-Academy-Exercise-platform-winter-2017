@@ -6,8 +6,11 @@
             RegisterAlert.push(message)
         }
         describe( 'Elium App should:',  ()=>{
-            var main = $(".standard-day-block#playground")
-            var submitButton = main.find("input[type='submit']")
+            <% if (process.env.NODE_ENV === "development") {%>
+                var main = $(".standard-day-block#playground")
+            <% } else { %>
+                var main = $("jasmine-testground")
+            <% } %>            var submitButton = main.find("input[type='submit']")
             var inputName = main.find("input[name ='fullname']")
             var inputCost = main.find("input[name ='cost']")
             var inputPaid = main.find("input[name ='paid']")

@@ -66,6 +66,6 @@ Expected to have:
 Show a form with only one input field to update the sentence.
 
 *GET - /sentence/:sentence/update/:lang*
-Show a form with only one input field to update the a translation in a given language. It only has one input field with the new translation.
+Show form with only one input field to update the a translation in a given language. It only has one input field with the new translation.
 
 

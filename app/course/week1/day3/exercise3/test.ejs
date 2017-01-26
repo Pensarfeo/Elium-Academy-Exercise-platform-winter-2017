@@ -45,19 +45,19 @@ const runTest = function(){
         })
 
 
-        it('modifyObject logs \"Overwrite mode set\" if last param is true ', () => {
+        it('modifyObject overrides the give object if the last param is true ', () => {
             const {o1, o2, oo} = genTestObjs()
             window.modifyObject(o1, o2, true)
             expect(o1).toEqual(oo)
         })
 
-        it('modifyObject logs \"Overwrite mode disabled\" if last param is false ', () => {
+        it('modifyObject showld not override the give object if the last param is false ', () => {
             const {o1, o2, ono} = genTestObjs()
             window.modifyObject(o1, o2, false)
             expect(o1).toEqual(ono)
         })
 
-        it('modifyObject logs \"Overwrite mode set\" if no third param is given ', () => {
+        it('modifyObject overrides the give object if the last param is true', () => {
             const {o1, o2, oo} = genTestObjs()
             window.modifyObject(o1, o2, true)
             expect(o1).toEqual(oo)

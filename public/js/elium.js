@@ -83,9 +83,11 @@ var toReactRender = function(){}
 const consoleLog = console.log
 
 console.debug = function(...args){
-    console.group('debugging');
-    consoleLog(...args)
-    console.groupEnd();
+    if (mule.env.type === "development"){
+        console.group('debugging');
+        consoleLog(...args)
+        console.groupEnd();
+    }
 }
 const runTheTest = function () {
     JasmineBoot();

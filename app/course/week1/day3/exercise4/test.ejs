@@ -52,12 +52,11 @@ const runTest = function(){
 
         it('if one of the values of the second arguments is not a boolean it should not swap anything', () => {
             const {obj, jbo, swap} = genTestObjs()
-
-            expect(window.insideOut(obj, {a: function(){}})).toBeUndefined()
-            expect(window.insideOut(obj, {a: ""})).toBeUndefined()
+            expect(window.insideOut(obj, {a: function(){}})).toEqual(obj)
+            expect(window.insideOut(obj, {a: ""})).toEqual(obj)
         })
 
-        it('check swaping works', () => {
+        it('to swap keys with values', () => {
             const {obj, jbo, swap} = genTestObjs()
             
             expect(window.insideOut(obj, swap)).toEqual(jbo)

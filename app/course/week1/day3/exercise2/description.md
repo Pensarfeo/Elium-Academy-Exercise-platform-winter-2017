@@ -9,11 +9,11 @@ write 4 functions, one called ```sum```, ```subtract```, ```multipy``` and ```di
     sum(1, 2) // 3
     sum(1) // 1
 
-    var multiply(3, 2) // 6
-    var multiply(3) // 3
+    multiply(3, 2) // 6
+    multiply(3) // 3
 
-    var divide(3, 2) // 1.5
-    var divide(3) // 3
+    divide(3, 2) // 1.5
+    divide(3) // 3
     ```
 
 2. For divisions make sure that the second argument is never 0, and if it is, return "dividend cannot be 0"; make sure that this does not happen when no argument is passed. Example

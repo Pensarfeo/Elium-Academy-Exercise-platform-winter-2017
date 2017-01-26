@@ -1,174 +1,174 @@
-// <script type="text/javascript">
-//     const runTest = function(){
-//         describe( 'translation App should:',  ()=>{
-//             var messages = {
-//                 carrot: {IT: "carota", ES: "zanahoria", FR: "carotte" }
-//                 //,airplane: {IS: "flugvel", DE: "Flugzeug", NL: "vliegtuig" }
-//                 //,knife: {NO: "kniv", PT: "faca", "NL": "mes"}
-//             }
+<script type="text/javascript">
+    const runTest = function(){
+        describe( 'translation App should:',  ()=>{
+            var messages = {
+                carrot: {IT: "carota", ES: "zanahoria", FR: "carotte" }
+                //,airplane: {IS: "flugvel", DE: "Flugzeug", NL: "vliegtuig" }
+                //,knife: {NO: "kniv", PT: "faca", "NL": "mes"}
+            }
 
-//             Object.keys(messages).map((message, i) =>{
+            Object.keys(messages).map((message, i) =>{
 
-//                 it(`be able to add new message "${message}"`, (done) => {
-//                     console.log("/proxy"+"/message/" + message)
-//                     axios.post("/proxy"+"/message/" + message).then(res => {
-//                         expect(res.data).toEqual(`"${message}" added`)
-//                         done()
-//                     })
-//                 })
+                it(`be able to add new message "${message}"`, (done) => {
+                    console.log("/proxy"+"/message/" + message)
+                    axios.post("/proxy"+"/message/" + message).then(res => {
+                        expect(res.data).toEqual(`"${message}" added`)
+                        done()
+                    })
+                })
 
-//                 it(`be able to tell if message "${message}" is present `, (done) => {
-//                     axios.post("/proxy"+"/message/" + message).then(res => {
-//                         expect(res.data).toEqual(`"${message}" already exist`)
-//                         done()
-//                     })
-//                 })
+                it(`be able to tell if message "${message}" is present `, (done) => {
+                    axios.post("/proxy"+"/message/" + message).then(res => {
+                        expect(res.data).toEqual(`"${message}" already exist`)
+                        done()
+                    })
+                })
 
-//                 it(`fail if we try updating a message "${message}" not present `, (done) => {
-//                     axios.post("/proxy"+"/message/" + message + "--/update/asdf").then(res => {
-//                         expect(res.data).toEqual(`"${message}--" not found`)
-//                         done()
-//                     })
-//                 })
+                it(`fail if we try updating a message "${message}" not present `, (done) => {
+                    axios.post("/proxy"+"/message/" + message + "--/update/asdf").then(res => {
+                        expect(res.data).toEqual(`"${message}--" not found`)
+                        done()
+                    })
+                })
 
-//                 it(`be able to update a message "${message}"`, (done) => {
-//                     axios.post("/proxy"+"/message/" + message + "/update/" + message + "---").then(res => {
-//                         expect(res.data).toEqual(`"${message}" updated to "${message}---"`)
-//                         done()
-//                     })
-//                 })
+                it(`be able to update a message "${message}"`, (done) => {
+                    axios.post("/proxy"+"/message/" + message + "/update/" + message + "---").then(res => {
+                        expect(res.data).toEqual(`"${message}" updated to "${message}---"`)
+                        done()
+                    })
+                })
 
-//                 it(`be able to update a message "${message}--- back"`, (done) => {
-//                     axios.post("/proxy"+"/message/" + message + "---" + "/update/" + message ).then(res => {
-//                         expect(res.data).toEqual(`"${message}---" updated to "${message}"`)
-//                         done()
-//                     })
-//                 })
+                it(`be able to update a message "${message}--- back"`, (done) => {
+                    axios.post("/proxy"+"/message/" + message + "---" + "/update/" + message ).then(res => {
+                        expect(res.data).toEqual(`"${message}---" updated to "${message}"`)
+                        done()
+                    })
+                })
 
-//                 it(`be able to return all messages"`, (done) => {
-//                     axios.get("/proxy"+"/message").then(res => {
-//                         expect(res.data).toEqual(Object.keys(messages).slice(0, i + 1))
-//                         done()
-//                     })
-//                 })
-//             })
+                it(`be able to return all messages"`, (done) => {
+                    axios.get("/proxy"+"/message").then(res => {
+                        expect(res.data).toEqual(Object.keys(messages).slice(0, i + 1))
+                        done()
+                    })
+                })
+            })
 
-//             Object.keys(messages).map((message, i) =>{
-//                 it(`fail if the message "${message}---" in not found on delete`, (done) => {
-//                     axios.post("/proxy"+"/message/"+message+"--/delete").then(res => {
-//                         expect(res.data).toEqual(`"${message}--" not found`)
-//                         done()
-//                     })
-//                 })
+            Object.keys(messages).map((message, i) =>{
+                it(`fail if the message "${message}---" in not found on delete`, (done) => {
+                    axios.post("/proxy"+"/message/"+message+"--/delete").then(res => {
+                        expect(res.data).toEqual(`"${message}--" not found`)
+                        done()
+                    })
+                })
 
-//                 it(`should delete "${message}"`, (done) => {
-//                     axios.post("/proxy"+"/message/"+message+"/delete").then(res => {
-//                         expect(res.data).toEqual(`"${message}" deleted`)
-//                         done()
-//                     })
-//                 })
+                it(`should delete "${message}"`, (done) => {
+                    axios.post("/proxy"+"/message/"+message+"/delete").then(res => {
+                        expect(res.data).toEqual(`"${message}" deleted`)
+                        done()
+                    })
+                })
 
-//                 it(`be able to return all messages"`, (done) => {
-//                     axios.get("/proxy"+"/message").then(res => {
-//                         expect(res.data).toEqual(Object.keys(messages).slice(i+1, 3))
-//                         done()
-//                     })
-//                 })
+                it(`be able to return all messages"`, (done) => {
+                    axios.get("/proxy"+"/message").then(res => {
+                        expect(res.data).toEqual(Object.keys(messages).slice(i+1, 3))
+                        done()
+                    })
+                })
 
-//             })
+            })
 
-//             Object.keys(messages).map((message, i) =>{
-//                 it(`be able to create "${message}" again`, (done) => {
-//                     axios.post("/proxy"+"/message/"+message).then(res => {
-//                         expect(res.data).toEqual(`"${message}" added`)
-//                         done()
-//                     })
-//                 })
+            Object.keys(messages).map((message, i) =>{
+                it(`be able to create "${message}" again`, (done) => {
+                    axios.post("/proxy"+"/message/"+message).then(res => {
+                        expect(res.data).toEqual(`"${message}" added`)
+                        done()
+                    })
+                })
 
-//                 Object.keys(messages[message]).map((lang, i) =>{
-//                     it(`not add a translation if "${message}---" is missing`, (done) => {
-//                         axios.post("/proxy"+"/"+message+"---/"+lang+"/asdf").then(res => {
-//                             expect(res.data).toEqual(`"${message}---" not found`)
-//                             done()
-//                         })
-//                     })
+                Object.keys(messages[message]).map((lang, i) =>{
+                    it(`not add a translation if "${message}---" is missing`, (done) => {
+                        axios.post("/proxy"+"/"+message+"---/"+lang+"/asdf").then(res => {
+                            expect(res.data).toEqual(`"${message}---" not found`)
+                            done()
+                        })
+                    })
 
-//                     it(`be able to add a translation for "${message}" in ${lang}`, (done) => {
-//                         axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
-//                             expect(res.data).toEqual(`translation for "${message}" in "${lang}" added`)
-//                             done()
-//                         })
-//                     })
+                    it(`be able to add a translation for "${message}" in ${lang}`, (done) => {
+                        axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
+                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" added`)
+                            done()
+                        })
+                    })
 
-//                     it(`not return any translation if "${message}" not found`, (done) => {
-//                         axios.get("/proxy"+"/"+message+"---/"+lang).then(res => {
-//                             expect(res.data).toEqual(`"${message}---" not found`)
-//                             done()
-//                         })
-//                     })
+                    it(`not return any translation if "${message}" not found`, (done) => {
+                        axios.get("/proxy"+"/"+message+"---/"+lang).then(res => {
+                            expect(res.data).toEqual(`"${message}---" not found`)
+                            done()
+                        })
+                    })
 
 
-//                     it(`be able to return the translations for "${message}" in ${lang}`, (done) => {
-//                         axios.get("/proxy"+"/"+message+"/"+lang).then(res => {
-//                             expect(res.data).toEqual(messages[message][lang])
-//                             done()
-//                         })
-//                     })
+                    it(`be able to return the translations for "${message}" in ${lang}`, (done) => {
+                        axios.get("/proxy"+"/"+message+"/"+lang).then(res => {
+                            expect(res.data).toEqual(messages[message][lang])
+                            done()
+                        })
+                    })
 
-//                     it(`fail to add a translation for "${message}" if lang ${lang} already present`, (done) => {
-//                         axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
-//                             expect(res.data).toEqual(`translation for "${message}" in "${lang}" already exists`)
-//                             done()
-//                         })
-//                     })
+                    it(`fail to add a translation for "${message}" if lang ${lang} already present`, (done) => {
+                        axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
+                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" already exists`)
+                            done()
+                        })
+                    })
 
-//                     it(`fail to delete a language ${lang} form it if "${message}---" not present`, (done) => {
-//                         axios.post("/proxy"+"/"+message+"---/delete/"+lang).then(res => {
-//                             expect(res.data).toEqual(`"${message}---" not found`)
-//                             done()
-//                         })
-//                     })
+                    it(`fail to delete a language ${lang} form it if "${message}---" not present`, (done) => {
+                        axios.post("/proxy"+"/"+message+"---/delete/"+lang).then(res => {
+                            expect(res.data).toEqual(`"${message}---" not found`)
+                            done()
+                        })
+                    })
 
-//                     it(`fail to delete a language ${lang}--- form it if "${message}" the lang does not exist`, (done) => {
-//                         axios.post("/proxy"+"/"+message+"/delete/"+lang + "---").then(res => {
-//                             expect(res.data).toEqual(`translation for "${message}" in "${lang}---" not found`)
-//                             done()
-//                         })
-//                     })
+                    it(`fail to delete a language ${lang}--- form it if "${message}" the lang does not exist`, (done) => {
+                        axios.post("/proxy"+"/"+message+"/delete/"+lang + "---").then(res => {
+                            expect(res.data).toEqual(`translation for "${message}" in "${lang}---" not found`)
+                            done()
+                        })
+                    })
 
-//                     it(`able to delete a language ${lang} form "${message}"`, (done) => {
-//                         axios.post("/proxy"+"/"+message+"/delete/"+lang).then(res => {
-//                             expect(res.data).toEqual(`translation for "${message}" in "${lang}" deleted`)
-//                             done()
-//                         })
-//                     })
+                    it(`able to delete a language ${lang} form "${message}"`, (done) => {
+                        axios.post("/proxy"+"/"+message+"/delete/"+lang).then(res => {
+                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" deleted`)
+                            done()
+                        })
+                    })
 
-//                     it(`be able to add a translation for "${message}" in ${lang}`, (done) => {
-//                         axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
-//                             expect(res.data).toEqual(`translation for "${message}" in "${lang}" added`)
-//                             done()
-//                         })
-//                     })
-//                     // last test to be tested!
-//                     it(`be able to update the translation for "${message}" in ${lang}`, (done) => {
-//                         axios.post("/proxy"+"/"+message+"/update/"+lang+"/"+messages[message][lang]).then(res => {
-//                             expect(res.data).toEqual(`translation for "${message}" in "${lang}" updated`)
-//                             done()
-//                         })
-//                     })
+                    it(`be able to add a translation for "${message}" in ${lang}`, (done) => {
+                        axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
+                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" added`)
+                            done()
+                        })
+                    })
+                    // last test to be tested!
+                    it(`be able to update the translation for "${message}" in ${lang}`, (done) => {
+                        axios.post("/proxy"+"/"+message+"/update/"+lang+"/"+messages[message][lang]).then(res => {
+                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" updated`)
+                            done()
+                        })
+                    })
 
-//                 })
+                })
 
-//             })
+            })
 
-//         })
-//     }
+        })
+    }
 
-//     runTest()
+    runTest()
 
-// </script>
-// <!-- style="display: none" -->
-// <div class="jasmine_html-reporter"></div>
+</script>
+<!-- style="display: none" -->
+<div class="jasmine_html-reporter"></div>
 
-// <div class="jasmine-testground" >
-// </div>
+<div class="jasmine-testground" >
+</div>

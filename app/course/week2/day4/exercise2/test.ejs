@@ -1,7 +1,11 @@
 <script type="text/javascript">
     const runTest = function(){
         describe( 'Elium App should:',  ()=>{
-            var main = $(".standard-day-block#playground")
+            <% if (process.env.NODE_ENV === "development") {%>
+                var main = $(".standard-day-block#playground")
+            <% } else { %>
+                var main = $("jasmine-testground")
+            <% } %>
             var submitButton = main.find("input[type='submit']")
             var inputName = main.find("input[name ='fullname']")
             var inputAge  = main.find("input[name ='age']"  )

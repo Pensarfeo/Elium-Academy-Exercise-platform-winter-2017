@@ -30,3 +30,5 @@ module.exports = function(server){
         });
     })
 }
+
+{a: 1, b: 3}
