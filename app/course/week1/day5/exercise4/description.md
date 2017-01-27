@@ -16,10 +16,15 @@ model("add", {id: 1, name: "pedro", age: "32", address: "Rue de la Science 23, B
 DB // [{name: "Pedro", married: false}] => married set to default even if missing
 
 model("add", {name: 43, married: "asdfasdf"})
-DB // [{name: "NoBody", married: false}] => married and name set to default even wrong type
+DB /* [
+        {name: "Pedro", married: false},
+        {name: "NoBody", married: false}] => married and name set to default even wrong type */
 
 model("add", {name: "43", married: true, age: 20})
-DB // [{name: "43", married: true, age: 20}]
+DB /* [
+        {name: "Pedro", married: false},
+        {name: "NoBody", married: false},
+        {name: "43", married: true, age: 20}] => married and name set to default even wrong type */
 
 
 ```
