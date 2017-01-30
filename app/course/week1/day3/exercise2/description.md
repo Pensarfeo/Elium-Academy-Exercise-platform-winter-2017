@@ -19,5 +19,5 @@ write 4 functions, one called ```sum```, ```subtract```, ```multipy``` and ```di
 2. For divisions make sure that the second argument is never 0, and if it is, return "dividend cannot be 0"; make sure that this does not happen when no argument is passed. Example
 
     ```jsx
-    var divide(3, 0) // denominator cannot be 0
+    divide(3, 0) // denominator cannot be 0
     ```
