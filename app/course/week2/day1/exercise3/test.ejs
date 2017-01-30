@@ -71,20 +71,21 @@ const runTest = function(){
             } 
             localBA.prototype["withdraw"] = bankAccount.prototype.withdraw
             localBA.prototype["deposit"] = bankAccount.prototype.deposit
+            localBA.prototype["balance"] = bankAccount.prototype.balance
 
             var localA = new localBA(10)
             localA.withdraw(2)
             localA.withdraw(5)
             localA.deposit(4)
             localA.deposit(1)
-            expect(localA.balance).toEqual(8)
+            expect(localA.balance()).toEqual(8)
 
             var localA = new localBA()
             localA.withdraw(2)
             localA.withdraw(5)
             localA.deposit(4)
             localA.deposit(20)
-            expect(localA.balance).toEqual(17)
+            expect(localA.balance()).toEqual(17)
         })
 
     })

@@ -8,6 +8,6 @@ var account = new bankAccount() //deafault to 0
 account.withdraw(2)
 account.withdraw(5)
 account.deposit(4)
-account.deposit(1)
-account.balance() // 98
+account.deposit(6)
+account.balance() // 3
 ```
