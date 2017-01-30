@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<%= view.solution %>.js"></script>
 <script type="text/javascript">
 const runTest = function(){
-    describe( 'AddDiv should:',  ()=>{
+    describe( 'findbyAttr should:',  ()=>{
     var findbyAttr = window.findbyAttr
         beforeEach(() => {
             var testGround = $(".jasmine-testground")
@@ -23,7 +23,7 @@ const runTest = function(){
             `)
         })
 
-        it('be able to serch for the right elements with id attribute that ends in \'tutorial\' and change it background color', () => {
+        it('be able to serch for the right elements with id attribute that ends in \'tutorial\' and change it background color to yellow', () => {
             findbyAttr()
             var found = 0
             var testDiv = $("#exerciseTest")

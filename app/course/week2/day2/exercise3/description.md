@@ -1,6 +1,6 @@
 #### find inputs like
 
-Define a function FindRed that finds all inputs with a value of "Red" and change the text of the next sibling to ``` the value is red!``` 
+Define a function FindRed that finds all inputs with a value of "Red" and change the text of the next sibling to ```the value is red!``` 
 
 Snippet:
 ```html

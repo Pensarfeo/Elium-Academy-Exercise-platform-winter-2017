@@ -17,7 +17,6 @@ const runTest = function(){
         })
 
         it('only 4 functions should be defined', () => {
-            console.log(newDeffStuff.diff(totDeffStuff))
             var definedStuff = newDeffStuff.length - totDeffStuff.length
             if (definedStuff = 7){ definedStuff -= 3}
             expect(definedStuff).toEqual(4)

@@ -1,6 +1,6 @@
 #### Find children
 
-Write a function called ```findDirect``` that finds all inputs that are dirct descendants of a ```form``` and mark them with a dotted red border: ```1px dotted red```.
+Write a function called ```findDirect``` that finds all labels that are dirct descendants of a ```form``` and mark them with a dotted red border: ```1px dotted red```.
 
 **Snippet:**
 

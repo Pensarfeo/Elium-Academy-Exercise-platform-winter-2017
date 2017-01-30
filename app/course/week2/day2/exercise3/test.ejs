@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<%= view.solution %>.js"></script>
 <script type="text/javascript">
 const runTest = function(){
-    describe( 'AddDiv should:',  ()=>{
+    describe( 'FindRed should:',  ()=>{
     var findRed = window.findRed
         beforeEach(() => {
             var testGround = $(".jasmine-testground")
@@ -39,7 +39,7 @@ const runTest = function(){
             var testDiv = $("#exerciseTest")
             testDiv.find("input[value='Red']").each(function(i, ele){
                 var next = $(ele).next()
-                if (next.text() === " the value is red!") { found +=1 }
+                if (next.text() === "the value is red!") { found +=1 }
             })
             expect(found).toEqual(1)
         })

@@ -25,14 +25,14 @@ const runTest = function(){
             account.withdraw(5)
             account.deposit(4)
             account.deposit(1)
-            expect(account.balance).toEqual(-2)
+            expect(account.balance()).toEqual(-2)
 
             var account = new bankAccount()
             account.withdraw(2)
             account.withdraw(5)
             account.deposit(4)
             account.deposit(20)
-            expect(account.balance).toEqual(17)
+            expect(account.balance()).toEqual(17)
         })
 
         it('withdraw and deposit should be in the prototype of bankAccount', () => {

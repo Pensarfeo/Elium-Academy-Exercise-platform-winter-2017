@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<%= view.solution %>.js"></script>
 <script type="text/javascript">
 const runTest = function(){
-    describe( 'AddDiv should:',  ()=>{
+    describe( 'findBananas should:',  ()=>{
     var findBananas = window.findBananas
         beforeEach(() => {
             var testGround = $(".jasmine-testground")
@@ -18,7 +18,7 @@ const runTest = function(){
             `)
         })
 
-        it('be able to serch for "div#exerciseTest" and add the right elements as first child ', () => {
+        it('all the elements that contain the word banana and underline it', () => {
             findBananas()
             var testDiv = $("#exerciseTest")
             let found = 0

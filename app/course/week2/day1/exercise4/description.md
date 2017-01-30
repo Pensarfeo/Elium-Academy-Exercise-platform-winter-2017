@@ -25,4 +25,6 @@ Universe.Energy.total() // 10
 
 ```
 
-Notes: Initially make your universe contain 0 matter and energy. Destroying a negative ammount of energy of matter is equal to creating a possitive a mmount of each and viceversa for creating matter or energy.
+*Notes:* Initially make your universe contain 0 matter and energy. Destroying a negative ammount of energy of matter is equal to creating a possitive a mmount of each and viceversa for creating matter or energy.
+
+*Attention:* The exercises will not past if you retest; try reloading the page instead!
