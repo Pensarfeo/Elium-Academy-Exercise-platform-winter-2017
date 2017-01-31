@@ -22,10 +22,10 @@ const runTest = function(){
         it('append a tag to the element after all li with without attribute name and value "color" ', () => {
             findLi()
             var testDiv = $("#exerciseTest")
-            testDiv.find("[name!='color']").each(function(i, ele){
-                var span = $(ele).next().find("span")
+            testDiv.find("li[name!='color']").each(function(i, ele){
+                var span = $(ele).next()
                 expect(span.is("span")).toEqual(true)
-                expect(span.text().trim()).toEqual(" with no color ")
+                expect(span.text().trim()).toEqual("with no color")
             })
             
         })
