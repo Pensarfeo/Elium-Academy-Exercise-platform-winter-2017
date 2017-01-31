@@ -24,24 +24,24 @@ const runTest = function(){
             bankAccount.withdraw(5)
             bankAccount.deposit(4)
             bankAccount.deposit(1)
-            expect(bankAccount.balance()).toEqual(-2)
+            expect(bankAccount.balance).toEqual(-2)
 
             bankAccount.deposit(4)
             bankAccount.deposit(1)
-            expect(bankAccount.balance()).toEqual(3)
+            expect(bankAccount.balance).toEqual(3)
         })
 
         it('be able to reset the account', () => {
             bankAccount.withdraw(20)
             bankAccount.withdraw(50)
             bankAccount.clear()
-            expect(bankAccount.balance()).toEqual(0)
+            expect(bankAccount.balance).toEqual(0)
         })
 
 
         it('be able to set the account to an arbitrary valye', () => {
             bankAccount.set("hello:)")
-            expect(bankAccount.balance()).toEqual("hello:)")
+            expect(bankAccount.balance).toEqual("hello:)")
         })
 
 

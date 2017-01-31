@@ -46,3 +46,15 @@ view.description = nodeRootDir/weekN/dayN/exerciseN/(description.md || try.ejs |
         - try include("_standardDay/_block", {title: exerciseType, file: view.description})
         - try include("_standardDay/_block", {title: "Try your code", file: view.try})
         - try include("_standardDay/_block", {title: "Test", file: view.test})
+
+
+#### New Possible Exercises
+New Exercises to implement:
+1. function plotter
+2. TaxReturn
+3. Implementation of map?
+
+
+
+#### Replacement Ecercises
+1. Week1/day4/exercise5 Sign of Sum; with immplementation of includes? (Usefull for the next exercise!)
