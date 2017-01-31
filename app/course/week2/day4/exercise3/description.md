@@ -6,3 +6,5 @@ Name           | Age
 -------------- | -------------
 Pedro, Patrick | Youth is wasted on the young(2)
 Evan, Juan     | 25(2)
+
+**Attention:** to make the exercise withoug problems wrap your solutions withing a div with ```id = 'myExerciseSolutions'``` and wrap all your html withing that div. Also all your jquery DOM searches & manipulation should be relative to that div!

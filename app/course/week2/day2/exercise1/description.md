@@ -13,5 +13,7 @@ Usin jQuery write a function called ```addDiv``` that when called adds the follo
 
 ```
 
-Note: Here the object is similar to an Array of DOM Elements.
+**Notes:** Here the object is similar to an Array of DOM Elements.
+
+
 

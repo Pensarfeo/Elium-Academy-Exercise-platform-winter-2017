@@ -13,3 +13,5 @@ Elium keeps growing! And we need a system to track the payment of all the studen
 1. the input for the full name should have the following attribute ```name = "fullname"```
 1. the input for the amount due should have the following attribute ```name = "cost"```
 1. the input for the amount paid should have the following attribute ```name = "paid"```
+
+**Attention:** to make the exercise withoug problems wrap your solutions withing a div with ```id = 'myExerciseSolutions'``` and wrap all your html withing that div. Also all your jquery DOM searches & manipulation should be relative to that div!
