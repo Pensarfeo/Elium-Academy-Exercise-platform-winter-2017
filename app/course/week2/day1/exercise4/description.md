@@ -13,7 +13,7 @@ Example:
 Universe.Matter.total() // 0
 Universe.Energy.total() // 0
 
-Universe.Matter.Destroy(5) // 0
+Universe.Matter.destroy(5) // 0
 Universe.Matter.total() // -5
 Universe.Energy.total() // 5
 
