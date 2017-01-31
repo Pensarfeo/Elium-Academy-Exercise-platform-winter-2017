@@ -1,6 +1,6 @@
 #### Find All lis
 
-Write a function called findLi to find all ```<li>``` elements that don't have the attribute name with value 'color' and append ```<span> with no color </span>```
+Write a function called ```findLi``` to find all ```<li>``` elements that don't have the attribute name with value 'color' and add ```<span> with no color </span>``` after the element
 
 **Snippet:**
 
