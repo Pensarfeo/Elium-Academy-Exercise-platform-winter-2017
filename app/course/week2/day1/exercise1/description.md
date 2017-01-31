@@ -1,6 +1,6 @@
 #### Bank account with objects
 
-Write an object, called bank account, which has at least 3 mtehods (key value pairs in which the value is a function) called ```withdraw```, ```deposit``` and ```balance``` which mimic allow us to keep track of the money flow in the account. None of the methods defined withing bankAccount Object take more than one argument and no other variables should be defined other than the bankAccount Object.
+Write an object, called bank account, which has at least 3 mtehods (key value pairs in which the value is a function) called ```withdraw```, ```deposit``` and ```balance``` which allows us to keep track of the money flow in the account. None of the methods defined withing bankAccount Object take more than one argument and no other variables should be defined other than the bankAccount Object.
 Example:
 
 ```jsx
@@ -10,13 +10,13 @@ bankAccount.withdraw(2)
 bankAccount.withdraw(5)
 bankAccount.deposit(4)
 bankAccount.deposit(1)
-bankAccount.balance // -2
+bankAccount.balance() // -2
 
 bankAccount.clear()
-bankAccount.balance // 0
+bankAccount.balance() // 0
 
 bankAccount.set(10)
-bankAccount.balance // 10
+bankAccount.balance() // 10
 
 
 ```

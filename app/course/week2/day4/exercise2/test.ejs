@@ -4,7 +4,7 @@
             <% if (process.env.NODE_ENV === "development") {%>
                 var main = $(".standard-day-block#playground")
             <% } else { %>
-                var main = $("jasmine-testground")
+                var main = $(".jasmine-testground")
             <% } %>
             var submitButton = main.find("input[type='submit']")
             var inputName = main.find("input[name ='fullname']")
