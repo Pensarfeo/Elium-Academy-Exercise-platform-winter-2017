@@ -18,7 +18,7 @@ const runTest = function(){
             addDiv()
             var testDiv = $("#exerciseTest")
             testDiv.children().first()
-            expect(testDiv.children().first().text()).toEqual(" this was added with jQueyr ")
+            expect(testDiv.children().first().text().trim()).toEqual("this was added with jQueyr")
             expect(testDiv.children().first().is("div")).toEqual(true)
         })
     })

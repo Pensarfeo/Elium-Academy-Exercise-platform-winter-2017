@@ -1,165 +1,191 @@
 <script type="text/javascript">
     const runTest = function(){
         describe( 'translation App should:',  ()=>{
-            var messages = {
+            var formFoundMessage = function(form, method, path, sentence){
+                var newSentece =  path.replace(":sentence", sentence)
+                var method = method.toLowerCase()
+                if(form === "expected"){
+                    return `Form found with action '${newSentece}' and method '${method}'`
+                } else if(form.get(0)){
+                    var formAction = form.attr('action')
+                    var formMethod = form.attr('method').toLowerCase()
+                    return `Form found with action \'${formAction}\' and method \'${formMethod}\'`
+                } else {
+                    return "Form not found!!!"
+                }
+            }
+            var sentences = {
                 carrot: {IT: "carota", ES: "zanahoria", FR: "carotte" }
                 //,airplane: {IS: "flugvel", DE: "Flugzeug", NL: "vliegtuig" }
                 //,knife: {NO: "kniv", PT: "faca", "NL": "mes"}
             }
 
-            Object.keys(messages).map((message, i) =>{
 
-                it(`be able to add new message "${message}"`, (done) => {
-                    console.log("/proxy"+"/message/" + message)
-                    axios.post("/proxy"+"/message/" + message).then(res => {
-                        expect(res.data).toEqual(`"${message}" added`)
+            it(`have an index page with a form that allows us to create new sentences`, (done) => {
+                axios.get("/proxy/").then(res => {
+                    $(".jasmine-testground").append(res.data)
+                    var addForm =$(".jasmine-testground").find("form")
+                    var foundMessage = formFoundMessage(addForm, "POST", "/sentences")
+                    var ExpectedMessage = formFoundMessage("expected", "POST", "/sentences")
+                    expect(foundMessage).toEqual(ExpectedMessage)
+                    done()
+                }).catch((error) => {debugger})
+            })
+
+            Object.keys(sentences).map(function(sentence) {
+                it(`redirect to home when a new sentence is created and show the new sentence`, (done) => {
+                    axios.post("/proxy/sentences", {sentence: sentence}).then(res => {
+                        axios.get("/proxy/").then(res => {
+                            $(".jasmine-testground").empty().append(res.data)
+                            var sentenceLI = $(".jasmine-testground").find(`[sentence=\"${sentence}\"]`)
+                            expect(sentenceLI.is("li")).toEqual(true)
+                            expect(sentenceLI.text().trim()).toEqual(sentence)
+
+                            var deleteForm = sentenceLI.find(`[action='/sentences/${sentence}/delete']`)
+                            var foundMessage = formFoundMessage(deleteForm, "POST", "/sentences/:sentence/delete", sentence)
+                            var ExpectedMessage = formFoundMessage("expected", "POST", "/sentences/:sentence/delete", sentence)
+                            expect(foundMessage).toEqual(ExpectedMessage)
+
+                            var updateForm = sentenceLI.find(`[action='/sentences/${sentence}/update']`)
+                            var foundMessage = formFoundMessage(updateForm, "GET", "/sentences/:sentence/update", sentence)
+                            var ExpectedMessage = formFoundMessage("expected", "GET", "/sentences/:sentence/update", sentence)
+                            expect(foundMessage).toEqual(ExpectedMessage)
+
+                            var translateForm = sentenceLI.find(`[action='/sentences/${sentence}/translate']`)
+                            var foundMessage = formFoundMessage(translateForm, "GET", "/sentences/:sentence/translate", sentence)
+                            var ExpectedMessage = formFoundMessage("expected", "GET", "/sentences/:sentence/translate", sentence)
+                            expect(foundMessage).toEqual(ExpectedMessage)
+                            done()
+                        })
+                    })
+                })
+
+
+                it(`have a page to update a translation`, (done) => {
+                    axios.get(`/proxy/sentences/${sentence}/update`).then(res => {
+                        $(".jasmine-testground").empty().append(res.data)
+
+                        var updateForm = $(".jasmine-testground").find(`[action='/sentences/${sentence}/update']`)
+                        var foundMessage = formFoundMessage(updateForm, "POST", "/sentences/:sentence/update", sentence)
+                        var ExpectedMessage = formFoundMessage("expected", "POST", "/sentences/:sentence/update", sentence)
+                        expect(foundMessage).toEqual(ExpectedMessage)
+
                         done()
                     })
                 })
 
-                it(`be able to tell if message "${message}" is present `, (done) => {
-                    axios.post("/proxy"+"/message/" + message).then(res => {
-                        expect(res.data).toEqual(`"${message}" already exist`)
+                it(`shold a page to delete a translation`, (done) => {
+                    axios.get(`/proxy/sentences/${sentence}/translate`).then(res => {
+                        $(".jasmine-testground").empty().append(res.data)
+
+                        var translateForm = $(".jasmine-testground").find(`[action='/sentences/${sentence}/translate']`)
+                        var foundMessage = formFoundMessage(translateForm, "POST", "/sentences/:sentence/translate", sentence)
+                        var ExpectedMessage = formFoundMessage("expected", "POST", "/sentences/:sentence/translate", sentence)
+                        expect(foundMessage).toEqual(ExpectedMessage)
+
                         done()
                     })
                 })
 
-                it(`fail if we try updating a message "${message}" not present `, (done) => {
-                    axios.post("/proxy"+"/message/" + message + "--/update/asdf").then(res => {
-                        expect(res.data).toEqual(`"${message}--" not found`)
-                        done()
+                Object.keys(sentences[sentence]).map(function(lang) {
+                    var tranObje = sentences[sentence]
+                    it(`redirect to home when a new translation (${sentence[lang]}, ${lang} ) is added and show the new translation`, (done) => {
+                        axios.post(`/proxy/sentences/${sentence}/translate`, {translation: tranObje[lang], lang:lang }).then(res => {
+                            axios.get("/proxy/").then(res => {
+                                $(".jasmine-testground").empty().append(res.data)
+                                var translationLI = $(".jasmine-testground").find(`[sentence=\"${sentence}\"]`).find(`[lang="${lang}"][translation="${tranObje[lang]}"]`)
+                                expect("Is li: " + translationLI.is("li")).toEqual("Is li: true")
+                                expect("li text is => " + translationLI.text().trim()).toEqual("li text is => " + lang + " : " + tranObje[lang])
+
+                                var deleteForm = translationLI.find(`[action='/sentences/${sentence}/delete/${lang}']`)
+                                var foundMessage = formFoundMessage(deleteForm, "POST", `/sentences/:sentence/delete/${lang}`, sentence)
+                                var ExpectedMessage = formFoundMessage("expected", "POST", `/sentences/:sentence/delete/${lang}`, sentence)
+                                expect(foundMessage).toEqual(ExpectedMessage)
+
+                                var updateForm = translationLI.find(`[action='/sentences/${sentence}/update/${lang}']`)
+                                var foundMessage = formFoundMessage(updateForm, "GET", `/sentences/:sentence/update/${lang}`, sentence)
+                                var ExpectedMessage = formFoundMessage("expected", "GET", `/sentences/:sentence/update/${lang}`, sentence)
+                                expect(foundMessage).toEqual(ExpectedMessage)
+
+                                done()
+                            })
+                        })
+
+                    })
+
+                    it(`redirect to home when a translation (${sentence[lang]}, ${lang} ) is updated with !!!`, (done) => {
+                        axios.post(`/proxy/sentences/${sentence}/update/${lang}`, {translation: tranObje[lang]+"!!!", lang:lang }).then(res => {
+                            axios.get("/proxy/").then(res => {
+                                $(".jasmine-testground").empty().append(res.data)
+                                var translationLI = $(".jasmine-testground").find(`[sentence=\"${sentence}\"]`).find(`[lang="${lang}"][translation="${tranObje[lang]}!!!"]`)
+                                expect("li was found: " + translationLI.is("li")).toEqual("li was found: true")
+                                expect("li text is => " + translationLI.text().trim()).toEqual("li text is => " + lang + " : " + tranObje[lang] + "!!!")
+
+                                var deleteForm = translationLI.find(`[action='/sentences/${sentence}/delete/${lang}']`)
+                                var foundMessage = formFoundMessage(deleteForm, "POST", `/sentences/:sentence/delete/${lang}`, sentence)
+                                var ExpectedMessage = formFoundMessage("expected", "POST", `/sentences/:sentence/delete/${lang}`, sentence)
+                                expect(foundMessage).toEqual(ExpectedMessage)
+
+                                var updateForm = translationLI.find(`[action='/sentences/${sentence}/update/${lang}']`)
+                                var foundMessage = formFoundMessage(updateForm, "GET", `/sentences/:sentence/update/${lang}`, sentence)
+                                var ExpectedMessage = formFoundMessage("expected", "GET", `/sentences/:sentence/update/${lang}`, sentence)
+                                expect(foundMessage).toEqual(ExpectedMessage)
+
+                                done()
+                            })
+                        })
+
+                    })
+
+
+                    it(`redirect to home when a translation (${sentence[lang]}!!!, ${lang} ) is deleted`, (done) => {
+                        axios.post(`/proxy/sentences/${sentence}/delete/${lang}`, {translation: tranObje[lang] + "!!!", lang:lang }).then(res => {
+                            axios.get("/proxy/").then(res => {
+                                $(".jasmine-testground").empty().append(res.data)
+                                var translationLI = $(".jasmine-testground").find(`[sentence=\"${sentence}\"]`).find(`[lang="${lang}"][translation="${tranObje[lang]}!!!"]`)
+                                expect("li deleted: " + translationLI.is("li")).toEqual("li deleted: false")
+
+                                done()
+                            })
+                        })
+                    })
+
+                })
+
+
+                it(`show redirect to home when a sentence is updated with !!!`, (done) => {
+
+                    Object.keys(sentences[sentence]).map(function(lang) {
+                        axios.post(`/proxy/sentences/${sentence}/translate`, {translation: sentences[sentence][lang], lang:lang }).then(res => {
+                            expect(true).toEqual(true)
+                            done()
+                        })
+                    })
+
+                    axios.post(`/proxy/sentences/${sentence}/update`, {sentence: sentence + "!!!"}).then(res => {
+                        axios.get("/proxy/").then(res => {
+                            $(".jasmine-testground").empty().append(res.data)
+                            
+                            var sentenceLI = $(".jasmine-testground").find(`[sentence=\"${sentence}!!!\"]`).find("li")
+                            expect("lis found = " + sentenceLI.length).toEqual("lis found = 3")
+                            done()
+                        })
                     })
                 })
 
-                it(`be able to update a message "${message}"`, (done) => {
-                    axios.post("/proxy"+"/message/" + message + "/update/" + message + "---").then(res => {
-                        expect(res.data).toEqual(`"${message}" updated to "${message}---"`)
-                        done()
-                    })
-                })
 
-                it(`be able to update a message "${message}--- back"`, (done) => {
-                    axios.post("/proxy"+"/message/" + message + "---" + "/update/" + message ).then(res => {
-                        expect(res.data).toEqual(`"${message}---" updated to "${message}"`)
-                        done()
-                    })
-                })
-
-                it(`be able to return all messages"`, (done) => {
-                    axios.get("/proxy"+"/message").then(res => {
-                        expect(res.data).toEqual(Object.keys(messages).slice(0, i + 1))
-                        done()
+                it(`show redirect to home when a sentence is deleted`, (done) => {
+                    axios.post(`/proxy/sentences/${sentence}/delete`).then(res => {
+                        axios.get("/proxy/").then(res => {
+                            $(".jasmine-testground").empty().append(res.data)
+                            var sentenceLI = $(".jasmine-testground").find(`[sentence=\"${sentence}\"]`)
+                            expect(sentenceLI.get(0)).toBeUndefined()
+                            done()
+                        })
                     })
                 })
             })
 
-            Object.keys(messages).map((message, i) =>{
-                it(`fail if the message "${message}---" in not found on delete`, (done) => {
-                    axios.post("/proxy"+"/message/"+message+"--/delete").then(res => {
-                        expect(res.data).toEqual(`"${message}--" not found`)
-                        done()
-                    })
-                })
-
-                it(`should delete "${message}"`, (done) => {
-                    axios.post("/proxy"+"/message/"+message+"/delete").then(res => {
-                        expect(res.data).toEqual(`"${message}" deleted`)
-                        done()
-                    })
-                })
-
-                it(`be able to return all messages"`, (done) => {
-                    axios.get("/proxy"+"/message").then(res => {
-                        expect(res.data).toEqual(Object.keys(messages).slice(i+1, 3))
-                        done()
-                    })
-                })
-
-            })
-
-            Object.keys(messages).map((message, i) =>{
-                it(`be able to create "${message}" again`, (done) => {
-                    axios.post("/proxy"+"/message/"+message).then(res => {
-                        expect(res.data).toEqual(`"${message}" added`)
-                        done()
-                    })
-                })
-
-                Object.keys(messages[message]).map((lang, i) =>{
-                    it(`not add a translation if "${message}---" is missing`, (done) => {
-                        axios.post("/proxy"+"/"+message+"---/"+lang+"/asdf").then(res => {
-                            expect(res.data).toEqual(`"${message}---" not found`)
-                            done()
-                        })
-                    })
-
-                    it(`be able to add a translation for "${message}" in ${lang}`, (done) => {
-                        axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
-                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" added`)
-                            done()
-                        })
-                    })
-
-                    it(`not return any translation if "${message}" not found`, (done) => {
-                        axios.get("/proxy"+"/"+message+"---/"+lang).then(res => {
-                            expect(res.data).toEqual(`"${message}---" not found`)
-                            done()
-                        })
-                    })
-
-
-                    it(`be able to return the translations for "${message}" in ${lang}`, (done) => {
-                        axios.get("/proxy"+"/"+message+"/"+lang).then(res => {
-                            expect(res.data).toEqual(messages[message][lang])
-                            done()
-                        })
-                    })
-
-                    it(`fail to add a translation for "${message}" if lang ${lang} already present`, (done) => {
-                        axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
-                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" already exists`)
-                            done()
-                        })
-                    })
-
-                    it(`fail to delete a language ${lang} form it if "${message}---" not present`, (done) => {
-                        axios.post("/proxy"+"/"+message+"---/delete/"+lang).then(res => {
-                            expect(res.data).toEqual(`"${message}---" not found`)
-                            done()
-                        })
-                    })
-
-                    it(`fail to delete a language ${lang}--- form it if "${message}" the lang does not exist`, (done) => {
-                        axios.post("/proxy"+"/"+message+"/delete/"+lang + "---").then(res => {
-                            expect(res.data).toEqual(`translation for "${message}" in "${lang}---" not found`)
-                            done()
-                        })
-                    })
-
-                    it(`able to delete a language ${lang} form "${message}"`, (done) => {
-                        axios.post("/proxy"+"/"+message+"/delete/"+lang).then(res => {
-                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" deleted`)
-                            done()
-                        })
-                    })
-
-                    it(`be able to add a translation for "${message}" in ${lang}`, (done) => {
-                        axios.post("/proxy"+"/"+message+"/"+lang+"/"+messages[message][lang]).then(res => {
-                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" added`)
-                            done()
-                        })
-                    })
-                    // last test to be tested!
-                    it(`be able to update the translation for "${message}" in ${lang}`, (done) => {
-                        axios.post("/proxy"+"/"+message+"/update/"+lang+"/"+messages[message][lang]).then(res => {
-                            expect(res.data).toEqual(`translation for "${message}" in "${lang}" updated`)
-                            done()
-                        })
-                    })
-
-                })
-
-            })
 
         })
     }
@@ -170,5 +196,4 @@
 <!-- style="display: none" -->
 <div class="jasmine_html-reporter"></div>
 
-<div class="jasmine-testground" >
-</div>
+<div class="jasmine-testground"  style="margin-top: 20px"></div>

@@ -1,6 +1,6 @@
 #### Add divs
 
-Usin jQuery write a function called ```addDiv``` that when called adds the following element  ```<div> this was added with jQueyr </div>``` before all paragraphs of the html snipped shown below.
+Usin jQuery write a function called ```addDiv``` that when called adds the following element  ```<div> this was added with jQueyr </div>``` before all paragraphs (p tags) of the html snipped shown below.
 
 **Snippet:**
 

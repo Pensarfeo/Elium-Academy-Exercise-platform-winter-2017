@@ -23,7 +23,7 @@ const runTest = function(){
             var testDiv = $("#exerciseTest")
             let found = 0
             testDiv.find("*").each(function(i, ele){
-                if ($(ele).css("textDecoration") === "underline" && $(ele).text()=== "bananas") { found +=1 }
+                if ($(ele).css("textDecoration") === "underline" && $(ele).text() === "bananas") { found +=1 }
             })
             expect(found).toEqual(2)
         })

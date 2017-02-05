@@ -47,11 +47,6 @@
     "ws": "^1.1.1"
   },
   "devDependencies": {
-    "autoprefixer-loader": "^3.1.0",
-    "axios": "^0.15.2",
-    "css-loader": "^0.23.1",
-    "file-loader": "^0.8.5",
-    "if-env": "^1.0.0",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.8.0",
     "react": "^15.3.2",

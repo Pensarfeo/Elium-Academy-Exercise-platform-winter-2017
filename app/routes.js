@@ -83,30 +83,3 @@ app.get("/solutions/*", function (req, res) {
     currentSolution = pathTo.solutions(...(exercisePath))
     res.send(fs.readFileSync(currentSolution))
 })
-
-
-
-
-/*    app.get("/events", function(req, res){
-    connection = res
-    req.socket.setKeepAlive(true);
-    req.socket.setTimeout(Number.MAX_VALUE);
-    connection.writeHead(200, {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'text/event-stream;charset=utf-8',
-    'Cache-Control': 'no-cache, no-transform',
-    'Connection': 'keep-alive'
-    });
-    debug("Starting connection")
-
-    connection.flushHeaders()
-
-    console.log(req.query)
-    if(req.query.firstLoad==="false"){
-        setTimeout(() => connection.write("data: window.location.reload()" + "\n\n"), 0 ) 
-    }
-})
-*/
-
-
-

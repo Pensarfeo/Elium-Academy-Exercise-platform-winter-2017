@@ -54,7 +54,6 @@ const send = {
 }
 
 chokidar.watch(pathTo.nodeRoot(process.env.solutionFolder), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
-    toConsole(path.includes(exerciseIdRaw))
     if (exerciseIdRaw && wss.clients[0] && path.includes(exerciseIdRaw)){
         const pathDif = path.replace(exerciseIdRaw, "")
         if (pathDif === ".js"){
@@ -67,7 +66,6 @@ chokidar.watch(pathTo.nodeRoot(process.env.solutionFolder), {ignoreInitial: true
 
 chokidar.watch(pathTo.nodeRoot("app", "course"), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
     var playygroundPath = pathMod.join(exerciseIdRaw.replace(".js", "").replace(process.env.solutionFolder, pathMod.join("app", "course")), "playground.js")
-        //toConsole(exerciseIdRaw , wss.clients[0] , playygroundPath === path, playygroundPath, path )
     if (exerciseIdRaw && wss.clients[0] && playygroundPath === path){
         console.log("rendering new react example")
         code = fs.readFileSync(path).toString()
