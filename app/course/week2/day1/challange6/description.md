@@ -1,7 +1,7 @@
 #### Simple Server
 
-A server is a function that returns resources on each request; particularly web servers expect instructions in the form of strings; that are usually called URL. The server has only one method called router, that takes care of analizing the URL and called the appropriate method.
-Use the ```createAccount``` class constructor with its associated methods you defined in execise 3 to create a server that allows you to do all the bank account operations plus keep track of multiple accounts at the same time.
+A server is a function that returns resources on each request; particularly web servers expect instructions in the form of strings, which are usually called URL. The server has only one method called router, that takes care of analizing the URL call the appropriate method.
+Use the ```bankAccount``` class constructor (Today's Exercise4) with its associated methods to create a server that allows you to do all the bank account operations plus keep track of multiple accounts at the same time.
 To succeffully pass the test you should make use of the following API
 
 ---
@@ -9,7 +9,7 @@ To succeffully pass the test you should make use of the following API
 
 URL (String)                  | return (String)                                  | comments
 -                             | -                                                | -
-/account/new/:ammount         | account nr :accountID create with :ammount euros | It must unique, no matter the number of calls
+/account/new/:ammount         | account nr :accountID created with :ammount euros | It must unique, no matter the number of calls
 /:accountID/withdraw/:ammount | :ammount euros taken from account nr :accountID  | if :accountID not found return "Account not found"
 /:accountID/deposit/:ammount  | :ammount euros added to account nr :accountID    | if :accountID not found return "Account not found"
 /:accountID/balance           | The balance of account nr :accountID is ## euros | if :accountID not found return "Account not found"
@@ -22,8 +22,8 @@ URL (String)                  | return (String)                                 
 serverInstance = new Server()
 
 // we can create an arbitrary number of accounts
-userId = serverInstance.router("/account/new/10") // account nr 1 create with 10 euros
-userId2 = serverInstance.router("/account/new/0") // account nr 2 create with 0 euros
+userId = serverInstance.router("/account/new/10") // account nr 1 created with 10 euros
+userId2 = serverInstance.router("/account/new/0") // account nr 2 created with 0 euros
 
 // we can operate on each accoun independently
 serverInstance.router("/1/withdraw/2")  // 2 euros taken from account nr 1
@@ -42,7 +42,7 @@ serverInstance.router("/1/balance")  // The balance of account nr 1 is 10 euros
 serverInstance.router("/2/balance")  // Account not found
 
 // we can keep creating accounts allways with unique ids
-userId = serverInstance.router("/account/new/10") // account nr 3 create with 10 euros
+userId = serverInstance.router("/account/new/10") // account nr 3 created with 10 euros
 
 ```
 

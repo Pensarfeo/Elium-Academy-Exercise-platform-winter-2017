@@ -2830,23 +2830,30 @@ getJasmineRequireObj().matchersUtil = function(j$) {
                 isNot = args[1],
                 actual = args[2],
                 expected = args.slice(3),
+                info = args[4] || "output or element"
                 englishyPredicate = matcherName.replace(/[A-Z]/g, function(s) {
                     return ' ' + s.toLowerCase(); });
+                console.log(expected)
 
-            var message = 'Expected ' +
-                j$.pp(actual) +
-                (isNot ? ' not ' : ' ') +
-                englishyPredicate;
-
+            var expectedString = ""
             if (expected.length > 0) {
                 for (var i = 0; i < expected.length; i++) {
                     if (i > 0) {
-                        message += ',';
+                        expectedString += ',';
                     }
-                    message += ' ' + j$.pp(expected[i]);
+                    expectedString += ' ' + j$.pp(expected[i]);
                 }
             }
 
+            var message = 'Expected ' +
+                info +
+                (isNot ? ' not ' : ' ') +
+                englishyPredicate + 
+                expectedString +
+                " instead got " +
+                j$.pp(actual);
+
+                console.log(message, arguments, expectedString)
             return message + '.';
         }
     };
@@ -2876,7 +2883,6 @@ getJasmineRequireObj().matchersUtil = function(j$) {
     //   [Underscore](http://underscorejs.org)
     function eq(a, b, aStack, bStack, customTesters) {
         var result = true;
-
         var asymmetricResult = asymmetricMatch(a, b);
         if (!j$.util.isUndefined(asymmetricResult)) {
             return asymmetricResult;

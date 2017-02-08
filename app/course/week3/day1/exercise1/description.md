@@ -30,5 +30,3 @@ URL | Hessage
 ```
 4. now, when your code is ready, you should be able to use ```npm start``` to launch your app.
 5. remember to set the app to listen to ```localhost:3001```
-
-**Notes:** There are many ways to make the test pass, one of the is to use ```req.params```, you can find more info in the [express documentation](https://expressjs.com/en/guide/routing.html#route-parameters)
