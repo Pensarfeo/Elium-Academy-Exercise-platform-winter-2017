@@ -29,7 +29,7 @@
                     var ExpectedMessage = formFoundMessage("expected", "POST", "/sentences")
                     expect(foundMessage).toEqual(ExpectedMessage)
                     done()
-                }).catch((error) => {debugger})
+                })
             })
 
             Object.keys(sentences).map(function(sentence) {

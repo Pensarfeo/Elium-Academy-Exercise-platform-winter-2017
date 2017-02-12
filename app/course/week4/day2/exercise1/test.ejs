@@ -1,0 +1,86 @@
+<script type="text/javascript">
+    const runTest = function(){
+        describe( 'Authentication App should:',  ()=>{
+            var formFoundMessage = function(form, method, path, sentence){
+                var newSentece =  path.replace(":sentence", sentence)
+                var method = method.toLowerCase()
+                if(form === "expected"){
+                    return `Form found with action '${newSentece}' and method '${method}'`
+                } else if(form.get(0)){
+                    var formAction = form.attr('action')
+                    var formMethod = form.attr('method').toLowerCase()
+                    return `Form found with action \'${formAction}\' and method \'${formMethod}\'`
+                } else {
+                    return "Form not found!!!"
+                }
+            }
+            var usersData = [
+                [{email: "" , password: ""}, {email: 'Email address is required', password: 'Password missing or too short (at least 8 characters)'}],
+                [{email: "" , password: "1234567"}, {email: 'Email address is required', password: 'Path `password` (`1234567`) is shorter than the minimum allowed length (8).'}],
+                [{email: "qwer@asfd" , password: "123456786"}, {email: 'Please fill a valid email address', password: ""}],
+                [{email: "qwerasfd.sdf" , password: "123456786"}, {email: 'Please fill a valid email address', password: "" }]
+            ]
+
+            var user = {email: "qwer@asfd.sdf" , password: "12345678"}
+
+            beforeAll(()=>{
+                axios.get("/proxy/clean")
+            })
+
+            it(`have an signUp page with a form that allows us to create new sentences`, (done) => {
+                axios.get("/proxy/signUp").then(res => {
+                    $(".jasmine-testground").html(res.data)
+                    var addForm =$(".jasmine-testground").find("form")
+                    var foundMessage = formFoundMessage(addForm, "POST", "/signUp")
+                    var ExpectedMessage = formFoundMessage("expected", "POST", "/signUp")
+                    expect(foundMessage).toEqual(ExpectedMessage)
+                    done()
+                })
+            })
+
+            usersData.map(function(data) {
+                it(`should have error messages for each set of wrong signUp data`, (done) => {
+                    axios.post("/proxy/signUp", data[0]).then(res => {
+                        $(".jasmine-testground").empty().append(res.data)
+                        const mailFailure = $(".jasmine-testground").find(".error[for='email']").text().trim()
+                        const passFailure = $(".jasmine-testground").find(".error[for='password']").text().trim()
+                        expect(!!mailFailure).toEqual(!!data[1].email)
+                        expect(!!passFailure).toEqual(!!data[1].password)
+                        done()
+                    })
+                })
+            })
+
+            it(`should be able to log in a user with good password & email`, (done) => {
+                axios.post("/proxy/signUp", user).then(res => {
+                    axios.get("/proxy").then(res => {
+                        $(".jasmine-testground").empty().append(res.data)
+                        const mail = $(".jasmine-testground").find("#email").text().trim()
+                        const pass = $(".jasmine-testground").find("#password").text().trim()
+                        const seID = $(".jasmine-testground").find("#sessionID").text().trim()
+                        expect(mail).toEqual("email: " + user.email)
+                        expect(pass).toEqual( "password: " + user.password)
+                        done()
+                    })
+                })
+            })
+
+            it(`should fail a user with same email`, (done) => {
+                axios.post("/proxy/signUp", user).then(res => {
+                    $(".jasmine-testground").empty().append(res.data)
+                    const mailFailure = $(".jasmine-testground").find(".error[for='email']").text().trim()
+                    expect(mailFailure).toEqual("Email alrady taken")
+                    done()
+                })
+            })
+
+        })
+    }
+
+    runTest()
+
+</script>
+<!-- style="display: none" -->
+<div class="jasmine_html-reporter"></div>
+
+<div class="jasmine-testground"  style="margin-top: 20px"></div>

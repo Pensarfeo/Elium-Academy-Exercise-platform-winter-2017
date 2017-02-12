@@ -1,3 +1,11 @@
-#### Translator App - Sign Up
+#### Protect Route
 
-Now we can create a full session system. All the routes should be closed to any non registerd user. If the user is not registerd redirect him to a sign up or sign in page. Once the user is signed in save the session in a session model with the userId and a big random number (at least 12 digits) to be saved in the cookie. You should also add a sign out button that deletes the sessionId from the cookie and from the session record from the collection.
+Continue yesterday's exercises by protecting the home route from not signed in users. If that happens the user will be redirected to the sign In page. You will also create a signOut route.
+
+**API:**
+
+Method | URL      | Action
+-      | -------- | ------
+GET    | /signout | Get Sign Up form & error messages
+POST   | /signOut | Log User Out
+GET    | /        | Only show infor if user is logged in

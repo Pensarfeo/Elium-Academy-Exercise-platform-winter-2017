@@ -1539,7 +1539,7 @@ getJasmineRequireObj().Expectation = function() {
             var args = Array.prototype.slice.call(arguments, 0),
                 expected = args.slice(0),
                 message = '';
-
+                //debugger
             args.unshift(this.actual);
 
             var matcher = matcherFactory(this.util, this.customEqualityTesters),
@@ -2833,7 +2833,6 @@ getJasmineRequireObj().matchersUtil = function(j$) {
                 info = args[4] || "output or element"
                 englishyPredicate = matcherName.replace(/[A-Z]/g, function(s) {
                     return ' ' + s.toLowerCase(); });
-                console.log(expected)
 
             var expectedString = ""
             if (expected.length > 0) {
@@ -2853,7 +2852,6 @@ getJasmineRequireObj().matchersUtil = function(j$) {
                 " instead got " +
                 j$.pp(actual);
 
-                console.log(message, arguments, expectedString)
             return message + '.';
         }
     };
@@ -3278,6 +3276,7 @@ getJasmineRequireObj().toContain = function() {
 getJasmineRequireObj().toEqual = function() {
 
     function toEqual(util, customEqualityTesters) {
+
         customEqualityTesters = customEqualityTesters || [];
 
         return {

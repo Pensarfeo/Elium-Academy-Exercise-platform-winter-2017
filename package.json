@@ -34,6 +34,7 @@
     "jsdom": "^9.9.1",
     "jsonfile": "^2.4.0",
     "marked": "^0.3.6",
+    "mongoose-type-email": "^1.0.3",
     "morgan": "^1.7.0",
     "node-sass": "^4.1.1",
     "node-sass-evergreen": "^1.1.2",
