@@ -12,19 +12,15 @@ Once the user has been registerd, redirect him to the home page where you will s
 
 Method | URL     | Action
 -      | --------| ---------
-GET    | /signUp | Get Sign Up form & error messages
-GET    | /clean  | Remove all user's records from your collection
-POST   | /signUp | Resiter User
+GET    | /signUp | show Sign Up form
+POST   | /signUp | Resiter User and redirect to "/" || show singUp form with error messages.
 GET    | /       | Display User Info
+GET    | /clean  | Remove all user's records from your collection
 
 *GET  - /signUp*
 1. Expected to have: A form to add new sentences. Look at the example for the full list of errors.
 
 ```html
-<!-- if any errors then show -->
-<p style="error" for="email"> </p>
-<p style="error" for="password"> </p>
-
 <form action="/signUp" method="POST">
     <input type="text" name="email">
     <input type="password" name="password">
@@ -36,8 +32,8 @@ GET    | /       | Display User Info
 In case of failure expected to have: A form to add new sentences and the errors. Look at the example for the full list of errors.
 ```html
 <!-- if any errors then show -->
-<p style="error" for="email"> </p>
-<p style="error" for="password"> </p>
+<p class = "error" for="email"> </p>
+<p class = "error" for="password"> </p>
 
 <form action="/signUp" method="POST">
     <input type="text" name="email">
@@ -52,9 +48,9 @@ Show user info. sessionID should be also stored in a cookie
 ```html
     YOu Made It
     <div>
-        <div id ="email">email: <%= user.email %></div>
-        <div id="password">password: <%= user.password %></div>
-        <div id="sessionID">sessionID: <%= session.id %></div>
+        <div id = "email">email: <%= user.email %></div>
+        <div id = "password">password: <%= user.password %></div>
+        <div id = "sessionID">sessionID: <%= session.id %></div>
     </div>
     <form action ="/signOut" method = "post">
         <input type = "submit" value = "LogOut">
