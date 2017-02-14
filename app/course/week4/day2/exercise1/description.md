@@ -13,7 +13,7 @@ Once the user has been registerd, redirect him to the home page where you will s
 Method | URL     | Action
 -      | --------| ---------
 GET    | /signUp | show Sign Up form
-POST   | /signUp | Resiter User and redirect to "/" || show singUp form with error messages.
+POST   | /signUp | Resiter User and redirect to "/" OR show singUp form with error messages.
 GET    | /       | Display User Info
 GET    | /clean  | Remove all user's records from your collection
 
