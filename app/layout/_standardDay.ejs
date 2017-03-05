@@ -1,5 +1,4 @@
-<% var exerciseId = view.description.split(/[\\\/]/).slice(-4, -1) %>
-
+<% var exerciseId = view.basic.split(/[\\\/]/).slice(-3) %>
 <script type="text/javascript">
     mule.exerciseIdRaw = "<%= exerciseId %>".split(",")
     mule.exerciseId ={
@@ -12,13 +11,17 @@
 <% var exerciseType = exerciseId.slice(-1)[0]%>
 <% exerciseType = exerciseType[0].toUpperCase() + exerciseType.slice(1,-1) + " " + exerciseType.slice(-1)[0] %>
 
+<%= console.log(pathJoin(view.basic, "description.md"), view.basic) %>
 <% try { %>
-    <%- include("_standardDay/_block", {title: exerciseType, file: view.description}) -%>
+    <%- include("_standardDay/_block", {title: exerciseType, file: pathJoin(view.basic, "description.md") }) -%>
 <% } catch (error) {} %>
 <% try { %>
-    <%- include("_standardDay/_block", {title: "Plaground", file: view.try}) -%>
+    <%- include("_standardDay/_block", {title: "Example", file: pathJoin(view.basic, "example.ejs") }) -%>
 <% } catch (error) {} %>
 <% try { %>
-    <%- include("_standardDay/_block", {title: "Test", file: view.test}) -%>
+    <%- include("_standardDay/_block", {title: "Your Solution", file: pathJoin(view.basic, "solution.ejs") }) -%>
+<% } catch (error) {} %>
+<% try { %>
+    <%- include("_standardDay/_block", {title: "Test", file: pathJoin(view.basic, "test.ejs") }) -%>
 <% } catch (error) {} %>
 

@@ -1,0 +1,53 @@
+<!-- style="display: none" -->
+<!-- <script type="text/javascript" src="/public/js/enzyme_jasmineenzyme.js"></script> -->
+<div class="jasmine_html-reporter"></div>
+<script type="text/javascript">
+    const runTest = function(beforeTest){
+        readMessage.runEval = eval
+        beforeTest()
+        describe( 'Profiles components should:',  ()=>{
+
+            it(`render the given info for the Details component`, () => {
+                let rendered = Details({color: "red"})
+                let type =  rendered.type
+                expect(type).toEqual("div")
+                let message =  rendered.props.children.join("").trim().toLowerCase()
+                expect(message).toEqual("color: red")
+
+                rendered = Details({time: "now"})
+                type =  rendered.type
+                expect(type).toEqual("div")
+                message =  rendered.props.children.join("").trim().toLowerCase()
+                expect(message).toEqual("time: now")
+
+            })
+
+            it(`For the Profile component be able to render other children components`, () => {
+                let number = Details({number: 1})
+                let banana = Details({banana: "good"})
+
+                let rendered = Profile({children: [number, banana]})
+                let type =  rendered.type
+                expect(type).toEqual("div")
+                let message =  rendered.props.children.map(ele => ele.props.children.join("").trim().toLowerCase()).join("; ")
+                expect(message).toEqual("number: 1; banana: good")
+            })
+        })
+    }
+
+    var asyncTest = function(response) {
+        JasmineBoot();
+        response.data = "JS\n" + response.data;
+        runTest(() => readMessage(response))
+        exercuteTest()
+    }
+
+    window.runTheTest = function() {
+        axios.get("<%= view.solution %>.js")
+            .then(asyncTest)
+    }
+
+    runTheTest()
+
+</script>
+<div class="jasmine-testground" ></div>

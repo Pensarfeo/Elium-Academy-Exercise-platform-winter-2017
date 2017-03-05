@@ -265,3 +265,13 @@
   color: #183691;
   text-decoration: underline;
 }
+
+.jsx .close{
+    float: none;
+    opacity: 1
+}
+
+.jsx .close:hover {
+    color: #0086b3;
+    cursor: text;
+}

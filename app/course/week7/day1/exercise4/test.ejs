@@ -1,0 +1,60 @@
+<!-- style="display: none" -->
+<!-- <script type="text/javascript" src="/public/js/enzyme_jasmineenzyme.js"></script> -->
+<div class="jasmine_html-reporter"></div>
+<script type="text/javascript">
+    const runTest = function(beforeTest){
+        readMessage.runEval = eval
+        beforeTest()
+        describe( 'greaterThanTen component should:',  ()=>{
+
+            it(`display false if the prop value is a number smaller than 10`, () => {
+                let rendered = greaterThanTen({value: 5})
+                let type =  rendered.type
+                expect(type).toEqual("div")
+                let message =  rendered.props.children.join("").trim().toLowerCase()
+                expect(message).toEqual("false")
+            })
+
+            it(`display true if the prop value is a number bigger than 10`, () => {
+                let rendered = greaterThanTen({value: 55})
+                let type =  rendered.type
+                expect(type).toEqual("div")
+                let message =  rendered.props.children.join("").trim().toLowerCase()
+                expect(message).toEqual("true")
+            })
+
+            it(`display a given message if the value prop is not a number type`, () => {
+                let rendered = greaterThanTen({value: "55"})
+                let type =  rendered.type
+                expect(type).toEqual("h3")
+                let message =  rendered.props.children.join("").trim().toLowerCase()
+                expect(message).toEqual("wrong prop type or expected prop missing")
+            })
+
+            it(`display a given message if the value prop is missing`, () => {
+                let rendered = greaterThanTen({banana: 55})
+                let type =  rendered.type
+                expect(type).toEqual("h3")
+                let message =  rendered.props.children.join("").trim().toLowerCase()
+                expect(message).toEqual("wrong prop type or expected prop missing")
+            })
+
+        })
+    }
+
+    var asyncTest = function(response) {
+        JasmineBoot();
+        response.data = "JS\n" + response.data;
+        runTest(() => readMessage(response))
+        exercuteTest()
+    }
+
+    window.runTheTest = function() {
+        axios.get("<%= view.solution %>.js")
+            .then(asyncTest)
+    }
+
+    runTheTest()
+
+</script>
+<div class="jasmine-testground" ></div>

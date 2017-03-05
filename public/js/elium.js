@@ -5,8 +5,25 @@ const messageType = function(string){
     return [splittedString[0], splittedString.slice(1).join("\n")]
 }
 
-const initializeWS = function (geval){
 
+const readMessage = function(e) {
+    const [type, message] = messageType(e.data)
+    console.debug("new message", "type: " + type, message )
+    if (type === "JS" || type === "JSX") {
+        const parsedCode = Babel.transform(message, { presets: ['es2015', 'react'] }).code
+        readMessage.runEval(parsedCode.replace("use strict", ""))
+    } else if (type === "HTML") {
+        $(".jasmine-testground").empty()
+        $(".jasmine-testground").append(message)
+        window.runTheTest()
+    }
+
+    //console.debug(parsedCode)
+}
+
+
+const initializeWS = function (gEval){
+    readMessage.runEval = readMessage.runEval || gEval
     var socketUrl = window.location.origin.replace(/^http(s?):\/\//, 'ws$1://') + "/"
     let socket
     function appInfo (){
@@ -20,20 +37,7 @@ const initializeWS = function (geval){
     }
 
     function onMessage (e) {
-        const [type, message] = messageType(e.data)
-        console.debug("new message", "type: " + type, message )
-
-        if (type === "JS" || type === "JSX") {
-                    const parsedCode = Babel.transform(message, { presets: ['es2015', 'react'] }).code
-                    geval(parsedCode.replace("use strict", ""))
-        } else if (type === "HTML") {
-            $(".jasmine-testground").empty()
-            $(".jasmine-testground").append(message)
-             JasmineBoot()
-             runTest()
-             exercuteTest()
-        }
-        //console.debug(parsedCode)
+        readMessage(e)
     }
 
     function onError (e) {
@@ -89,8 +93,25 @@ console.debug = function(...args){
         console.groupEnd();
     }
 }
-const runTheTest = function () {
+
+const defaultRunTheTest = function () {
     JasmineBoot();
     runTest();
     exercuteTest()
+}
+
+window.runTheTest = window.runTheTest || defaultRunTheTest
+
+
+String.prototype.join = function(){
+    return this
+}
+
+String.prototype.generalize = function(){
+    return this.trim().toLowerCase()
+}
+
+
+Boolean.prototype.join = function(){
+    return this + ""
 }

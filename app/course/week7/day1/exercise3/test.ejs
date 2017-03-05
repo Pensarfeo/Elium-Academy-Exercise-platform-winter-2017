@@ -1,0 +1,71 @@
+<!-- style="display: none" -->
+<!-- <script type="text/javascript" src="/public/js/enzyme_jasmineenzyme.js"></script> -->
+<div class="jasmine_html-reporter"></div>
+<script type="text/javascript">
+    const runTest = function(beforeTest){
+        readMessage.runEval = eval
+        beforeTest()
+        describe( 'helloClass Component should:',  ()=>{
+
+            beforeAll(()=>{
+            })
+
+            it(`render an h3 with a given message`, () => {
+                let rendered = helloClass({names: "a,sd,d,f,dsd".split(",")})
+                let type =  rendered.props.children[0].type
+                expect(type).toEqual("h3")
+                let message =  rendered.props.children[0].props.children.trim().toLowerCase()
+                expect(message).toEqual("the names of the students are")
+            })
+
+            it(`render a ul with the given names`, () => {
+                let rendered = helloClass({names: "ana,nicolas,sadre".split(",")})
+                let type =  rendered.props.children[1].type
+                expect(type).toEqual("ul")
+            })
+
+            it(`render n li elements with the given names`, () => {
+                let rendered = helloClass({names: "ana,nicolas,sadre".split(",")})
+                let listOfNames =  rendered.props.children[1].props.children
+                expect(listOfNames[0].type).toEqual("li")
+                expect(listOfNames.length).toEqual(3)
+                rendered = helloClass({names: "1,2,3,4,5,6,7,8,3".split(",")})
+                listOfNames =  rendered.props.children[1].props.children
+                expect(listOfNames.length).toEqual(9)
+            })
+
+            it(`have the name of the students in each li`, () => {
+                let names = "ana,nicolas,sadre"
+                let rendered = helloClass({names:names.split(",")})
+                let listOfNames =  rendered.props.children[1].props.children
+                let allNames = listOfNames.map(ele => ele.props.children.join("").trim()).join(",")
+                expect(allNames).toEqual(names)
+                
+                names =  "1,2,3,4,5,6,7,8,3"
+                rendered = helloClass({names: names.split(",")})
+                listOfNames =  rendered.props.children[1].props.children
+                allNames = listOfNames.map(ele => ele.props.children.join("").trim()).join(",")
+                expect(allNames).toEqual(names)
+                
+            })
+
+
+        })
+    }
+
+    var asyncTest = function(response) {
+        JasmineBoot();
+        response.data = "JS\n" + response.data;
+        runTest(() => readMessage(response))
+        exercuteTest()
+    }
+
+    window.runTheTest = function() {
+        axios.get("<%= view.solution %>.js")
+            .then(asyncTest)
+    }
+
+    runTheTest()
+
+</script>
+<div class="jasmine-testground" ></div>

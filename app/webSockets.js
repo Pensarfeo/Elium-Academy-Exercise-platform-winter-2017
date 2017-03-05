@@ -23,7 +23,6 @@ const hotExerciseReloadCommands =`
 `
 const send = {
     js: function(path) {
-
         try{
             code =  "JS\n" + fs.readFileSync(path).toString() + hotExerciseReloadCommands
         } catch(error){
@@ -53,15 +52,16 @@ const send = {
     }
 }
 
-chokidar.watch(pathTo.nodeRoot(process.env.solutionFolder), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {
-    if (exerciseIdRaw && wss.clients[0] && path.includes(exerciseIdRaw)){
-        const pathDif = path.replace(exerciseIdRaw, "")
-        if (pathDif === ".js"){
-            send.js(path)
-        } else if (pathDif === ".html"){
-            send.html(path)
+chokidar.watch(pathTo.nodeRoot(process.env.solutionFolder), {ignoreInitial: true, ignored: /(^|[\/\\])\../})
+    .on('change', (path, event) => {
+        if (exerciseIdRaw && wss.clients[0] && path.includes(exerciseIdRaw)){
+            const pathDif = path.replace(exerciseIdRaw, "")
+            if (pathDif === ".js"){
+                send.js(path)
+            } else if (pathDif === ".html"){
+                send.html(path)
+            }
         }
-    }
 });
 
 chokidar.watch(pathTo.nodeRoot("app", "course"), {ignoreInitial: true, ignored: /(^|[\/\\])\../}).on('change', (path, event) => {

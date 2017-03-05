@@ -1,0 +1,20 @@
+<div id="yourSolution"></div>
+<script type="text/babel">
+    const runTest = function(beforeTest){
+        readMessage.runEval = eval
+        beforeTest()
+        reactRender = ReactDOM.render( <Game/>, document.getElementById("yourSolution"))
+    }
+
+    var asyncTest = function(response) {
+        response.data = "JS\n" + response.data;
+        runTest(() => readMessage(response))
+    }
+
+    window.runTheTest = function() {
+        axios.get("<%= view.solution %>.js")
+            .then(asyncTest)
+    }
+
+    runTheTest()
+</script>
