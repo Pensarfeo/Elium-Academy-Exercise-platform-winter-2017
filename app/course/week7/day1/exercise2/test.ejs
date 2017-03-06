@@ -11,9 +11,9 @@
             })
 
             it(`render a hello message according to the passed name prop`, () => {
-                let message =  helloYou({you: "asdf"}).props.children.join("").trim().toLowerCase()
+                let message =  helloYou({name: "asdf"}).props.children.join("").trim().toLowerCase()
                 expect(message).toEqual("hello asdf")
-                message =  helloYou({you: "somename"}).props.children.join("").trim().toLowerCase()
+                message =  helloYou({name: "somename"}).props.children.join("").trim().toLowerCase()
                 expect(message).toEqual("hello somename")
 
             })
