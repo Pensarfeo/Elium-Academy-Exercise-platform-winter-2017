@@ -40,8 +40,16 @@
                 let rendered = Profile({children: [name, address, email]})
                 let type =  rendered.type
                 expect(type).toEqual("div")
-                let message =  rendered.props.children.map(ele => ele.props.children.join("").trim().toLowerCase()).join("; ")
-                expect(message).toEqual("name: pedro; email: pedro@pedro.pedro; address: pedrostraat 21, 3000 pedroland")
+                const message = []
+                rendered.props.children.map(ele => {
+                    if (typeof ele === "object") {
+                        ele.map( (obj) => {
+                            message.push( obj.props.children.join("").trim().toLowerCase() )
+                        })
+                    }
+                })
+
+                expect(message.join("; ")).toEqual("name: pedro; email: pedro@pedro.pedro; address: pedrostraat 21, 3000 pedroland")
             })
         })
     }
