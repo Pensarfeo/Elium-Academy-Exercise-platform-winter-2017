@@ -23,12 +23,13 @@ marked.setOptions({
 
 module.exports = function(exPath){
     const mdPath = path.join(exPath)
+    toConsole(exPath)
     const mark = marked(fs.readFileSync (mdPath, 'utf8'));
 
     let html= $.load(mark)
     html('pre').map( (i , block) => {
         const codeBlock = $(block)
-        let lang = codeBlock.html().match(/class="lang-([a-z].*)"/)[1]
+        let lang = codeBlock.html().match(/class="lang-([a-zA-Z].*)"/)[1]
 
         if ( lang === "html"){
             lang = "text.html.basic"

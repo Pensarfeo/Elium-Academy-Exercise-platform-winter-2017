@@ -9,9 +9,7 @@
 </script>
 
 <% var exerciseType = exerciseId.slice(-1)[0]%>
-<% exerciseType = exerciseType[0].toUpperCase() + exerciseType.slice(1,-1) + " " + exerciseType.slice(-1)[0] %>
 
-<%= console.log(pathJoin(view.basic, "description.md"), view.basic) %>
 <% try { %>
     <%- include("_standardDay/_block", {title: exerciseType, file: pathJoin(view.basic, "description.md") }) -%>
 <% } catch (error) {} %>
