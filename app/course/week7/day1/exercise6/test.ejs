@@ -6,15 +6,14 @@
         readMessage.runEval = eval
         beforeTest()
         describe( 'Profiles components should:',  ()=>{
-
             it(`render the given info for the Details component`, () => {
-                let rendered = Details({color: "red"})
+                let rendered = Detail({detail: {color: "red"}})
                 let type =  rendered.type
                 expect(type).toEqual("div")
                 let message =  rendered.props.children.join("").trim().toLowerCase()
                 expect(message).toEqual("color: red")
 
-                rendered = Details({time: "now"})
+                rendered = Detail({detail: {time: "now"}})
                 type =  rendered.type
                 expect(type).toEqual("div")
                 message =  rendered.props.children.join("").trim().toLowerCase()
@@ -23,14 +22,22 @@
             })
 
             it(`For the Profile component be able to render other children components`, () => {
-                let number = Details({number: 1})
-                let banana = Details({banana: "good"})
+                let number = Detail({detail: {number: 1}})
+                let banana = Detail({detail: {banana: "good"}})
 
                 let rendered = Profile({children: [number, banana]})
                 let type =  rendered.type
                 expect(type).toEqual("div")
-                let message =  rendered.props.children.map(ele => ele.props.children.join("").trim().toLowerCase()).join("; ")
-                expect(message).toEqual("number: 1; banana: good")
+                const message = [] 
+                rendered.props.children.map(ele => {
+                    if (typeof ele === "object") {
+                        ele.map( (obj) => {
+                            message.push( obj.props.children.join("").trim().toLowerCase() )
+                        })
+                    }
+                })
+
+                expect(message.join("; ")).toEqual("number: 1; banana: good")
             })
         })
     }

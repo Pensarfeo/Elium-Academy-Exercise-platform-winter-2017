@@ -6,24 +6,24 @@ Create a react component (stateless function) called Profile that lists your nam
 
 ```jsx
 <Profile>
-    <div><Detail detail={{Name: "Pedro"}} /></div>
-    <div><Detail detail={{Email: "pedro@pedro.pedro"}} /></div>
-    <div><Detail detail={{Address: "PedroStraat 21, 3000 Pedroland"}}/></div>
+    <Detail detail={{Name: "Pedro"}} />
+    <Detail detail={{Email: "pedro@pedro.pedro"}} />
+    <Detail detail={{Address: "PedroStraat 21, 3000 Pedroland"}}/>
 </Profile>
 // displays:
-<div>Profile
+<div>
     <div> Name: Pedro </div>
     <div> Email: pedro@pedro.pedro </div>
     <div> Address: PedroStraat 21, 3000 Pedroland </div>
 </div>
 
 <Profile>
-    <div><Detail detail={{Name: "Sophie"}} /></div>
-    <div><Detail detail={{Email: "Sophie@Sophie.Sophie"}} /></div>
-    <div><Detail detail={{Address: "SophieStraat 21, 3000 Pedroland"}}/></div>
+    <Detail detail={{Name: "Sophie"}} />
+    <Detail detail={{Email: "Sophie@Sophie.Sophie"}} />
+    <Detail detail={{Address: "SophieStraat 21, 3000 Pedroland"}}/>
 </Profile>
 // displays:
-<div>Profile
+<div>
     <div> Name: Sophie </div>
     <div> Email: Sophie@Sophie.Sophie </div>
     <div> Address: SophieStraat 21, 3000 Pedroland </div>
