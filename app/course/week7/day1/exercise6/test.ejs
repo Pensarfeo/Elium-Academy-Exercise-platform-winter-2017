@@ -28,15 +28,19 @@
                 let rendered = Profile({children: [number, banana]})
                 let type =  rendered.type
                 expect(type).toEqual("div")
-                const message = [] 
+                const message = []
+
                 rendered.props.children.map(ele => {
-                    if (typeof ele === "object") {
+                    if ( Array.isArray(ele)) {
                         ele.map( (obj) => {
                             message.push( obj.props.children.join("").trim().toLowerCase() )
                         })
+                        return
+                    }
+                    if (ele.props ) {
+                        message.push( ele.props.children.join("").trim().toLowerCase() )
                     }
                 })
-
                 expect(message.join("; ")).toEqual("number: 1; banana: good")
             })
         })
