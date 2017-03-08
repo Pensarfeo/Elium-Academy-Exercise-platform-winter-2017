@@ -19,7 +19,7 @@ const runTest = function(beforeTest){
             expect(component.text()).toContain("0")
         })
 
-        it('only update when clicked an odd number of times', () => {
+        it('go to 0 at the tenth time its clicked', () => {
             const button = component.find("button")
             for(let i=0; i<10; i++){ button.simulate("click") }
                 
