@@ -31,12 +31,18 @@ const runTest = function(beforeTest){
             expect(component.text()).toContain("0")
         })
 
+        it('define componentWillUnmount', () => {
+            expect(component.nodes[0].componentWillUnmount).toBeDefined()
+            expect(typeof component.nodes[0].componentWillUnmount).toEqual("function")
+        })
+
+
         it('If you click 3 or more times, it would not update the counter to 3 or more', (done) => {
             expect(component.text()).toContain("0")
             const button = component.find("button")
             for(let i=0; i<4; i++){button.simulate("click")}
             setTimeout(() => {
-                component.nodes[0].componentWillUnmount()
+                if (typeof component.nodes[0].componentWillUnmount === "function") component.nodes[0].componentWillUnmount()
                 expect(component.text()).not.toContain("4")
                 done()}
             , 5000)
@@ -59,7 +65,7 @@ const runTest = function(beforeTest){
                 expect(numberText).toEqual("component will unmount in 1")}, 2500)
             setTimeout(()=> {
                 numberText = component1.text().replace(button.text(), "")
-                component1.nodes[0].componentWillUnmount()
+                if (typeof component1.nodes[0].componentWillUnmount === "function") component1.nodes[0].componentWillUnmount()
                 expect(numberText).toEqual("component will unmount in 0")}, 3500)
             setTimeout(() => done(), 5000)
 
