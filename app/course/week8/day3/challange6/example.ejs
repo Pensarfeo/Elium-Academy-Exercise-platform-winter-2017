@@ -1,0 +1,37 @@
+<style type="text/css">
+    .game {
+        display: inline-block;
+        background-color: red;
+        width: 500px;
+        height: 200px;
+        position: relative;
+        border-bottom: 2px solid black
+    }
+
+    .jumping-box {
+        display: inline-block;
+        background-color: green;
+        position: absolute;
+        bottom: 0px;
+        left: 250px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .moving-box {
+        display: inline-block;
+        background-color: black;
+        position: absolute;
+        bottom: 0px;
+        left: 250px;
+        width: 25px;
+        height: 25px;
+        -webkit-transition: left 0.1s; 
+        transition: left 0.1s;
+    }
+</style>
+
+<script type="text/babel">
+    <%- include("example.js") -%>
+</script>
+<div id="tryMe"></div>

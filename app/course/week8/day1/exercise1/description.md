@@ -1,0 +1,15 @@
+#### Todo Store
+
+Make a react store to keep tracks of all your todos. You should be able to add, remove and update a todo.
+
+
+```jsx
+store.dipatch(addTodo("Eat"))
+store.getState() // => {todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}]}
+
+store.dipatch(removeTodo(2))
+store.getState() // => {todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, undefined, {id: 3, title: "Eat"}]}
+
+store.dipatch(updateTodo(0, "Sleep tight"))
+store.getState() // => {todos: [{id: 0, title: "Sleep tight"}, {id: 1, title: "Walk"}, undefined, {id: 3, title: "Eat"}]}
+```
