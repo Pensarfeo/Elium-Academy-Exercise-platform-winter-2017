@@ -1,28 +1,35 @@
-#### Bigger than
+#### Log new Info
 
-Create a react commonent (stateless function) called greaterThanTen. This components returns a div with text True or False if if a number is passed as a prop. Else, if we pass a prop with the wrong key or the value is not a number it renders ```<h3>Wrong prop Type or expected prop missing</h3>```.
+Extend the previous exercise so that you can console.log the newlly created records (Only). Make sure that you dispatch functions can handle the case in which the user is trying to delete or update information from the state without appropriate information (Ex: we are trying to delete a record with an ID that does not exist); in that case the state of the store should not be change and thus we should not log any information to console.
 
-**Example:**
 
 ```jsx
-<greaterThanTen value = {4}/>
-// displays:
-<div>False</div>
+// Add one Tool
+let todoId = 1
+let tool = ["shoes"]
+
+store.dipatch(addTool(todoId, tool))
+store.getState()
+//{
+//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
+//  todoTools: [{id:0, todoId: 1, title: "Shoes"}]
+//}
+
+// console.logs
+// action: ADD_TOOL
+// NEW ENTRY: {id:0, todoId: 1, title: "Shoes"}
 
 
-<greaterThanTen value = {10}/>
-// displays:
-<div>False</div>
+// Remove Tool
+let todoId = 100
+let tool = ["shoes"]
 
-<greaterThanTen value = {11}/>
-// displays:
-<div>True</div>
+store.dipatch(addTool(todoId, tool))
+store.getState()
+//{
+//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
+//  todoTools: [{id:0, todoId: 1, title: "Shoes"}]
+//}
 
-<greaterThanTen value = {"11"}/>
-// displays:
-<h3>Wrong prop Type or expected prop missing</h3>
-
-<greaterThanTen bananas = {11}/>
-// displays:
-<h3>Wrong prop Type or expected prop missing</h3>
+// Nothing will be logged!
 ```

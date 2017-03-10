@@ -1,21 +1,17 @@
-#### Profile
+#### React Redux
 
-Create a react component called Profile that can displya other components. Define 3 more components (Name, Email & Address) as in the example that printe the give messages. The solution you write will be displayed with the following text:
+create 2 react componets together with the store: AddTodo and ShowTodos. Both componet will be mounted by the following functions. 
 
 **Example:**
 
 ```jsx
-<Profile>
-    <Name/>
-    <Email/>
-    <Address/>
-</Profile>
 
+const renderAddTodo = function(store) {
+    
+}
 
-// displays:
-<div>Profile
-    <div> Name: Pedro </div>
-    <div> Email: pedro@pedro.pedro </div>
-    <div> Address: PedroStraat 21, 3000 Pedroland </div>
-</div>
+const renderShowTodos = function(store) {
+    
+}
+
 ```

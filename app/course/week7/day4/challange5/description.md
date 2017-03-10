@@ -7,6 +7,4 @@ Elium is expanding, and we are adding new bootcamps. Now we have Java, Node, PHP
 2. for each table use ```id = "{nameOfCourse}"```; replace the "+" in "c++" with "p" as "cpp"
 3. use a ```button``` with ```id = "showAll" ``` for the button that diplays the entire class.
 4. Make sure that you are not only hiding the element but removing it from the DOM to make the test pass
-4. Set the id of the table with all the student names to ```all``` 
-
-**Attention:** to make the exercise withoug problems wrap your solutions withing a div with ```id = 'myExerciseSolutions'``` and wrap all your html withing that div. Also all your jquery DOM searches & manipulation should be relative to that div!
+5. Set the id of the table with all the student names to ```all``` 

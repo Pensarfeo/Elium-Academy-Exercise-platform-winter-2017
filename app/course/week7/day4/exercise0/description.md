@@ -34,10 +34,10 @@ We can also use react to set a default value for our props.
 
 class Greeting extends React.Component {
     static propTypes = {
-        count: React.PropTypes.number.isRequired
+        name: React.PropTypes.number.isRequired
     }
     render () {
-        return <h1>Hello, world! {this.props.count} greetings from me!</h1>;
+        return <h1>Hello, world! {this.props.name} greetings from me!</h1>;
     }
 }
 

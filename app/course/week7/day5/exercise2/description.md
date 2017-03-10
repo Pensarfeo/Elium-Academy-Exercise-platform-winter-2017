@@ -5,5 +5,3 @@ Well now that we have tons of students it will be nice to be able to sort them b
 **Notes:**
 1. set the id of the sorting buttons to ```sortName``` and ```sortAge```
 2. the input for the student age should have the following attribute ```name = "age"```
-
-**Attention:** to make the exercise withoug problems wrap your solutions withing a div with ```id = 'myExerciseSolutions'``` and wrap all your html withing that div. Also all your jquery DOM searches & manipulation should be relative to that div!
