@@ -13,3 +13,9 @@ store.getState() // => {todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"},
 store.dipatch(updateTodo(0, "Sleep tight"))
 store.getState() // => {todos: [{id: 0, title: "Sleep tight"}, {id: 1, title: "Walk"}, undefined, {id: 3, title: "Eat"}]}
 ```
+
+**Notes:** to copy the array into a new one while maintaining the right array lents use:
+
+```jsx
+newArray = [...oldArray]
+```

@@ -1,153 +1,321 @@
 #### Preparation
+Today we will start working on Redux. Redux a state store; that is a kind of database for the front end that keeps all the information necessary for rendering the page.
 
-This will be your first react coponent. There are 3 ways of creating react components: We will only see 2 (the third one is deprecated!). Today we will se how to make react components with functions only! Tomorrow we will see how to use ES6 classes for that purpose. The purpose of this exercise is for you to get some insights inside react before the explanation. To use it Please use the set up folder that is in the same folder as today's presentation. Edit the HTML documennt to explore these exericses.
+Most exercises of today will run without changing the DOM, so keep your dev tools open to see eventual errors!
 
-##### Example 1
+##### Setting Up Redux.
+To set up redux we need to download the (Redux code)[https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.min.js] and add it to our setup. At this point we need to know a little bit more about how to structure the Redux Store.
+Infact Redux is a very simple piece of code, but it needs to be used precicely.
 
-While a react component describes what to do, nothing will be rendered unless we tell react so. This is done through ReactDOM.render. The first argument of this method is the component you want to render (only one can be passed). The second Argument is the location of the DOM element in which you want to put your component.
-As you notice we are writing HTML withing JavaScript. This is possible because we are using the <b>type="text/babel"</b> instead of the ```type="text/javascript"```. This way or writing is a variation on javascript that its called JSX. Attetion; we can write more than just plain HTML!
+To initialize the redux store we Redux needs to know 3 things:
+1. The shape of the store (simmilar to the collections of mongoDB).
+2. The initial values of the store.
+3. The list of reducers for each sub state of the store.
 
-```jsx
-<script type="text/babel" charset="utf-8">
-    ReactDOM.render(
-        <div>Hello you</div>,
-        document.getElementById('1')
-    )
-</script>
-```
+Once the store has been create it allowes 3 basi actions
+1. To access to state via getState();
+2. To updated the state via dispatch(action);
+3. Registers listeners via subscribe(listener);
 
-##### Example 2
+##### Reducers
 
-Ofcourse this will not be very usefull. React also allowes us to declare React Componets through functions. These are called **Stateless Components!**. To render a stateless component we call it as if it were a custum HTML tag (in this case it would be called XML)
+Redux reducers are the functions that will handle changes on the sub states of the store. In redux we must write one and one only dispatch for each for each sub state.
 
-```jsx
-const MyFirstComponent = function(){
-    return <div> Bye Your </div>
-}
-ReactDOM.render(
-    <MyFirstComponent/>,
-    document.getElementById('2')
-)
-
-const MyOtherComponent = function(){
-    return <div> I Am Back </div>
-}
-ReactDOM.render(
-    <MyOtherComponent/>,
-    document.getElementById('3')
-)
-
-```
-
-###### Practise
-
-Make the following Examples Work (tip, you only need to change one letter!!!)
+Commonly a Redux reducer will take the its own substate and the dispatch object as argument. A typical Reducer looks like this.
 
 ```jsx
-const mySecondComponent = function(){
-    return <div> Bye Your </div>
+const todos = function (state = [], action) {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return state.concat([ action.text ])
+        default:
+            return state
+    }
 }
-ReactDOM.render(
-    <mySecondComponent/>,
-    document.getElementById('4')
-)
 ```
 
-##### Example 3
+To make Redux work properly we must remember few rules:
+1. A Reducer must allways return a new object if the sub-state was changed.
+2. A Reducer must return the same state if the state was not changed.
+3. **A Reducer must also be able to handle the condition in which the state is undefined and initialize the state.**
 
-Just like any other function, in orther to be useful, it needs to accept variables. Any stateless react component will take only one variable (called prop) that its an object. Since React is mostly used through XML reppresentation of the components; they way of passing data is by adding attributes the component we want to render. These attributes will be gathered withing the component.
+It is common practice to write the Reducer as a function containing a (switch)[https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/switch]; a variation on ```else if``` statement.
+
+
+##### Our first Store
+
+To create a reducer we need to combine all the reducers we might have created.
 
 ```jsx
-
-const PassingPropComponent = function(props){
-    return <div> Bye {props.name} </div>
+// Reducer
+const todos = function (state = [], action) {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return state.concat([ action.text ])
+        default:
+            return state
+    }
 }
-ReactDOM.render(
-    <PassingPropComponent name={"Student"}/>,
-    document.getElementById('5')
-    )
+
+// Create Store
+const storeReducer = Redux.combineReducers({todos}) // this creates a single reducer for the whole store
+const store = Redux.createStore(storeReducer)
 ```
 
-##### Example 4
-
-Just displaying one componet at the time would not be so usefull either. Just like in plain HTML we would like to be able to put component withing other components so that we can create usefull structures. In react the children of the components written in XML style get passed to the parent compoents as props as well. Notice that the curly brackets are to react what the &lt;%%&gt; are to EJS
+If we where to have multiple reducers we still follow the same structure
 
 ```jsx
-const ParentComponent = function(props){
-    return <div> Bye {props.children} </div>
-}
-const ChildrenComponent = function(props){
-    return <div> I the {props.child} child </div>
+// Reducer
+const todos = function (state = [], action) {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return state.concat([ action.text ])
+        default:
+            return state
+    }
 }
 
+const names = function (state = [], action) {
+    switch (action.type) {
+        case 'ADD_NAME':
+            return state.concat([ action.text ])
+        default:
+            return state
+    }
+}
 
-ReactDOM.render(
-    <ParentComponent>
-        <ChildrenComponent child={"first"}/>
-        <ChildrenComponent child={"second"}/>
-    </ParentComponent>
-    ,
-    document.getElementById('6')
-)
+// Create Store
+const storeReducer = Redux.combineReducers({todos, names})
+const store = Redux.createStore(storeReducer)
 ```
 
-###### Practise
-Make the following Examples Work
+###### Fix Me
+
+Fix the following examples
 
 ```jsx
-const FixMe0 = function(props){
-    return <div> I am rendered! </div>
+// Reducer
+const todos = function (state, action) {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return state.concat([ action.text ])
+        default:
+            return state
+    }
 }
 
-ReactDOM.render(
-    <FixMe0>,
-    document.getElementById('7')
-)
-ReactDOM.render(
-    </FixMe0>,
-    document.getElementById('8')
-)
-
-const FixMe1 = function(props){
-    return <div> Hello === {props.hello} //=> true!! </div>
-}
-const fixMeValue = "Hello"
-
-ReactDOM.render(
-    <FixMe1 hello = fixMeValue />,
-    document.getElementById('9')
-)
+// Create Store
+const storeReducer = Redux.combineReducers({todos})
+const store = Redux.createStore(storeReducer)
 ```
-
-##### Example 5
-
-Withing curly brakets we can also write some JavaScript. However, since we are actually writing Javascript inside XML inside Javascript, we can only write simple stuff; mostly functions, ternary operators (Not if elses!) and array map.
 
 ```jsx
-var ConditionalComponent1 = function (props){
-    const who = 'class'
-    return <span> {true ? "Hello" : "Bye"} {who}</span>
-};
-
-ReactDOM.render(
-    <ConditionalComponent1 />,
-    document.getElementById('10')
-)
-
-function NumberList(props) {
-  const numbers = [1,2,3,4,5];
-  const listItems = numbers.map((number) =>
-    <li key={number.toString()}>
-      {number}
-    </li>
-  );
-  return (
-    <ul>{listItems}</ul>
-  );
+// Reducer
+const todos = function (state, action) {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return state.concat([ action.text ])
+        default:
+            return state
+    }
 }
 
-ReactDOM.render(
-    <NumberList />,
-    document.getElementById('11')
-)
+// Create Store
+const storeReducer = todos
+const store = Redux.createStore(storeReducer)
 ```
+
+##### Default State.
+
+We can also set a default state for the store in which case we simply pass it as the second argument.
+**Remember that the keys of the reducers must match the keys of each sub-state**.
+
+```jsx
+const names = function (state = [], action) {
+    // we skip the code for brevity...
+}
+
+const todos = function (state = [], action) {
+    // we skip the code for brevity...
+}
+
+
+// Create Store
+const storeDefault = {names: ["Pedro", "Juan"], todos: ["Study", "Read", "Cook"]}
+const storeReducer = Redux.combineReducers({todos, names})
+const store = Redux.createStore(storeReducer, storeDefault)
+```
+
+###### Fix Me
+
+In this case we are having trouble initializing the store. 
+
+```jsx
+const todos = function (state = [], action) {
+    // we skip the code for brevity...
+}
+
+const names = function (state, action) {
+    // we skip the code for brevity...
+}
+
+
+// Create Store
+const storeDefault = {theNames: [], todos: ["Study", "Read", "Cook"]}
+const storeReducer = Redux.combineReducers({todos, names})
+const store = Redux.createStore(storeReducer, storeDefault)
+```
+
+##### Changing the State
+
+To change our store we need to "**dispatch**" an "**action**". In plain redux all actions are supposed to be objects wich should contain the information necessary to change our state.
+
+In Redux it is common practice to create functions, called **Action Creators** that will return the action object to be dispatched to the store. To change the store we will call the dispatch mmethod over our created store as ```store.dispatch```.
+
+```jsx
+// Action Creators
+addTodo = (data) => return {type: "ADD_TODO", data }
+
+// Dispatchers
+const todos = function (state = [], action) {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return state.concat([ action.data ])
+        default:
+            return state
+    }
+}
+
+
+// Default State
+const storeDefault = {todos: ["Study", "Read", "Cook"]}
+
+
+// Build Store
+const storeReducer = Redux.combineReducers({todos})
+const store = Redux.createStore(storeReducer, storeDefault)
+
+
+// Dispatch Action
+store.dispatch(addTodo("Understand Redux"))
+
+
+// Get New state
+store.getState() // => {todos: ["Study", "Read", "Cook", "Understand Redux"]]}
+```
+
+###### Fix Me
+
+The state is not being changed. Make sure you fix the following code!
+
+```jsx
+// Action Creators
+addTodo = (data) => return {bananas: "ADD_TODO", data }
+
+
+// Dispatchers
+const todos = function (state = [], action) {
+    switch (action.bananas) {
+        case 'ADD_TODO':
+            return state.concat([ action.pineapple ])
+        default:
+            return state
+    }
+}
+
+// Default State
+const storeDefault = {todos: ["Study", "Read", "Cook"]}
+
+
+// Build Store
+const storeReducer = Redux.combineReducers({todos})
+const store = Redux.createStore(storeReducer, storeDefault)
+
+
+// Dispatch Action
+store.dispatch(addTodo("Understand Redux"))
+
+
+// Get New state
+store.getState() // => {todos: ["Study", "Read", "Cook"]]}
+```
+
+##### Multiple reducers
+
+In redux there is only one dipatcher. So when you call the store the dispatch methods will pass the action to each single reducers that you declared when you created the store. Moreover the reducer is only going to recieve the specific sub state its associated to and not the whole store. If you need to connect multiple state you will need to either dispatch your actions in 2 steps or you can use the action object to pass information withing reducers (just like we did with the req object in Express)
+
+
+```jsx
+// Action Creators
+addTodo = (data) => ({type: "ADD_TODO", data })
+addTodoSteps = (todoId, step) => ({type: "ADD_TODOSTEP", todoId, step })
+addTodoWithStep = (todo, step) => ({type: "ADD_TODOWITHSTEP", todo, step})
+
+
+// Dispatchers
+const todos = function (state = [], action) {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return state.concat({id: state.length, todo: action.data})
+        case 'ADD_TODOWITHSTEP':
+            const newTodo = {id: state.length, todo: action.todo}
+            const newTodoState = state.concat(newTodo)
+            action.type = "ADD_TODOSTEP"
+            action.todoId = newTodo.id
+            return newTodoState
+        default:
+            return state
+    }
+}
+
+// Dispatchers
+const steps = function (state = [], action) {
+    switch (action.type) {
+        case 'ADD_TODOSTEP':
+            return state.concat({id: state.length, todoId: action.todoId, step: action.step })
+        default:
+            return state
+    }
+}
+
+
+// Build Store
+const storeReducer = Redux.combineReducers({todos, steps})
+const store = Redux.createStore(storeReducer)
+
+
+// Dispatch addTodo
+store.dispatch(addTodo("Understand Redux"))
+store.getState() // => {todos: [{id: 0, "Understand Redux"}], steps: []}
+
+// Dispatch addTodoSteps
+store.dispatch(addTodoSteps(0, "read the documentation"))
+store.getState()
+// => {
+//      todos: [{id: 0, "Understand Redux"}],
+//      steps: [{id: 0, todoId: 0, step: "read the documentation"}]
+//    }
+
+
+//addTodoWithStep
+store.dispatch(addTodoWithStep("Go On Vacation", "Look for tickets"))
+store.getState()
+// => {
+//      todos: [{id: 0, "Understand Redux"}, {id: 1, "Go On Vacation"}],
+//      steps: [{id: 0, todoId: 0, step: "read the documentation"},
+//              {id: 1, todoId: 1, step: "Go On Vacation"}]
+//    }
+```
+
+##### Subscribing to changes
+
+Finally in redux it is possible to add actions that will be execute each time an action has been dispatched to the store. Watch out that the mechanism used in Redux its not particularly complex, and so no arguments or further will be passed to the function you want to execute.
+
+```
+// we subscribe console.log to the store
+store.subscribe( (..args) => console.log("we got " + args.length + " arguments"))
+
+```
+
+As it is the subscribed function will allways return ```"we got 0 arguments"```. Finally you can keep subscribing as many functions as you would like. All of them will be executed in the orther in which you added them to the store
+

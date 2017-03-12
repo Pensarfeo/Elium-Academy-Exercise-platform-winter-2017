@@ -58,7 +58,7 @@ var toReactRender = function() {
         }
 
         updatePosition(){
-            if (this.position< -25){
+            if (this.position < -25){
                 return this.props.removeMe()
             }
             const step = 500/(10*this.travelTime)

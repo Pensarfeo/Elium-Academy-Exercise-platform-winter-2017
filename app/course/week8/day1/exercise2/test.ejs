@@ -1,39 +1,5 @@
-<!-- style="display: none" -->
-<!-- <script type="text/javascript" src="/public/js/enzyme_jasmineenzyme.js"></script> -->
+<script type="text/javascript" src="/public/js/redux/store.js"></script>
 <div class="jasmine_html-reporter"></div>
-<script type="text/javascript">
-    const runTest = function(beforeTest){
-        readMessage.runEval = eval
-        beforeTest()
-        describe( 'helloYour Component should:',  ()=>{
-
-            beforeAll(()=>{
-            })
-
-            it(`render a hello message according to the passed name prop`, () => {
-                let message =  helloYou({name: "asdf"}).props.children.join("").trim().toLowerCase()
-                expect(message).toEqual("hello asdf")
-                message =  helloYou({name: "somename"}).props.children.join("").trim().toLowerCase()
-                expect(message).toEqual("hello somename")
-
-            })
-
-        })
-    }
-
-    var asyncTest = function(response) {
-        JasmineBoot();
-        response.data = "JS\n" + response.data;
-        runTest(() => readMessage(response))
-        exercuteTest()
-    }
-
-    window.runTheTest = function() {
-        axios.get("<%= view.solution %>.js")
-            .then(asyncTest)
-    }
-
-    runTheTest()
-
+<script type="text/babel">
+    <%- include("test.js") -%>
 </script>
-<div class="jasmine-testground" ></div>

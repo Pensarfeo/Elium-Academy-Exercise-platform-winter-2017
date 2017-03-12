@@ -19,7 +19,7 @@ store.getState()
 todoId = 3
 tool = ["fork", "food"]
 
-store.dipatch(addTool(todoId, tool))
+store.dipatch(addTool(todoId, ...tool))
 store.getState()
 //{
 //  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],

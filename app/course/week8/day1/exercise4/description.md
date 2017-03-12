@@ -1,35 +1,20 @@
-#### Log new Info
+#### Mixing react with redux!
 
-Extend the previous exercise so that you can console.log the newlly created records (Only). Make sure that you dispatch functions can handle the case in which the user is trying to delete or update information from the state without appropriate information (Ex: we are trying to delete a record with an ID that does not exist); in that case the state of the store should not be change and thus we should not log any information to console.
-
+together with the Redux Store create 2 react componets: AddStudent and ShowStudents. In this exercise you should mount both componets yourself though the functions shown below. The functionalities of the two react components should be the same as the [first EliumApp exercise](http://localhost:3000/week7/day4/exercise1).
 
 ```jsx
-// Add one Tool
-let todoId = 1
-let tool = ["shoes"]
+var renderAddSudent = function(store) {
+    ReactDOM.render(
+        <AddStudent store = {store}/>,
+        document.getElementById("addStudent")
+    )
+}
 
-store.dipatch(addTool(todoId, tool))
-store.getState()
-//{
-//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
-//  todoTools: [{id:0, todoId: 1, title: "Shoes"}]
-//}
+var renderShowStudents = function(store) {
+    ReactDOM.render(
+        <ShowStudents store = {store}/>,
+        document.getElementById("showStudents")
+    )
+}
 
-// console.logs
-// action: ADD_TOOL
-// NEW ENTRY: {id:0, todoId: 1, title: "Shoes"}
-
-
-// Remove Tool
-let todoId = 100
-let tool = ["shoes"]
-
-store.dipatch(addTool(todoId, tool))
-store.getState()
-//{
-//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
-//  todoTools: [{id:0, todoId: 1, title: "Shoes"}]
-//}
-
-// Nothing will be logged!
 ```

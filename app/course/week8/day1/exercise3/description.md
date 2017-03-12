@@ -1,30 +1,34 @@
-#### dependent states
+#### Log new Info
 
-Estend the previous exercise by adding the action creators and dispatch methods necessary to remove the tools the belong to a specific todo.
-Also add the action creators and dipatch methods necessary to modify the list of todos and tools with only one dispatch call.
+Extend the previous exercise so that you can console.logs the meessage ```"state has changed"``` if and only if the state changes. Make sure that you dispatch functions can handle the case in which the user is trying to delete or update information from the state without appropriate information (Ex: if you are trying to delete a record with an ID that does not exist); in that case the state of the store should not be change and thus we should not log any information to console.
 
 
 ```jsx
+// Add one Tool
+let todoId = 1
+let tool = ["shoes"]
 
-
-todoId = 3
-
-store.dipatch(removeTodo(todoId))
+store.dipatch(addTool(todoId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
-//  todoTools: [{id:0, todoId: 1, title: "Shoes"}, undefined, undefined]
+//  todoTools: [{id:0, todoId: 1, title: "Shoes"}]
 //}
 
+// console.logs
+// state has changed
 
-todoId = 3
 
-store.dipatch(addTodo("wash the dishes", ["sponge", "soap"]))
+// Remove Tool
+let todoId = 100
+let tool = ["shoes"]
+
+store.dipatch(addTool(todoId, tool))
 store.getState()
 //{
-//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, undefined, {id: 4, title: "wash the dishes"}],
-//  todoTools: [{id:0, todoId: 1, title: "Shoes"}, undefined, undefined, {id: 3, todoId: 4, title: "sponge"}, {id: 3, todoId: 4, title: "soap"}  ]
+//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
+//  todoTools: [{id:0, todoId: 1, title: "Shoes"}]
 //}
 
-
+// Nothing will be logged!
 ```
