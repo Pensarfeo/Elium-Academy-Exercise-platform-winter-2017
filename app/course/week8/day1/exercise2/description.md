@@ -6,7 +6,7 @@ Extend the previous exercise add an other property to the store containing a lis
 ```jsx
 // Add one Tool
 let todoId = 1
-let tool = ["shoes"]
+let tool = "shoes"
 
 store.dipatch(addTool(todoId, tool))
 store.getState()
