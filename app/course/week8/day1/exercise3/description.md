@@ -11,8 +11,8 @@ let tool = ["shoes"]
 store.dipatch(addTool(todoId, tool))
 store.getState()
 //{
-//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
-//  todoTools: [{id:0, todoId: 1, title: "Shoes"}]
+//  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
+//  todoTools: [{id:0, todoId: 1, tool: "Shoes"}]
 //}
 
 // console.logs
@@ -26,8 +26,8 @@ let tool = ["shoes"]
 store.dipatch(addTool(todoId, tool))
 store.getState()
 //{
-//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
-//  todoTools: [{id:0, todoId: 1, title: "Shoes"}]
+//  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
+//  todoTools: [{id:0, todoId: 1, tool: "Shoes"}]
 //}
 
 // Nothing will be logged!

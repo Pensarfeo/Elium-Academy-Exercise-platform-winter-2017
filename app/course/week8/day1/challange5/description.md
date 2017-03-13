@@ -12,7 +12,7 @@ todoId = 3
 store.dipatch(removeTodo(todoId))
 store.getState()
 //{
-//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, {id: 3, title: "Eat"}],
+//  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
 //  todoTools: [{id:0, todoId: 1, title: "Shoes"}, undefined, undefined]
 //}
 
@@ -22,7 +22,7 @@ todoId = 3
 store.dipatch(addTodo("wash the dishes", ["sponge", "soap"]))
 store.getState()
 //{
-//  todos: [{id: 0, title: "Sleep"}, {id: 1, title: "Walk"}, {id: 2, title: "Study"}, undefined, {id: 4, title: "wash the dishes"}],
+//  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, undefined, {id: 4, todo: "wash the dishes"}],
 //  todoTools: [{id:0, todoId: 1, title: "Shoes"}, undefined, undefined, {id: 3, todoId: 4, title: "sponge"}, {id: 3, todoId: 4, title: "soap"}  ]
 //}
 
