@@ -80,7 +80,7 @@ var toReactRender = function() {
         }
         handleSubmit (event) {
             event.preventDefault()
-            this.setState({tranlatables: this.state.tranlatables.concat(this.state.tempValue)})
+            store.dispatch( this.state.tempValue )
         }
         handleTranslatableDelete (i) {
             const self = this
