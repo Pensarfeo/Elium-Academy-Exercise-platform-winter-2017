@@ -1,43 +1,82 @@
 var toReactRender = function() {
-    class Counter extends React.Component {
-        constructor(){
-            super()
-            this.state={value: 0}
-            this.unmountCountDown = this.unmountCountDown.bind(this)
-            this.cDownMessage = "component will unmount in "
-        }
-        handleClick(e){
-            if (typeof this.state.value === "string") return
-            this.setState({value: this.state.value + 1})
-        }
-
-        unmountCountDown(){
-            const cDown = this.state.value.split(" ").slice(-1)[0] - 1
-            if ( cDown === -1 ) {
-                ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(this).parentNode);
-            } else {
-                this.setState({value: this.cDownMessage + cDown })
-            }
-        }
-
-        componentDidUpdate(prevProps, prevState){
-            if(this.state.value > 3){
-                this.setState({value: (this.cDownMessage + "3")})
-            } else if ((typeof this.state.value === "string")) {
-                setTimeout(this.unmountCountDown, 1000)
-            }
-        }
-
+    class DataRow extends React.Component{
         render(){
-            return(
+            return (
+                <tr>
+                    <td>
+                        {this.props.names.join(",")}
+                    </td>
+                    <td>
+                        {this.props.age}({this.props.names.length})
+                    </td>
+                </tr>
+            )
+        }
+    }
+
+    const filterByAge = function(arr) {
+        outputObj = {}
+        arr.map((ele) => {
+            outputObj[ele[1]] = (outputObj[ele[1]] || []).push(ele)
+        })
+        return outputObj
+    }
+
+    class StudentData extends React.Component{
+        render(){
+            return (
                 <div>
-                    <div>{this.state.value}</div>
-                    <button onClick={this.handleClick.bind(this)}>+</button>
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th> <th>Age</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Object.keys(this.props.data).map((ele, i)  => {
+                                return <DataRow key = {i} age = {ele} names = {this.props.data[ele]} />
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             )
         }
     }
-    reactRender = ReactDOM.render(<Counter/>, document.getElementById("tryMe"))
+
+    class AddStudnetName extends React.Component{
+        constructor(){
+            super()
+            this.state = {}
+        }
+        handleSubmit(event){
+            event.preventDefault()
+            var name = event.target.elements.fullname.value
+            var age = event.target.elements.age.value
+            age = age > 35 ? "Youth is wasted on the Young" : age
+            var newState = Object.assign({}, this.state)
+            newState[age] = (newState[age] || []).concat(name)
+            this.setState(newState)
+        }
+        render(){
+            return (
+                <div>
+                    <form className="form-group" onSubmit={this.handleSubmit.bind(this)}>
+                        <div style = {{marginBottom: "10px"}}>
+                            <label for="fullname" style={{width: "100px", marginRight: "0 5px"}}> Full name: </label>
+                            <input type="text" className="form-control" name="fullname" style={{width: "200px", display: "inline-block"}}/>
+                        </div>
+                        <div style = {{marginBottom: "10px"}}>
+                            <label for="cost" style={{width: "100px", marginRight: "0 5px"}}> Age: </label>
+                            <input type="number" className="form-control" name="age" style={{width: "200px", display: "inline-block"}}/>
+                        </div>
+                        <input type = "submit" className="btn btn-default" value="Send" style={{width: "310px"}}/>
+                    </form>
+                    <StudentData data={this.state} />
+                </div>
+                )
+        }
+    }
+    reactRender = ReactDOM.render(<AddStudnetName/>, document.getElementById("tryMe"))
 }
 
 toReactRender()

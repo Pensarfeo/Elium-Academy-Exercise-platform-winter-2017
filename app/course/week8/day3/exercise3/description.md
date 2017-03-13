@@ -1,10 +1,8 @@
-#### Self Unmount
+#### find inputs like
 
-Create a component called Counter that once it reaches 3 it will display a series of messages every second: 
-- Component will unmount in 3
-- Component will unmount in 2
-- Component will unmount in 1
-- Component will unmount in 0
-when it reaches 0 the component should unmount itself. Use setTimeout to realize this counter
+To understand the demographics of our students, we would like to know who many student of a given age we have. Adding to the basic app from yesterday’s Exercises add a form that allows the Elium admin to enter an age and search for students of that age. The search result will be displayed in a table. In the right column you should display the number of students of that age in parentheses next to the age itself. If the students are over 35 you should not display their age but instead write “Youth is wasted on the Young”!
 
-**Notes:** this test are a bit unstable; so try reloading the test or call your teacher if you have issues. Note that the first message is triggered immediately once the button is clicked more than 3 times.
+Name           | Age
+-------------- | -------------
+Pedro, Patrick | Youth is wasted on the young(2)
+Evan, Juan     | 25(2)

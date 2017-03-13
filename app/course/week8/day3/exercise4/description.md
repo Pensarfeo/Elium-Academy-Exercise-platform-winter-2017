@@ -7,5 +7,3 @@ Now that we can sort our students and order them by age, add two inputs to your 
 2. the submit input for adding students should have ```id = "sutudent"```
 3. the submit input for setting the range filter should have ```id = "filter"```
 4. The filter event is for now not being tested, but we trust you will implement it anyhow ;)
-
-**Attention:** to make the exercise withoug problems wrap your solutions withing a div with ```id = 'myExerciseSolutions'``` and wrap all your html withing that div. Also all your jquery DOM searches & manipulation should be relative to that div!

@@ -311,7 +311,7 @@ store.getState()
 
 Finally in redux it is possible to add actions that will be execute each time an action has been dispatched to the store. Watch out that the mechanism used in Redux its not particularly complex, and so no arguments or further will be passed to the function you want to execute.
 
-```
+```jsx
 // we subscribe console.log to the store
 store.subscribe( (..args) => console.log("we got " + args.length + " arguments"))
 

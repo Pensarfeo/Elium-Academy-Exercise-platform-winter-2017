@@ -1,47 +1,82 @@
 var toReactRender = function() {
-    class Detail extends React.Component{
+    class DisplayName extends React.Component{
         constructor(props){
             super()
-            this.key = Object.keys(props.detail)[0]
-            this.state = Object.assign({}, props.detail)
+            this.name =  props.name[0].toUpperCase() + props.name.slice(1, props.name.length)
+            this.surnameStyled = props.surname[0].toUpperCase() + props.surname.slice(1, props.surname.length)
+            this.initial =  this.surnameStyled[0].toUpperCase()+"."
+            this.state = {visible: this.initial }
         }
 
+        handleMouseEnter(){
+                this.setState({visible: this.surnameStyled})
+        }
 
-      handleChange(e) {
-        this.setState({[this.key]: e.target.value});
-      }
+        handleMouseOut(){
+                this.setState({visible: this.initial})
+        }
 
         render(){
-                const key = Object.keys(this.state)[0]
-                const value = this.state[key]
-                return (
-                    <div>
-                        <span>{key}: {value}</span>
-                        <p>
-                            Change {key}: <input type="text" placeholder={"your"+key} defaultValue={value} onChange={this.handleChange.bind(this)}/>
-                        </p>
-                    </div>
-                        )
+            return (
+                <tr>
+                    <td>{this.name}</td>
+                    <td onMouseEnter = {this.handleMouseEnter.bind(this)}
+                        onMouseOut = {this.handleMouseOut.bind(this)}>
+                        {this.state.visible}
+                    </td>
+                </tr>
+            )
         }
     }
 
-    class Profile extends React.Component{
+    class DisplayNames extends React.Component{
+        render(){
+            return (
+                <table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>First Name</th> <th>Last Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.names.map((ele, i)  => {
+                            return <DisplayName key = {i} name = {ele[0]} surname = {ele[1]} />
+                        })}
+                    </tbody>
+                </table>
+            )
+        }
+    }
+    class AddStudnetName extends React.Component{
         constructor(){
             super()
+            this.state = {names: []}
+        }
+        handleSubmit(event){
+            event.preventDefault()
+            var names = event.target.elements.fullname.value.split(" ")
+            if (names.length !==2) {
+                alert('Correct format is "first name + space + surname".')
+                return
+            }
+            var newNames = this.state.names.slice()
+            newNames.push(names)
+            this.setState({names: newNames})
         }
         render(){
-            return <div>{this.props.children}</div>
+            return (
+                <div>
+                    <form className="form-group" onSubmit={this.handleSubmit.bind(this)}>
+                        <label for="fullname">Full name: </label>
+                        <input type="text" className="form-control" name="fullname" style={{width: "200px", margin: "0 5px", display: "inline-block"}}/>
+                        <input type = "submit" className="btn btn-default" value="Send" />
+                    </form>
+                    <DisplayNames names={this.state.names} />
+                </div>
+                )
         }
     }
-
-    reactRender = ReactDOM.render(
-        <Profile>
-            <Detail detail={{Name: "Pedro"}} />
-            <Detail detail={{Email: "pedro@pedro.pedro"}} />
-            <Detail detail={{Address: "PedroStraat 21, 3000 Pedroland"}}/>
-        </Profile>
-        , document.getElementById("tryMe")
-    )
+    reactRender = ReactDOM.render(<AddStudnetName/>, document.getElementById("tryMe"))
 }
 
 toReactRender()

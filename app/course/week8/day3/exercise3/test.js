@@ -1,64 +1,75 @@
 const runTest = function(beforeTest){
-    const mount = Enzyme.mount
     readMessage.runEval = eval
     beforeTest()
-    window.oldSetTimeout = window.setTimeout
-    window.setTimeout = (func, time) => {
-        window.oldSetTimeout(func, time/100)
-    }
+    reactRender = ReactDOM.render( <EliumApp/>, document.getElementById("yourSolution"))
+    reactRender = ReactDOM.render( <EliumApp/>, document.getElementsByClassName("jasmine-testground")[0])
+    describe( 'Elium App should:',  ()=>{
+        var main = $(".jasmine-testground")
+        var submitButton = main.find("input[type='submit']")
+        var inputName = main.find("input[name ='fullname']")
+        var inputAge  = main.find("input[name ='age']"  )
+        var tableBody = main.find('tbody')
 
-    reactRender = ReactDOM.render( <Counter/>, document.getElementById("yourSolution"))
-
-
-    describe( 'Counter component should:',  ()=>{
-        let component
-
-        beforeEach(()=>{
-            component = mount(<Counter/>)
+        it('have a sumit button', () => {
+            expect(submitButton.get(0)).toBeDefined()
         })
 
-        it('should display a button', () => {
-            expect(component.find("button").length).toEqual(1)
+        it('have an input for the full name', () => {
+            expect(inputName.get(0)).toBeDefined()
         })
 
-        it('start from 0', () => {
-            expect(component.text()).toContain("0")
+        it('have an input for the age', () => {
+            expect(inputAge.get(0)).toBeDefined()
         })
 
-        it('If you click 3 or more times, it would not update the counter to 3 or more', (done) => {
-            const component = mount(<Counter/>)
-            expect(component.text()).toContain("0")
-            const button = component.find("button")
-            for(let i=0; i<4; i++){button.simulate("click")}
-            setTimeout(() => done(), 5000)
-            expect(component.text()).not.toContain("4")
+        it('have an table body', () => {
+            expect(tableBody.get(0)).toBeDefined()
         })
 
-        it('the countdown should go to 0', (done) => {
-            const component1 = mount(<Counter/>)
-            const button = component1.find("button")
-            for(let i=0; i<4; i++){button.simulate("click")}
-            let numberText = component1.text().replace(button.text(), "")
-            setTimeout(()=> {
-                numberText = component1.text().replace(button.text(), "")
-                expect(numberText).toEqual("component will unmount in 3")}, 500)
-            setTimeout(()=> {
-                numberText = component1.text().replace(button.text(), "")
-                expect(numberText).toEqual("component will unmount in 2")}, 1500)
-            setTimeout(()=> {
-                numberText = component1.text().replace(button.text(), "")
-                expect(numberText).toEqual("component will unmount in 1")}, 2500)
-            setTimeout(()=> {
-                numberText = component1.text().replace(button.text(), "")
-                expect(numberText).toEqual("component will unmount in 0")}, 3500)
-            setTimeout(() => done(), 5000)
+        it('be able to add students and their age', () => {
+            inputName.val("patrick")
+            inputAge.val(35)
+            submitButton.click()
+
+            inputName.val("super man")
+            inputAge.val(40)
+            submitButton.click()
+
+            inputName.val("Very old man")
+            inputAge.val(1000)
+            submitButton.click()
+
+            inputName.val("new born")
+            inputAge.val(0)
+            submitButton.click()
+
+            inputName.val("puppy")
+            inputAge.val(0)
+            submitButton.click()
+
+
+            inputName.val("Evan")
+            inputAge.val(25)
+            submitButton.click()
+
+            inputName.val("Nocola")
+            inputAge.val(24)
+            submitButton.click()
+
+
+            var nameList = []
+            var agelist = []
+            tableBody.find("tr").each((i, ele) => {
+                const children = $(ele).children()
+                nameList.push($(children[0]).text())
+                agelist.push($(children[1]).text())
+            })
+            expect(agelist).toEqual([ '0(2)', '24(1)', '25(1)', '35(1)', 'Youth is wasted on the Young(2)' ])
+            expect(nameList).toEqual([ 'new born,puppy', 'Nocola', 'Evan', 'patrick', 'super man,Very old man' ])
 
         })
 
-        afterAll((done)=>{
-            window.setTimeout =  window.oldSetTimeout
-            done()
-        })
+
 
     })
 }
@@ -76,3 +87,4 @@ window.runTheTest = function() {
 }
 
 runTheTest()
+

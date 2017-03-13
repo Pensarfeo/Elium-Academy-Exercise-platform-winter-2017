@@ -1,6 +1,3 @@
-#### Editable Detail
+#### Validating form
 
-Extend today's Exercise 3 by adding an input field to the detail component that can change the displayed value of the detail when the input value is edited.
-
-
-**Notes:** To set the default value you can read about react's [controlled components](https://facebook.github.io/react/docs/forms.html).
+Extend the previous exercise by adding “form-checking” to your input form.  If the submit button is pressed without any value, or a value of incorrect format, an alert should open with the message: ```Correct format is "first name + space + surname".```. Any name that breaks that patter should generate an allert.

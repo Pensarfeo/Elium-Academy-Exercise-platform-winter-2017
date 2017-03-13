@@ -1,32 +1,43 @@
 const runTest = function(beforeTest){
     readMessage.runEval = eval
     beforeTest()
-    reactRender = ReactDOM.render(
-        <Profile>
-            <Detail detail={{Name: "Pedro"}} />
-            <Detail detail={{Email: "pedro@pedro.pedro"}} />
-            <Detail detail={{Address: "PedroStraat 21, 3000 Pedroland"}}/>
-        </Profile>
-        , document.getElementById("yourSolution"))
+    reactRender = ReactDOM.render( <EliumApp/>, document.getElementById("yourSolution"))
+    reactRender = ReactDOM.render( <EliumApp/>, document.getElementsByClassName("jasmine-testground")[0])
+    describe( 'Elium App should:',  ()=>{
+        var main = $(".jasmine-testground")
+        var submitButton = main.find("input[type='submit']")
+        var input = main.find("input[type='text']")
+        var tableBody = main.find('tbody')
 
-    describe( 'Display should:',  ()=>{
-        const mount = Enzyme.mount
-        let component
-
-        it('for the component Profile; make sure it can display its children', () => {
-            var hello = "HELLO"
-            const component = mount(<Profile><h1>{hello}</h1></Profile>)
-            expect(component.text()).toEqual("HELLO")
+        beforeAll(() => {
         })
 
-        it('display the detail type and value', () => {
-            let component = mount(<Detail detail={{banana: "split"}} />)
-            expect(component.text().trim()).toContain("banana")
-            expect(component.text().trim()).toContain("split")
+        it('have a sumit button', () => {
+            expect(submitButton.get(0)).toBeDefined()
+        })
+        it('have an input field', () => {
+            expect(input.get(0)).toBeDefined()
+        })
+        it('have an table body', () => {
+            expect(tableBody.get(0)).toBeDefined()
+        })
+        it('add new names and surnames to the table', () => {
+            input.val("pedro favuzzi")
+            submitButton.click()
 
-            component = mount(<Detail detail={{soup: "hot"}} />)
-            expect(component.text().trim()).toContain("soup")
-            expect(component.text().trim()).toContain("hot")
+            input.val("banana split")
+            submitButton.click()
+
+            input.val("super man")
+            submitButton.click()
+            var expected = 0
+            tableBody.find("tr").each((i, ele) => {
+                const children = $(ele).children()
+                if (["Pedro", "Banana", "Super" ].includes($(children[0]).text()) ) expected +=1
+                if (["F.", "S.", "M." ].includes($(children[1]).text()) ) expected +=1
+                    $(children[1]).mouseenter()
+            })
+            expect(expected).toEqual(6)
         })
 
     })

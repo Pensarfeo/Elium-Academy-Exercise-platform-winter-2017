@@ -1,17 +1,40 @@
 const runTest = function(beforeTest){
     readMessage.runEval = eval
     beforeTest()
-    reactRender = ReactDOM.render( <HelloWorld/>, document.getElementById("yourSolution"))
+    describe( 'Elium App should:',  ()=>{
+        var main = $(".jasmine-testground")
+        var submitButton = main.find("input[type='submit']")
+        var input = main.find("input[type='text']")
+        var tableBody = main.find('tbody')
 
-    describe( 'HelloWorld component should:',  ()=>{
-        let component
-        beforeEach(()=>{
-            component = Enzyme.mount(<HelloWorld/>)
+        beforeAll(() => {
         })
 
-        it('should display hello', () => {
-            expect(component.text().trim().toLowerCase()).toBe("hello world")
+        it('have a sumit button', () => {
+            expect(submitButton.get(0)).toBeDefined()
+        })
+        it('have an input field', () => {
+            expect(input.get(0)).toBeDefined()
+        })
+        it('have an table body', () => {
+            expect(tableBody.get(0)).toBeDefined()
+        })
+        it('add new names and surnames to the table', () => {
+            input.val("pedro favuzzi")
+            submitButton.click()
 
+            input.val("banana split")
+            submitButton.click()
+
+            input.val("super man")
+            submitButton.click()
+            var expected = 0
+            tableBody.find("tr").each((i, ele) => {
+                const children = $(ele).children()
+                if (["pedro", "banana", "super" ].includes($(children[0]).text()) ) expected +=1
+                if (["favuzzi", "split", "man" ].includes($(children[1]).text()) ) expected +=1
+            })
+            expect(expected).toEqual(6)
         })
 
     })

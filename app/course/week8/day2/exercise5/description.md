@@ -1,8 +1,10 @@
-#### Submit Detail
+#### Sort by program
 
-
-Modify Exercise 4 by adding a submit button so that the info will only be updated when the submit button is clicked. Notes: the function that is called once the event is triggered (effectively a callback) will recieve one single argument with info about the event that took place. The event.target will point to the element from which the event originated.
+Elium is expanding, and we are adding new bootcamps. Now we have Java, Node, PHP & C++.  Add an input field to your form which allows a student to specify the course they are enrolled in. A student can be entered multiple times (for different classes). Display 4 different classlists  with the name of the class at the top of each list as in the example. Also, Make a button that will show a list of all the students with no duplicate names in a separate table.
 
 **Notes:**
-1. Use a button tag and bind the event to an on click event on the button
-1. Remember that the event.target will point to the element from which the event originated.
+1. Use a select tag to choose the course
+2. for each table use ```id = "{nameOfCourse}"```; replace the "+" in "c++" with "p" as "cpp"
+3. use a ```button``` with ```id = "showAll" ``` for the button that diplays the entire class.
+4. Make sure that you are not only hiding the element but removing it from the DOM to make the test pass
+5. Set the id of the table with all the student names to ```all``` 

@@ -1,36 +1,43 @@
 const runTest = function(beforeTest){
     readMessage.runEval = eval
     beforeTest()
-    reactRender = ReactDOM.render(
-        <Profile>
-            <Name/>
-            <Email/>
-            <Address/>
-        </Profile>
-        , document.getElementById("yourSolution"))
+    reactRender = ReactDOM.render( <EliumApp/>, document.getElementById("yourSolution"))
+    reactRender = ReactDOM.render( <EliumApp/>, document.getElementsByClassName("jasmine-testground")[0])
+    describe( 'Elium App should:',  ()=>{
+        var main = $(".jasmine-testground")
+        var submitButton = main.find("input[type='submit']")
+        var input = main.find("input[type='text']")
+        var tableBody = main.find('tbody')
 
-    describe( 'Statefull Profiles should:',  ()=>{
-        let component;
-
-        it('for the component Profile; make sure it can display its children', () => {
-            var hello = "HELLO"
-            const component = Enzyme.mount(<Profile><h1>{hello}</h1></Profile>)
-            expect(component.text()).toEqual("HELLO")
+        beforeAll(() => {
         })
 
-        it('display "Name: Pedro" though the Name component ', () => {
-            const component = Enzyme.mount(<Name/>)
-            expect(component.text().generalize()).toBe("Name: Pedro".generalize())
+        it('have a sumit button', () => {
+            expect(submitButton.get(0)).toBeDefined()
         })
-
-        it('display "Email: pedro@pedro.pedro" through the Email component', () => {
-            const component = Enzyme.mount(<Email/>)
-            expect(component.text().generalize()).toBe("Email: Pedro@pedro.pedro".generalize())
+        it('have an input field', () => {
+            expect(input.get(0)).toBeDefined()
         })
+        it('have an table body', () => {
+            expect(tableBody.get(0)).toBeDefined()
+        })
+        it('add new names and surnames to the table', () => {
+            input.val("pedro favuzzi")
+            submitButton.click()
 
-        it('display "Address: PedroStraat 21, 3000 Pedroland" though the Address component', () => {
-            const component = Enzyme.mount(<Address/>)
-            expect(component.text().generalize()).toBe("Address: PedroStraat 21, 3000 Pedroland".generalize())
+            input.val("banana split")
+            submitButton.click()
+
+            input.val("super man")
+            submitButton.click()
+            var expected = 0
+            tableBody.find("tr").each((i, ele) => {
+                const children = $(ele).children()
+                if (["pedro", "banana", "super" ].includes($(children[0]).text()) ) expected +=1
+                if (["f.", "s.", "m." ].includes($(children[1]).text()) ) expected +=1
+                    $(children[1]).mouseenter()
+            })
+            expect(expected).toEqual(6)
         })
 
     })
