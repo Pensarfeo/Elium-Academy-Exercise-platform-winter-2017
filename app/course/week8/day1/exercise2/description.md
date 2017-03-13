@@ -8,7 +8,7 @@ Extend the previous exercise add an other property to the store containing a lis
 let todoId = 1
 let tool = "shoes"
 
-store.dipatch(addTool(todoId, tool))
+store.dispatch(addTool(todoId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
@@ -19,7 +19,7 @@ store.getState()
 todoId = 3
 tool = ["fork", "food"]
 
-store.dipatch(addTool(todoId, ...tool))
+store.dispatch(addTool(todoId, ...tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
@@ -29,7 +29,7 @@ store.getState()
 toolId = 1
 tool = "fork & knife"
 
-store.dipatch(updateTool(toolId, tool))
+store.dispatch(updateTool(toolId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
@@ -38,7 +38,7 @@ store.getState()
 
 toolId = 1
 
-store.dipatch(removeTool(toolId))
+store.dispatch(removeTool(toolId))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],

@@ -4,13 +4,13 @@ Make a react store to keep tracks of all your todos. You should be able to add, 
 
 
 ```jsx
-store.dipatch(addTodo("Eat"))
+store.dispatch(addTodo("Eat"))
 store.getState() // => {todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}]}
 
-store.dipatch(removeTodo(2))
+store.dispatch(removeTodo(2))
 store.getState() // => {todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, undefined, {id: 3, todo: "Eat"}]}
 
-store.dipatch(updateTodo(0, "Sleep tight"))
+store.dispatch(updateTodo(0, "Sleep tight"))
 store.getState() // => {todos: [{id: 0, todo: "Sleep tight"}, {id: 1, todo: "Walk"}, undefined, {id: 3, todo: "Eat"}]}
 ```
 

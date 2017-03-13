@@ -8,7 +8,7 @@ Extend the previous exercise so that you can console.logs the meessage ```"state
 let todoId = 1
 let tool = ["shoes"]
 
-store.dipatch(addTool(todoId, tool))
+store.dispatch(addTool(todoId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
@@ -23,7 +23,7 @@ store.getState()
 let todoId = 100
 let tool = ["shoes"]
 
-store.dipatch(addTool(todoId, tool))
+store.dispatch(addTool(todoId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],

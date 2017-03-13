@@ -1,7 +1,7 @@
 #### dependent states
 
 Estend the previous exercise by adding the action creators and dispatch methods necessary to remove the tools the belong to a specific todo.
-Also add the action creators and dipatch methods necessary to modify the list of todos and tools with only one dispatch call.
+Also add the action creators and dispatch methods necessary to modify the list of todos and tools with only one dispatch call.
 
 
 ```jsx
