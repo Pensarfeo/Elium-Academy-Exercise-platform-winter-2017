@@ -12,7 +12,7 @@ store.dispatch(addTool(todoId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
-//  todoTools: [{id:0, todoId: 1, tool: "Shoes"}]
+//  tools: [{id:0, todoId: 1, tool: "Shoes"}]
 //}
 
 // console.logs
@@ -27,7 +27,7 @@ store.dispatch(addTool(todoId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
-//  todoTools: [{id:0, todoId: 1, tool: "Shoes"}]
+//  tools: [{id:0, todoId: 1, tool: "Shoes"}]
 //}
 
 // Nothing will be logged!
