@@ -6,8 +6,6 @@ const runTest = function(beforeTest){
     }
     readMessage.runEval = eval
     beforeTest()
-    reactRender = ReactDOM.render( <EliumApp/>, document.getElementById("yourSolution"))
-    reactRender = ReactDOM.render( <EliumApp/>, document.getElementsByClassName("jasmine-testground")[0])
     describe( 'Elium App should:',  ()=>{
         var main = $(".jasmine-testground")
         var submitButton = main.find("input[type='submit']")

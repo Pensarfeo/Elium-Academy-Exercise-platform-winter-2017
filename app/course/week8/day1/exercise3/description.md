@@ -4,11 +4,11 @@ Extend the previous exercise so that you can console.logs the meessage ```"state
 
 
 ```jsx
-// Add one Tool
+// Add one Todo
 let todoId = 1
 let tool = ["shoes"]
 
-store.dispatch(addTool(todoId, tool))
+store.dispatch(addTodo(todoId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
@@ -19,11 +19,11 @@ store.getState()
 // state has changed
 
 
-// Remove Tool
+// Remove Todo
 let todoId = 100
 let tool = ["shoes"]
 
-store.dispatch(addTool(todoId, tool))
+store.dispatch(addTodo(todoId, tool))
 store.getState()
 //{
 //  todos: [{id: 0, todo: "Sleep"}, {id: 1, todo: "Walk"}, {id: 2, todo: "Study"}, {id: 3, todo: "Eat"}],
@@ -32,3 +32,5 @@ store.getState()
 
 // Nothing will be logged!
 ```
+
+**Attention**: In orther for your to pass all the test you need to only have one single console.log withing your solution.

@@ -8,3 +8,7 @@ Elium is expanding, and we are adding new bootcamps. Now we have Java, Node, PHP
 3. use a ```button``` with ```id = "showAll" ``` for the button that diplays the entire class.
 4. Make sure that you are not only hiding the element but removing it from the DOM to make the test pass
 5. Set the id of the table with all the student names to ```all``` 
+
+
+**Notes:** You **must** mount it at the following DOM Node to get your component tested: ```document.getElementsByClassName("jasmine-testground")[0]```.
+

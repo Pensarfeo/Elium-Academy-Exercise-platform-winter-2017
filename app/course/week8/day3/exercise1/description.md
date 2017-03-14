@@ -13,3 +13,5 @@ Elium keeps growing! And we need a system to track the payment of all the studen
 1. the input for the full name should have the following attribute ```name = "fullname"```
 2. the input for the amount due should have the following attribute ```name = "cost"```
 3. the input for the amount paid should have the following attribute ```name = "paid"```
+
+**Notes:** You **must** mount it at the following DOM Node to get your component tested: ```document.getElementsByClassName("jasmine-testground")[0]```.

@@ -2,8 +2,6 @@ const runTest = function(beforeTest){
 
     readMessage.runEval = eval
     beforeTest()
-    reactRender = ReactDOM.render( <EliumApp/>, document.getElementById("yourSolution"))
-    reactRender = ReactDOM.render( <EliumApp/>, document.getElementsByClassName("jasmine-testground")[0])
     describe( 'Elium App should:',  ()=>{
         var main = $(".jasmine-testground")
         var submitButton = main.find("input[type='submit']")
@@ -52,6 +50,8 @@ const runTest = function(beforeTest){
         it('add new names and surnames to the table', () => {
             // -----------------
             input.val("pedro favuzzi")
+            var event = new Event('input', { bubbles: true });
+            input[0].dispatchEvent(event);
             select.val("Java")
             submitButton.click()
 

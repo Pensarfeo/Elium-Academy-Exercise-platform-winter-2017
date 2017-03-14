@@ -7,3 +7,5 @@ Now that we can sort our students and order them by age, add two inputs to your 
 2. the submit input for adding students should have ```id = "sutudent"```
 3. the submit input for setting the range filter should have ```id = "filter"```
 4. The filter event is for now not being tested, but we trust you will implement it anyhow ;)
+
+**Notes:** You **must** mount it at the following DOM Node to get your component tested: ```document.getElementsByClassName("jasmine-testground")[0]```.

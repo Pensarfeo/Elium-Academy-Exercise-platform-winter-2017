@@ -5,16 +5,17 @@ Build a simple app for Elium. This time want to use Reduc and Reac-Redux to hold
 As before the app showl renders a form with a single input field in which the end-user can add the full name of a student as “first name +surname”.  Once submit is pressed, the new name and surname gets added to a list that is displayed below. The list must be a table with two columns: one column for first name and one for surname.
 
 To mount your app you should use a function of the type and subscribe it to the Redux store/
-```
+
+```jsx
 const mountingFunction = function(store){
     ReactDOM.render(
         <Provider store = {store}>
-            <InputInfo>
-            </ShowInfo>
+            <InputInfo/>
+            <ShowInfo/>
         </Provider>
     )
 }
-
+```
 
 **Notes:**
 1. to succeffully complete the test use an ```input``` filed with ```type="submit"``` and not a button tag

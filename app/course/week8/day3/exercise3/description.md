@@ -6,3 +6,5 @@ Name           | Age
 -------------- | -------------
 Pedro, Patrick | Youth is wasted on the young(2)
 Evan, Juan     | 25(2)
+
+**Notes:** You **must** mount it at the following DOM Node to get your component tested: ```document.getElementsByClassName("jasmine-testground")[0]```.

@@ -5,3 +5,5 @@ Well now that we have tons of students it will be nice to be able to sort them b
 **Notes:**
 1. set the id of the sorting buttons to ```sortName``` and ```sortAge```
 2. the input for the student age should have the following attribute ```name = "age"```
+
+**Notes:** You **must** mount it at the following DOM Node to get your component tested: ```document.getElementsByClassName("jasmine-testground")[0]```.

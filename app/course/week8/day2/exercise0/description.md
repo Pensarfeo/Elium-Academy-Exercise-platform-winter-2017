@@ -10,7 +10,7 @@ When using React-Redux we will use the Provider component defined by it. Such co
 ```jsx
 ReactDOM.render(
   <Provider store={store}>
-    <AddStudent>
+    <AddStudent/>
     <ShowStudnets/>
   </Provider>,
   document.getElementById('root')
@@ -27,19 +27,24 @@ As an Example we look at who to split our EliumApp in two components. The first 
 
 1. Since within our AddStudent Component we do not need to have access to the state, we can pass the first arguments of the connect method as null. In such case the ConnectedAddStudent component will no be passed any part of the state as props
 but the dispatch function will be available through ```this.props.addStudent```. 
+
 ```jsx
 const ConnectedAddStudent = connect(null, mapDispatchToProps)(AddStudent)
+
 const addStudent = (data) => {storeDispatch({type: “ADD_STUDENT”, data: data})}
+
 function mapDispatchToProps(storeDispatch) {
-  return {addStudent: addStudent}
+    return {addStudent: addStudent}
 }
 ```
 
 2. Now we can also connect ShowStudents. In this case we do not need to have access to the dispatch method state. As a result we only need to pass the mapStateToProps function to the connect method.
+
 ```jsx
 const ConnectedShowStudents = connect(mapStateToProps)(ShowStudents)
+
 function mapStateToProps(state) {
-  return { students: state.students }
+    return { students: state.students }
 }
 ```
 
@@ -48,7 +53,7 @@ In conclusion we are not able to access both the store and the dispatch methods 
 ```jsx
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedAddStudent>
+    <ConnectedAddStudent/>
     <ConnectedShowStudents/>
   </Provider>,
   document.getElementById('root')
@@ -57,6 +62,53 @@ ReactDOM.render(
 
 Remember that usually both sub-states and the dispatch method will be needed between your component so you will need to pass both arguments at once! 
 
+##### bindActionCreators
+
+The process of wrapping action creators withing a function that dispatches the action to the store is so common that Redux provides a function to do it.
+The first example can be written as:
+
+```jsx
+const ConnectedAddStudent = connect(null, mapDispatchToProps)(AddStudent)
+
+const addStudent = (data) => {storeDispatch({type: “ADD_STUDENT”, data: data})}
+
+function mapDispatchToProps(storeDispatch) {
+  return Redux.bindActionCreators({addStudent, removeStudent, updateStudent, doOtherThingsToStudent}, bind)
+}
+```
+
+The code for the bind action creators is quite simple so we can read it down here.
+
+```jsx
+function bindActionCreator(actionCreator, dispatch) {
+  return function () {
+    return dispatch(actionCreator.apply(undefined, arguments));
+  };
+}
+
+function bindActionCreators(actionCreators, dispatch) {
+  if (typeof actionCreators === 'function') {
+    return bindActionCreator(actionCreators, dispatch);
+  }
+
+  if (typeof actionCreators !== 'object' || actionCreators === null) {
+    throw new Error('bindActionCreators expected an object or a function, instead received ' +
+            (actionCreators === null ? 'null' : typeof actionCreators) +
+            '. ' + 'Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?');
+  }
+
+  var keys = Object.keys(actionCreators);
+  var boundActionCreators = {};
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    var actionCreator = actionCreators[key];
+    if (typeof actionCreator === 'function') {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+    }
+  }
+  return boundActionCreators;
+}
+```
 
 
 
