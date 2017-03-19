@@ -1,0 +1,17 @@
+https://github.com/facebookincubator/create-react-app
+
+Check match dispatch to props with onClick functio inside
+
+review middleware strucutre and currying (middleware chain video)
+
+catch promisse erros (raccomende to use the second file, not the catch method)
+
+redux-promises
+redux-logger
+redux-thunk
+nomralize api
+
+About the react echosystem!!!
+https://github.com/petehunt/react-howto
+
+In react the accent moves from coding outlook and actions (imperative) to programming behaviours and components (declarative/functional)
