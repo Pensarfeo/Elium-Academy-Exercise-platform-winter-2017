@@ -1,0 +1,68 @@
+<script src="https://code.jquery.com/jquery-3.1.0.js" ></script>
+
+<style type="text/css">
+    .hidden {
+        display: none;
+    }
+    .red-bg {
+        background-color: red
+    }
+
+    .green-bg {
+        background-color: red
+    }
+
+</style>
+
+
+
+<ul>
+    <li> 1 </li>
+    <li> 2 </li>
+    <li> 3 </li>
+    <ul>
+        <li liName = "hello"> one </li>
+        <li> two </li>
+        <li> three</li>
+    </ul>
+</ul>
+
+<script type="text/javascript">
+    $( 'li' ).eq(2).replaceWith( '<li>I Am number 2!</li>' )
+    var parent = $( 'li[liName=\"hello\"]' ).closest( 'ul' );
+    parent.css({"background-color": "red"})
+
+    var liMod = function( index, element ) {
+        ele = $(element)
+        ele.text()
+
+        if (ele.text() === " one "){
+            ele.after("<li>I Am after number one!</li>")
+        }
+        console.log(index, element, ele, ele.text())
+    } 
+
+    $( "li" ).each(liMod);
+
+</script>
+
+<!--
+$( 'li' ).removeClass( 'hidden' );
+//add class hidden otherwise remove it
+$( 'li' ).toggleClass( 'hidden' );
+$( 'li' ).css({                  
+  'font-size': '20px',    // change style
+  'padding-left': '20px'
+});
+
+var listItem = $( 'li' ).first().remove();
+var replacedListItem = $( 'li' ).eq(0).replaceWith( '<li>new!</li>' )
+
+$( 'li' ).closest( ‘ul' ); //get closes parent of type
+$( 'li' ).parent();        //get first parent
+
+$( 'li' ).before();   //get element before
+$( 'li' ).next();    //get element after
+$( 'li' ).siblings()
+
+-->

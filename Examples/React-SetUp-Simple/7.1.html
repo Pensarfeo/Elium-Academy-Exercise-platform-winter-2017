@@ -1,0 +1,216 @@
+<head>
+    <meta charset="utf-8">
+    <!-- React js -->
+    <script type="text/javascript" src="./public/js/react/react.js"></script>
+    <script type="text/javascript" src="./public/js/react/reactDOM.js"></script>
+    <script type="text/javascript" src="./public/js/babel.js"></script>
+    <style type="text/css">
+    .example{
+        padding: 15px;
+        background-color: #eee;
+    }
+    </style>
+</head>
+<document>
+    <p>
+        This will be your first react coponent. There are 3 ways of creating react components: We will only see 2 (the third one is deprecated!).
+        Today we will se how to make react components with functions only! Tomorrow we will see how to use ES6 classes for that purpose.
+    </p>
+
+    <h3>Example 1</h3>
+
+    <p>
+        While a react component describes what to do, nothing will be rendered unless we tell react so. This is done through ReactDOM.render. The first argument of this method is the component you want to render (only one can be passed). The second Argument is the location of the DOM element in which you want to put your component.
+        As you notice we are writing HTML withing JavaScript. This is possible because we are using the <b>type="text/babel"</b> instead of the <b>type="text/javascript"</b>. This way or writing is a variation on javascript that its called JSX. Attetion; we can write more than just plain HTML!
+    </p>
+
+    <div id="1" class="example"></div>
+
+    <script type="text/babel" charset="utf-8">
+        ReactDOM.render(
+            <div>Hello you</div>,
+            document.getElementById('1')
+        )
+    </script>
+
+    <h3>Example 2</h3>
+
+    <p>
+        Ofcourse this will not be very usefull. React also allowes us to declare React Componets through functions. These are called <b> Stateless Components! </b>. To render a stateless component we call it as if it were a custum HTML tag (in this case it would be called XML)
+    </p>
+
+    <div id="2" class="example">...</div>
+
+    <script type="text/babel" charset="utf-8">
+        const MyFirstComponent = function(){
+            return <div> Bye Your </div>
+        }
+        ReactDOM.render(
+            <MyFirstComponent/>,
+            document.getElementById('2')
+        )
+    </script>
+
+    <br/>
+    <div id="3" class="example"></div>
+
+    <script type="text/babel" charset="utf-8">
+        const MyOtherComponent = function(){
+            return <div> I Am Back </div>
+        }
+        ReactDOM.render(
+            <MyOtherComponent/>,
+            document.getElementById('3')
+        )
+    </script>
+
+
+    <h4>Practise</h4>
+    <p> Make the following Examples Work (tip, you only need to change one letter!!!) </p>
+    <div id="4" class="example">...</div>
+    <script type="text/babel" charset="utf-8">
+        const mySecondComponent = function(){
+            return <div> Bye Your </div>
+        }
+        ReactDOM.render(
+            <mySecondComponent/>,
+            document.getElementById('4')
+        )
+    </script>
+
+    <h3>Example 3</h3>
+
+    <p>
+        Just like any other function, in orther to be useful, it needs to accept variables. Any stateless react component will take only one variable (called prop) that its an object. Since React is mostly used through XML reppresentation of the components; they way of passing data is by adding attributes the component we want to render. These attributes will be gathered withing the component.
+    </p>
+
+    <div id="5" class="example"></div>
+
+    <script type="text/babel" charset="utf-8">
+        const PassingPropComponent = function(props){
+            return <div> Bye {props.name} </div>
+        }
+        ReactDOM.render(
+            <PassingPropComponent name={"Student"}/>,
+            document.getElementById('5')
+        )
+    </script>
+
+
+    <h3>Example 4</h3>
+
+    <p>
+        Just displaying one componet at the time would not be so usefull either. Just like in plain HTML we would like to be able to put component withing other components so that we can create usefull structures. In react the children of the components written in XML style get passed to the parent compoents as props as well. Notice that the curly brackets are to react what the &lt;%%&gt; are to EJS
+    </p>
+
+    <div id="6" class="example"></div>
+
+    <script type="text/babel" charset="utf-8">
+        const ParentComponent = function(props){
+            return <div> Bye {props.children} </div>
+        }
+        const ChildrenComponent = function(props){
+            return <div> I the {props.child} child </div>
+        }
+
+
+        ReactDOM.render(
+            <ParentComponent>
+                <ChildrenComponent child={"first"}/>
+                <ChildrenComponent child={"second"}/>
+            </ParentComponent>
+            ,
+            document.getElementById('6')
+        )
+    </script>
+
+    <h4>Practise</h4>
+    <p> Make the following Examples Work</p>
+    <div id="7" class="example">...</div>
+    <div id="8" class="example">...</div>
+    <div id="9" class="example">...</div>
+
+
+    <script type="text/babel" charset="utf-8">
+        const FixMe0 = function(props){
+            return <div> I am rendered! </div>
+        }
+
+        ReactDOM.render(
+            <FixMe0>,
+            document.getElementById('7')
+        )
+        ReactDOM.render(
+            </FixMe0>,
+            document.getElementById('8')
+        )
+
+        const FixMe1 = function(props){
+            return <div> Hello === {props.hello} //=> true!! </div>
+        }
+        const fixMeValue = "Hello"
+
+        // Uncoment me to fix me
+        //ReactDOM.render(
+        //    <FixMe1 hello = fixMeValue />,
+        //    document.getElementById('9')
+        //)
+
+    </script>
+
+
+    <h3>Example 5</h3>
+
+    <p>
+        Withing curly brakets we can also write some JavaScript. However, since we are actually writing Javascript inside XML inside Javascript, we can only write simple stuff; mostly functions, ternary operators (Not if elses!) and array map. 
+    </p>
+
+    <div id="10" class="example">...</div>
+
+    <div id="11" class="example">...</div>
+
+
+    <script type="text/babel">
+        var ConditionalComponent1 = function (props){
+            const who = 'class'
+            return <span> {true ? "Hello" : "Bye"} {who}</span>
+        };
+
+        ReactDOM.render(
+            <ConditionalComponent1 />,
+            document.getElementById('10')
+        )
+
+        function NumberList(props) {
+          const numbers = [1,2,3,4,5];
+          const listItems = numbers.map((number) =>
+            <li key={number.toString()}>
+              {number}
+            </li>
+          );
+          return (
+            <ul>{listItems}</ul>
+          );
+        }
+
+        ReactDOM.render(
+            <NumberList />,
+            document.getElementById('11')
+        )
+
+    </script>
+
+
+</document>
+
+
+
+
+
+
+
+
+
+
+
+

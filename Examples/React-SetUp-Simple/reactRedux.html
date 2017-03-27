@@ -1,0 +1,135 @@
+<head>
+    <meta charset="utf-8">
+    <!-- React js -->
+    <script type="text/javascript" src="./public/js/react/react.js"></script>
+    <script type="text/javascript" src="./public/js/react/reactDOM.js"></script>
+    <script type="text/javascript" src="./public/js/react/react-bootstrap.js"></script>
+    <script type="text/javascript" src="./public/js/redux.js"></script>
+
+    <script type="text/javascript" src="./public/js/babel.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+
+
+<document>
+    <div id="addStudent"></div>
+    <div id="showStudents"></div>
+    <script type="text/babel" charset="utf-8">
+
+        const addName = (name) => ({type: "ADD_NAME", name})
+        
+        const names = function(state = [], action) {
+            switch (action.type) {
+                case 'ADD_NAME':
+                    return state.concat({id: state.length, name: action.name })
+                default:
+                    return state
+            } 
+        }
+
+        const storeReducer = Redux.combineReducers({names})
+        const store = Redux.createStore(storeReducer)
+
+        class ShowName extends React.Component {
+            constructor(props) {
+                super()
+                const nameArray = props.name.split(" ")
+                this.firstName = nameArray[0]
+                this.lastName = nameArray[1]
+                this.state = {displayLastName: this.lastName[0] + "."}
+            }
+
+            handleMouseEnter(){
+                this.setState({displayLastName: this.lastName })
+            }
+            handleMouseLeave() {
+                this.setState({displayLastName: this.lastName[0] + "." })
+            }
+            render() {
+                return(
+                    <tr>
+                        <td>{this.firstName}</td>
+                        <td
+                            onMouseOver = {this.handleMouseEnter.bind(this)}
+                            onMouseLeave = {this.handleMouseLeave.bind(this)}>
+                            {this.state.displayLastName}
+                        </td>
+                    </tr>
+                )
+            }
+        } 
+
+        const ShowStudents = function(props) {
+            return (
+                <table  className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        { props.studentNames.map((name, i) => <ShowName key = {i} name = {name.name}/> )}
+                    </tbody>
+                  </table>
+            )
+        }
+
+        class AddStudent extends React.Component {
+            constructor(props){
+                super()
+                this.state = {names: ["asdf asdf", "qwer qwer"]}
+            }
+
+            handleChange(event){
+                this.setState({ tempName: event.target.value })
+            }
+            handleSubmit(event){
+                event.preventDefault()
+                const names = this.state.names.concat(this.state.tempName)
+                this.props.addNameToStore(this.state.tempName)
+            }
+            render() {
+                return (
+                    <div>
+                        <form onSubmit = {this.handleSubmit.bind(this)}>
+                          <div className="form-group">
+                            <label>Full Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="write your full name"
+                                value = {this.state.tempName}
+                                onChange = {this.handleChange.bind(this)}/>
+                          </div>
+                          <button
+                            type="submit"
+                            className="btn btn-default">
+                                Submit
+                          </button>
+                        </form>
+                    </div>
+                )
+            }
+
+        }
+
+    var renderAddSudent = function(store) {
+        ReactDOM.render(
+            <AddStudent addNameToStore = {(name) => store.dispatch(addName(name))}/>,
+            document.getElementById("addStudent")
+        )
+    }
+     
+    var renderShowStudents = function() {
+        ReactDOM.render(
+            <ShowStudents studentNames = {store.getState().names}/>,
+            document.getElementById("showStudents")
+        )
+    }
+    renderAddSudent(store)
+    //renderShowStudents()
+    store.subscribe(renderShowStudents)
+
+    </script>
+</document>

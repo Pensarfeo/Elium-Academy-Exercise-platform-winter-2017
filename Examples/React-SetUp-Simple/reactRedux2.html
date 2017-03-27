@@ -1,0 +1,151 @@
+<head>
+    <meta charset="utf-8">
+    <!-- React js -->
+    <script type="text/javascript" src="./public/js/react/react.js"></script>
+    <script type="text/javascript" src="./public/js/react/reactDOM.js"></script>
+    <script type="text/javascript" src="./public/js/react/react-bootstrap.js"></script>
+    <script type="text/javascript" src="./public/js/react/redux.js"></script>
+    <script type="text/javascript" src="./public/js/redux.js"></script>
+
+    <script type="text/javascript" src="./public/js/babel.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<document>
+    <div id="app"></div>
+    <div id="showStudents"></div>
+    <script type="text/babel" charset="utf-8">
+
+    // Create a store
+    // Create a component to Add Todos
+    // Connect the component to the store
+    // render the state of the store
+    // Delete & Update
+
+    // ---------------------- Variables --------------------------//
+
+    const Provider = ReactRedux.Provider
+    const connect = ReactRedux.connect
+
+
+    // ---------------------- Action Creators --------------------------//
+
+    const addTodo = (data) => ({type: "ADD_TODO", data})
+    const removeTodo = (todoId) => ({type: "REMOVE_TODO", todoId})
+
+
+    // ---------------------- Distpachers --------------------------//
+
+    const todos = (state = [], action) => {
+        switch (action.type) {
+            case 'ADD_TODO':
+                return state.concat({id: state.length, todo: action.data.todo, time: action.data.time })
+            case 'REMOVE_TODO':
+                const newState = [...state]
+                delete newState[action.todoId]
+                return newState
+            default:
+                return state
+        }
+    }
+
+    // ---------------------- CreateStore --------------------------//
+
+    const storeReducer = Redux.combineReducers({todos})
+    const store = Redux.createStore(storeReducer, {todos: [{id: 0, todo: "asdf", time: '1'}, {id: 1, todo: "qwer", time: '2'}]})
+
+
+
+    // ---------------------- Components --------------------------//
+
+
+    // ---------------------- AddTodo --------------------------//
+
+    class AddTodo extends React.Component {
+        constructor(props) {
+            super()
+            this.state = {}
+        }
+
+        handleChange(event){
+            const stateKey = event.target.name
+            this.setState({[stateKey]: event.target.value})
+        }
+
+        handleSubmit(event){
+            event.preventDefault()
+            this.props.addTodo(this.state)
+        }
+        render() {
+            return (
+                <form onSubmit = {this.handleSubmit.bind(this)}>
+                    <input type="text" name = "todo" onChange = {this.handleChange.bind(this)} value = {this.state.todo}/>
+                    <select name = "time" onChange = {this.handleChange.bind(this)} value = {this.state.time}>
+                      <option value="1"> 1 </option>
+                      <option value="2"> 2 </option>
+                      <option value="3"> 3 </option>
+                      <option value="4"> 4 </option>
+                    </select>
+                    <input type= "submit" value = "Add Todo"/>
+                </form>
+            )
+        }
+    }
+
+    const addTodoMapDispatchToProps = (dispatch) => Redux.bindActionCreators({addTodo}, dispatch)
+    const ConnectedAddTodo = connect(null, addTodoMapDispatchToProps)(AddTodo)
+
+    // ---------------------- TodoLi --------------------------//
+
+    class TodoLi extends React.Component {
+        handleDelete(){
+            debugger
+            this.props.removeTodo(this.props.value.id)
+        }
+        render() {
+            return (
+                <li> {this.props.value.todo} => {this.props.value.time}
+                    <button  onClick = {this.handleDelete.bind(this)}> DELETE </button>
+                </li>
+            )
+        }
+    }
+
+    const todoLiMapDispatchToProps = (dispatch) => Redux.bindActionCreators({removeTodo}, dispatch)
+    const ConnectedTodoLi = connect(null, todoLiMapDispatchToProps)(TodoLi)
+
+    // ---------------------- ShowTodos --------------------------//
+
+    class ShowTodos extends React.Component {
+
+        render() {
+            return (
+                <ul>
+                    {this.props.todos.map((todo, i) => {
+                        if (todo) return (
+                            <ConnectedTodoLi key = {i} value = {todo} />
+                        )
+                    })}
+                </ul>
+            )
+        }
+    }
+
+    const showTodosMapStateToProps = (state) => ({todos: state.todos})
+    const ConnectedShowTodos = connect(showTodosMapStateToProps)(ShowTodos)
+
+    // ---------------------- Render --------------------------//
+
+    store.subscribe(() => console.log(store.getState().todos))
+
+    ReactDOM.render(
+        <Provider store = {store}>
+            <div>
+                <ConnectedAddTodo/>
+                <ConnectedShowTodos/>
+            </div>
+        </Provider>,
+        document.getElementById("app")
+    )
+
+    </script>
+</document>

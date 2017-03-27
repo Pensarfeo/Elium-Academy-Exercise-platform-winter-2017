@@ -1,0 +1,157 @@
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="./public/js/react/react.js"></script>
+    <script type="text/javascript" src="./public/js/react/reactDOM.js"></script>
+    <script type="text/javascript" src="./public/js/babel.js"></script>
+    <style>
+
+    .game {
+        display: inline-block;
+        background-color: red;
+        width: 500px;
+        height: 200px;
+        position: relative;
+        border-bottom: 2px solid black
+    }
+ 
+    .moving-box {
+        display: inline-block;
+        background-color: black;
+        position: absolute;
+        bottom: 0px;
+        left: 250px;
+        width: 25px;
+        height: 25px;
+
+    }
+
+    .jumping-box {
+        display: inline-block;
+        background-color: green;
+        position: absolute;
+        bottom: 0px;
+        left: 250px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .counter {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+    </style>
+</head>
+<document>
+    <div id="app"></div>
+
+    <script type="text/babel" charset="utf-8">
+
+    class Game extends React.Component {
+        constructor(props) {
+            super(props)
+            this.state = {
+                movingBoxPos: null,
+                animation: {
+                    bottom: '0px'
+                },
+                points: 0 
+            }  
+
+            this.jump = this.jump.bind(this)
+        }
+
+        jump() {
+            var pos = 0;
+            var increase = setInterval(() => {
+                pos++
+                var px = pos + 'px';
+                this.setState({animation: {bottom: px}})
+
+                if (pos === 100) {
+                    clearInterval(increase)
+
+                    var decrease = setInterval(() => {
+                        pos--
+                        var px = pos + 'px';
+                        this.setState({animation: {bottom: px}})
+                        if (pos === 0) {
+                            clearInterval(decrease)
+                        }
+                    }, 5)
+                }
+            }, 5)
+        }
+
+        movingBoxPos(pos) {
+            if (pos === 250) {
+                var jumpingBoxPos = this.state.animation.bottom.split('px')[0]
+                var points = this.state.points
+                if (jumpingBoxPos > 25) {
+                    this.setState({points: points+1})
+                } else {
+                    this.setState({points: points-1})
+                }
+            }
+        }
+
+        render() {
+            return (
+                <div className="game" onClick={this.jump}>
+                    <div className="counter">{this.state.points}</div>
+                    <JumpingBox style={this.state.animation}/>
+                    <MovingBox pos={475} jumpingBoxPos={this.state.animation.bottom} movingBoxPos={this.movingBoxPos.bind(this)}/>
+                    <MovingBox pos={250} jumpingBoxPos={this.state.animation.bottom} movingBoxPos={this.movingBoxPos.bind(this)}/>
+                </div>
+            )
+        }
+    }
+
+
+    class MovingBox extends React.Component {
+        constructor(props) {
+            super(props)
+            var px = props.pos + "px"
+            this.state = {
+                animation: {
+                    left: px
+                },
+            }
+        }
+
+        componentDidMount() {
+            var pos = this.props.pos;
+            setInterval(() => {
+
+                if (pos === 0) {
+                    this.setState({animation: {left: "475px"}})
+                    pos = 475
+                }
+
+                pos--
+                var px = pos + 'px';
+                this.setState({animation: {left: px}})
+                this.props.movingBoxPos(pos);
+
+            }, 5)
+        }
+
+        render() {
+            return <div className="moving-box" style={this.state.animation} count={this.state.count}/>
+        }
+    }
+
+    const JumpingBox = (props) => {
+        return (
+            <div className="jumping-box" style={props.style}></div>
+        )
+    }
+
+    ReactDOM.render(
+        <Game/>,
+        document.getElementById('app')
+    )
+
+    </script>
+</document>

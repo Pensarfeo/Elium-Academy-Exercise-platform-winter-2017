@@ -1,0 +1,98 @@
+<head>
+    <meta charset="utf-8">
+    <!-- React js -->
+    <script type="text/javascript" src="./public/js/react/react.js"></script>
+    <script type="text/javascript" src="./public/js/react/reactDOM.js"></script>
+    <script type="text/javascript" src="./public/js/babel.js"></script>
+    <script type="text/javascript" src="./public/js/redux.js"></script>
+
+</head>
+<document>
+<div id ="app"></div>
+
+<script type="text/babel">
+const addName = (name) => { return {type: "ADD_NAME", name}}
+const addTodo = (todo) => { return {type: "ADD_TODO", todo}}
+const addNameOrTodo = (nameortodo) => { return {type: "ADD_NAMEORTODO", nameortodo}}
+
+// Reducer
+
+
+const todos = function (state = [], action) {
+    console.log("todos =>", action)
+    action.todoInfo = "Hey i was in the todoReducer"
+    switch (action.type) {
+        case 'ADD_TODO':
+            return state.concat([ action.todo ])
+        case "ADD_NAMEORTODO":
+            //console.log(" I am adding a nme or a todo")
+            return state.concat([ action.nameortodo ])
+        default:
+            return state
+    }
+}
+
+const names = function (state = [], action) {
+    console.log("names =>", action)
+    switch (action.type) {
+        case 'ADD_NAME':
+            return state.concat([ action.name ])
+        case "ADD_NAMEORTODO":
+            //console.log(" I am adding a nme or a todo")
+            return state.concat([ action.nameortodo ])
+        default:
+            return state
+    }
+}
+
+// Create Store
+const storeReducer = Redux.combineReducers({todos, names})
+const storeDefaultState =  {todos: [1,2,3]} 
+const store = Redux.createStore(storeReducer, storeDefaultState)
+
+store.subscribe(() => console.log("hey an action has been dispatched"))
+
+class ShowTodos extends React.Component {
+    constructor(props){
+        super()
+        this.state = {value: props.state.todos.slice(-1)[0]}
+    }
+
+    handleChange (event) {
+        store.dispatch(addTodo(event.target.value))
+    }
+    render() {
+        return (
+
+            <div>
+                <input onChange = {this.handleChange.bind(this)} value = {this.props.state.todos.slice(-1)[0]}/>
+                {
+                    this.props.state.todos.map( (todo, i) => <div key = {i}> {todo} </div> )
+                }
+            </div>
+        )
+    }
+}
+
+const renderShowTodos = () => {
+    ReactDOM.render(
+        <ShowTodos state = {store.getState()}/>,
+        document.getElementById("app")
+    )
+}
+renderShowTodos()
+store.subscribe(renderShowTodos)
+</script>
+</document>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,116 @@
+<head>
+    <meta charset="utf-8">
+    <!-- React js -->
+    <script type="text/javascript" src="./public/js/react/react.js"></script>
+    <script type="text/javascript" src="./public/js/react/reactDOM.js"></script>
+    <script type="text/javascript" src="./public/js/redux.js"></script>
+
+    <script type="text/javascript" src="./public/js/babel.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+
+
+<document>
+    <div id="app"></div>
+    <script type="text/babel" charset="utf-8">
+
+    class DataRow extends React.Component{
+        render(){
+            return (
+                <tr>
+                    <td>
+                        {this.props.names.join(", ")}
+                    </td>
+                    <td>
+                        {this.props.age}({this.props.names.length})
+                    </td>
+                </tr>
+            )
+        }
+    }
+
+    class StudentData extends React.Component {
+        constructor(props){
+            super()
+            this.state = {data: [], ageDirection: 1, nameDirection: 1}
+        }
+
+        componentWillReceiveProps(nextProps){
+            const student = nextProps.newStudent
+            // First we clone the data array
+            const newData = [...this.state.data]
+
+            // We check if we already registered any students with the same age!
+            // If we did not have an array at that possition we create a new empty one.
+            const studentsArray = this.state.data[student.age] || []
+
+            // Now we concate the new name of the students into the array.
+            const newStudentsArray = studentsArray.concat(student.name)
+
+            // Finally we put back the new array with names into the data array.
+            newData[student.age] = newStudentsArray
+
+            this.setState({data: newData})
+        }
+
+        render(){
+            
+            return(
+                <div>
+                    <h1/>
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th> <th>Age</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { this.state.data.map((ele, i) => {
+                                if (ele) {
+                                    return <DataRow key = {i} names = {ele} age = {i}/>
+                                }
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+    }
+
+
+    class AddStudnetName extends React.Component {
+        constructor(){
+            super()
+            this.state = {}
+        }
+        handleSubmit(event){
+            event.preventDefault()
+            var name = event.target.elements.fullname.value
+            var age = event.target.elements.age.value
+            this.setState({name, age})
+        }
+        render(){
+            console.log(this.state)
+            return (
+                <div>
+                    <form className="form-group" onSubmit={this.handleSubmit.bind(this)}>
+                        <div style = {{marginBottom: "10px"}}>
+                            <label for="fullname" style={{width: "100px", marginRight: "0 5px"}}> Full name: </label>
+                            <input type="text" className="form-control" name="fullname" style={{width: "200px", display: "inline-block"}}/>
+                        </div>
+                        <div style = {{marginBottom: "10px"}}>
+                            <label for="cost" style={{width: "100px", marginRight: "0 5px"}}> Age: </label>
+                            <input type="number" className="form-control" name="age" style={{width: "200px", display: "inline-block"}}/>
+                        </div>
+                        <input type = "submit" className="btn btn-default" value="Send" style={{width: "310px"}}/>
+
+                    </form>
+                    <StudentData newStudent = {this.state} />
+                </div>
+                )
+        }
+    }
+    
+    ReactDOM.render(<AddStudnetName/>, document.getElementById("app"))
+    </script>
+</document>
